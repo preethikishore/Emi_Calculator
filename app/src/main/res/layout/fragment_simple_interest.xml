@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_color"
+    tools:context=".simpleInterestFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_color"
+        android:orientation="vertical"
+
+        >
+        <!--        Text and edit Vertical View Principle start -->
+        <LinearLayout style="@style/style_pagerview_linear_vertical">
+
+         <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
+             <TextView
+                 android:id="@+id/textPrinciple"
+                 style="@style/style_pageViewer_textView"
+                 android:text="@string/emi_principle_textview" />
+
+             <include layout="@layout/compulsoryhimt_layout" />
+
+         </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/simple_interest_principle_value"
+                style="@style/style_default_edit_text"
+                />
+
+        </LinearLayout>
+        <!--        Text and edit Vertical View Principle end -->
+
+
+    <!--        Text and edit Vertical View Interset start -->
+        <LinearLayout style="@style/style_pagerview_linear_vertical">
+
+        <!--            TextView Horizontal Start Interest Start-->
+            <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
+
+            <TextView
+                android:id="@+id/textInterest"
+                style="@style/style_pageViewer_textView"
+                android:text="@string/emi_interest_textview"
+                 />
+
+                <include layout="@layout/compulsoryhimt_layout" />
+                <TextView
+
+                    style="@style/style_pageViewer_hinttextView"
+                    android:text="Max Value 50%"
+                    />
+
+
+            </LinearLayout>
+            <!--            TextView Horizontal Start Interest Start-->
+
+            <EditText
+                android:id="@+id/simple_interest_rate_value"
+                style="@style/style_default_edit_text"
+
+            />
+
+
+        </LinearLayout>
+
+
+        <!--        Text and edit Vertical View Interset start -->
+
+        <!--        Text and edit Vertical View Period start -->
+        <LinearLayout style="@style/style_pagerview_linear_vertical">
+
+
+            <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
+
+                <TextView
+                    android:id="@+id/text_saving_period"
+                    style="@style/style_pageViewer_textView"
+                    android:text="@string/saving_period"
+                    />
+                <include layout="@layout/compulsoryhimt_layout" />
+
+                <TextView
+
+                    style="@style/style_pageViewer_hinttextView"
+                    android:text="@string/period_hint_text"
+                    tools:ignore="SmallSp" />
+
+
+            </LinearLayout>
+
+
+
+            <EditText
+                android:id="@+id/simple_saving_period_value"
+                style="@style/style_default_edit_text"
+
+                />
+
+
+        </LinearLayout>
+        <!--        Text and edit Vertical View Period End -->
+
+
+        <LinearLayout
+            style="@style/style_interest_calculator_inner_horizontal"
+            android:layout_margin="7dp">
+
+            <TextView
+                android:id="@+id/text_deposit_frequency"
+                style="@style/style_pageViewer_textView"
+                android:layout_width="wrap_content"
+                android:text="@string/interest_calculator_deposit_frequency" />
+
+            <Spinner
+                android:id="@+id/simple_spinner_deposit_frequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:popupBackground="@color/page_color"
+                android:theme="@style/spinnerTheme"
+                >
+
+            </Spinner>
+
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/style_pagerview_linear_vertical">
+
+            <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
+
+
+            <TextView
+                android:id="@+id/text_date_of_investment"
+                android:layout_width="wrap_content"
+                style="@style/style_pageViewer_textView"
+                android:text="@string/date_of_investment"
+                />
+
+
+                <TextView
+                    android:id="@+id/simple_date_of_investment_value"
+                    android:layout_width="wrap_content"
+                    style="@style/style_pageViewer_textView"
+
+                    />
+
+                <Button
+                    android:id="@+id/simple_buttongetdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_text"
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="10dp"
+                    android:text="@string/get_date"
+                    android:textAllCaps="false"
+                   />
+
+            </LinearLayout>
+
+            <!--                android:layout_centerHorizontal="true"-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+
+            <include layout="@layout/space_width_layout" />
+
+
+            <Button
+                android:id="@+id/button_Interest_Calc_Reset"
+                style="@style/style_button"
+                android:text="@string/button_reset_text" />
+
+
+            <include layout="@layout/space_width_layout" />
+
+            <Button
+                android:id="@+id/simple_button_Interest_Calc_Calculate"
+                style="@style/style_button"
+                android:text="@string/button_calculate_text" />
+
+            <include layout="@layout/space_width_layout" />
+
+
+            <include layout="@layout/space_width_layout" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/resultlayout"
+            style="@style/style_pagerview_linear_vertical">
+
+
+            <TextView
+                style="@style/style_pageViewer_result_textView"
+                android:text="@string/interest_calculator_investment_amount" />
+            <TextView
+                android:id="@+id/simple_interest_calculator_investment_amount"
+                style="@style/style_pageViewer_result_textView"
+                android:text="@string/edit_text_default_value" />
+
+
+            <TextView
+                style="@style/style_pageViewer_result_textView"
+                android:text="@string/interest_calculator_total_interst_text" />
+            <TextView
+                android:id="@+id/simple_interest_calculator_total_interest_value"
+                style="@style/style_pageViewer_result_textView"
+                android:text="@string/edit_text_default_value"  />
+
+
+            <TextView
+                style="@style/style_pageViewer_result_textView"
+                android:text="@string/interest_calculator_maturity_text" />
+            <TextView
+                android:id="@+id/simple_interest_calculator_maturity_value"
+                style="@style/style_pageViewer_result_textView"
+                android:text="@string/edit_text_default_value" />
+
+
+
+            <LinearLayout android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+
+                <LinearLayout
+                    android:id="@+id/investment_date_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+
+                        <TextView
+                            style="@style/style_pageViewer_textView"
+                            android:layout_width="70dp"
+                            android:text="@string/investment_date_result" />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/simple_interest_calculator_investment_date"
+
+                        style="@style/style_pageViewer_textView"
+                        android:layout_width="wrap_content"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+
+                        <TextView
+                            style="@style/style_pageViewer_textView"
+                            android:layout_width="60dp"
+                            android:text="@string/maturity_date_result" />
+
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/simple_interest_calculator_maturity_date"
+                        style="@style/style_pageViewer_textView"
+                        android:layout_width="wrap_content"
+
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>
+</ScrollView>

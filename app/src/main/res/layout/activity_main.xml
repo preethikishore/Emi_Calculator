@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity"
+    tools:openDrawer="start">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/page_color">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/toolbar"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:elevation="5dp"
+            />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/layout_vertical_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/bg_color">
+
+                <Button
+
+                    android:layout_width="252dp"
+                    android:layout_height="187dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/homepicture" />
+
+                <Space style="@style/stylespaceheight" />
+
+
+                <!--   First Horizontal Layout EMI Layout Start          -->
+                <LinearLayout style="@style/style_homepage_horizontal">
+
+                    <Button
+
+                        style="@style/stylebutton"
+                        android:id="@+id/btnemi"
+                        android:background="@drawable/emi" />
+
+                    <Space style="@style/stylespacewidth" />
+
+                    <Button
+
+                        android:id="@+id/buttonloan"
+                        style="@style/stylebutton"
+                        android:background="@drawable/compareloan" />
+
+                    <Space style="@style/stylespacewidth" />
+
+                    <Button
+
+                        android:id="@+id/button_interest"
+                        style="@style/stylebutton"
+                        android:background="@drawable/interset" />
+
+                    <Space style="@style/stylespacewidth" />
+
+
+                </LinearLayout>
+                <!--   First Horizontal Layout EMI Layout End           -->
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_height" />
+
+
+                <!--   First Horizontal Layout Second Row   Start          -->
+                <LinearLayout style="@style/style_homepage_horizontal">
+
+                    <Button
+
+                        android:id="@+id/button_rd_calc"
+                        style="@style/stylebutton"
+                        android:background="@drawable/rd" />
+
+                    <Space style="@style/stylespacewidth" />
+
+                    <Button
+
+                        android:id="@+id/button_fd_calc"
+                        style="@style/stylebutton"
+                        android:background="@drawable/fd" />
+
+                    <Space style="@style/stylespacewidth" />
+
+                    <Button
+
+                        android:id="@+id/buttonPPFCal"
+                        style="@style/stylebutton"
+                        android:background="@drawable/ppf" />
+
+
+                    <Space style="@style/stylespacewidth" />
+
+                </LinearLayout>
+                <!--   First Horizontal Layout Second Row   End           -->
+
+                <Space style="@style/stylespaceheight" />
+
+
+                <!--   First Horizontal Layout Third Row   Start          -->
+                <LinearLayout style="@style/style_homepage_horizontal">
+                    <Button
+
+                        android:id="@+id/buttonGstCalc"
+                        style="@style/stylebutton"
+                        android:background="@drawable/gst" />
+
+                    <Space style="@style/stylespacewidth" />
+
+                    <Button
+
+                        android:id="@+id/buttonVat"
+                        style="@style/stylebutton"
+                        android:background="@drawable/vat" />
+
+                    <Space style="@style/stylespacewidth" />
+
+                    <Button
+
+                        android:id="@+id/buttonSip"
+                        style="@style/stylebutton"
+                        android:background="@drawable/sip" />
+
+                    <Space style="@style/stylespacewidth" />
+
+                </LinearLayout>
+                <!--   First Horizontal Layout Third Row   End           -->
+                <Space style="@style/stylespaceheight" />
+
+            </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/nav_view"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/home_menu"/>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
+

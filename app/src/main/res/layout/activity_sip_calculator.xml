@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/sip_drawer_layout"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity"
+    tools:openDrawer="start">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/page_color">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:id="@+id/toolbar"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:elevation="5dp"
+                />
+
+
+            <!-- TODO: Update blank fragment layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_color"
+            android:orientation="vertical"
+            >
+
+                <TextView
+                    style="@style/style_text_head"
+                    android:layout_margin="2dp"
+                    android:text="@string/sip_calculator_heading" />
+
+            <!--        Text and edit Vertical View Principle start -->
+            <LinearLayout style="@style/style_pagerview_linear_vertical">
+
+                <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
+                    <TextView
+                        android:id="@+id/textPrinciple"
+                        style="@style/style_pageViewer_textView"
+                        android:text="@string/deposit_amount_textview" />
+
+                    <include layout="@layout/compulsoryhimt_layout" />
+
+                </LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/sipInputAmoutValue"
+                    style="@style/style_default_edit_text" />
+
+            </LinearLayout>
+            <!--        Text and edit Vertical View Principle end -->
+
+
+            <!--        Text and edit Vertical View Interset start -->
+            <LinearLayout style="@style/style_pagerview_linear_vertical">
+
+                <!--            TextView Horizontal Start Interest Start-->
+                <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
+
+                    <TextView
+                        android:id="@+id/textInterest"
+                        style="@style/style_pageViewer_textView"
+                        android:text="@string/rate_of_interest_text"
+                        />
+
+                    <include layout="@layout/compulsoryhimt_layout" />
+                    <TextView
+
+                        style="@style/style_pageViewer_hinttextView"
+                        android:text="Max 50% per annum"
+                        />
+
+
+                </LinearLayout>
+                <!--            TextView Horizontal Start Interest Start-->
+
+                <EditText
+                    android:id="@+id/sipRateOfInterestValue"
+                    style="@style/style_default_edit_text" />
+
+
+            </LinearLayout>
+
+
+            <!--        Text and edit Vertical View Interset start -->
+
+            <!--        Text and edit Vertical View Period start -->
+            <LinearLayout style="@style/style_pagerview_linear_vertical">
+
+
+                <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
+
+                    <TextView
+
+                        style="@style/style_pageViewer_textView"
+                        android:text="@string/tenure_text"
+                        />
+                    <include layout="@layout/compulsoryhimt_layout" />
+
+<!--                    <TextView-->
+
+<!--                        style="@style/style_pageViewer_hinttextView"-->
+<!--                        android:text="@string/period_hint_text"-->
+<!--                        tools:ignore="SmallSp" />-->
+
+
+                    <RadioGroup
+                        android:id="@+id/sipRadioButtonGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="@dimen/radio_margin">
+
+                        <RadioButton
+                            android:id="@+id/radio_button_year"
+                            style="@style/style_radio_button"
+                            android:checked="true"
+                            android:text="@string/sip_radio_button_year" />
+
+                        <RadioButton
+                            android:id="@+id/radio_button_month"
+                            style="@style/style_radio_button"
+                            android:checked="true"
+                            android:text="@string/sip_radio_button_month" />
+
+
+                    </RadioGroup>
+
+
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/sipTenureValue"
+                    style="@style/style_default_edit_text"/>
+
+            </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/style_interest_calculator_inner_horizontal"
+            android:layout_margin="7dp"/>
+
+
+
+
+
+
+
+            <!--        Text and edit Vertical View Period End -->
+
+
+            <LinearLayout
+                style="@style/style_interest_calculator_inner_horizontal"
+                android:layout_margin="7dp">
+
+                <TextView
+                    android:id="@+id/text_deposit_frequency"
+                    style="@style/style_pageViewer_textView"
+                    android:layout_width="wrap_content"
+                    android:text="@string/interest_calculator_deposit_frequency" />
+
+                <Spinner
+                    android:id="@+id/sipDepositFrequecy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:popupBackground="@color/page_color"
+                    android:theme="@style/spinnerTheme">
+
+                </Spinner>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/style_pagerview_linear_vertical">
+
+                <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
+
+
+                    <TextView
+                        android:id="@+id/text_date_of_investment"
+                        style="@style/style_pageViewer_textView"
+                        android:layout_width="120dp"
+                        android:text="@string/date_of_investment" />
+
+
+                    <TextView
+                        android:id="@+id/sipInvestDate"
+                        android:layout_width="wrap_content"
+                        style="@style/style_pageViewer_textView"
+
+                        />
+
+                    <Button
+                        android:id="@+id/sipButtonDateGet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_text"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="10dp"
+                        android:text="@string/get_date"
+                        android:textAllCaps="false"
+                        />
+
+                </LinearLayout>
+
+
+                <!--                android:layout_centerHorizontal="true"-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <include layout="@layout/space_width_layout" />
+
+
+                <Button
+                    android:id="@+id/sipButtonReset"
+                    style="@style/style_button"
+                    android:text="@string/button_reset_text" />
+
+
+                <include layout="@layout/space_width_layout" />
+
+                <Button
+                    android:id="@+id/sipButtonCalculate"
+                    style="@style/style_button"
+                    android:text="@string/button_calculate_text" />
+
+                <include layout="@layout/space_width_layout" />
+
+
+                <Button
+                    android:id="@+id/sipButtonStati"
+                    style="@style/style_button"
+                    android:text="@string/emi_buttonStatisticsText" />
+
+                <include layout="@layout/space_width_layout" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/resultlayout"
+                style="@style/style_pagerview_linear_vertical">
+
+
+                <TextView
+                    style="@style/style_pageViewer_result_textView"
+                    android:text="@string/interest_calculator_investment_amount" />
+                <TextView
+                    android:id="@+id/sipInvestAmountResult"
+                    style="@style/style_pageViewer_result_textView"
+                    android:text="@string/edit_text_default_value" />
+
+                <TextView
+                    style="@style/style_pageViewer_result_textView"
+                    android:text="@string/interest_calculator_total_interst_text" />
+                <TextView
+                    android:id="@+id/sip_calculator_total_interest_value"
+                    style="@style/style_pageViewer_result_textView"
+                    android:text="@string/edit_text_default_value"  />
+
+
+                <TextView
+                    android:id="@+id/sipTotalInterestValue"
+                    style="@style/style_pageViewer_result_textView"
+                    android:text="@string/interest_calculator_maturity_text" />
+                <TextView
+                    android:id="@+id/sipMaturityValue"
+                    style="@style/style_pageViewer_result_textView"
+                    android:text="@string/edit_text_default_value" />
+
+
+
+                <LinearLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+
+                            <TextView
+                                style="@style/style_pageViewer_textView"
+                                android:layout_width="wrap_content"
+                                android:text="@string/investment_date_result" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/sipInvestMentCalculatedDate"
+                            android:layout_width="wrap_content"
+                            style="@style/style_pageViewer_textView"
+
+                            />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+                            <TextView
+                                style="@style/style_pageViewer_textView"
+                                android:layout_width="wrap_content"
+                                android:text="@string/maturity_date_result"
+                                />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/sipCalculatedMaturityValue"
+                            android:layout_width="wrap_content"
+                            style="@style/style_pageViewer_textView"
+
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <Button
+                    android:id="@+id/sip_share_result"
+                    style="@style/style_button"
+                    android:layout_gravity="center"
+                    android:text="@string/button_share_text" />
+
+            </LinearLayout>
+        </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/sip_nav_view"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/home_menu"/>
+</androidx.drawerlayout.widget.DrawerLayout>

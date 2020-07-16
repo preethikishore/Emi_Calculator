@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.allureinfosystems.emi_calculator">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".SettingsMenu"></activity>
+        <activity android:name=".HelpMenu" />
+        <activity android:name=".ppfStatisticsActivity" />
+        <activity android:name=".SipStatisticsActivity" />
+        <activity android:name=".FdStatisticsActivity" />
+        <activity android:name=".RdSatatisticsActivity" />
+        <activity android:name=".GstActivity" />
+        <activity android:name=".VatCalculatorActivity" />
+        <activity android:name=".PPFActivity" />
+        <activity android:name=".SipCalculatorActivity" />
+        <activity android:name=".RdCalculatorActivity" />
+        <activity android:name=".FdCalculatorActivity" />
+        <activity android:name=".InterestCalculatorActivity" />
+        <activity android:name=".LoanComparisonActivity" />
+        <activity android:name=".emiDetailActivity" />
+        <activity android:name=".EmiCalculatorActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

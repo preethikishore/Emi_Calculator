@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="relative_margin_value">10dp</dimen>
+    <dimen name="head_text_size">14sp</dimen>
+
+    <dimen name="space_height">10dp</dimen>
+    <dimen name="linear_horizontal_height">90dp</dimen>
+    <dimen name="linear_horizontal_width">0dp</dimen>
+    <dimen name="space_width">5dp</dimen>
+    <dimen name="text_padding">3dp</dimen>
+
+
+    <dimen name="home_image_width">268dp</dimen>
+    <dimen name="home_image_height">193dp</dimen>
+    <dimen name="emi_page_layout_vertical_padding">5dp</dimen>
+    <dimen name="layout_vertical_margin">10dp</dimen>
+    <dimen name="emi_layout_text_width">100dp</dimen>
+    <dimen name="emi_text_margin">3dp</dimen>
+    <dimen name="emi_text_margin_top">3dp</dimen>
+    <dimen name="emi_text_size">14sp</dimen>
+
+    <dimen name="emi_button_padding">2dp</dimen>
+    <dimen name="button_padding">5dp</dimen>
+    <dimen name="recycler_text_size">12sp</dimen>
+    <dimen name="recycler_padding">5dp</dimen>
+    <dimen name="recycler_data_text_padding">4dp</dimen>
+    <dimen name="cardview_margin">4dp</dimen>
+    <dimen name="cardView_padding">4dp</dimen>
+    <dimen name="emi_page_layout_top_margin">5dp</dimen>
+    <dimen name="table_margin_left">30dp</dimen>
+    <dimen name="table_margin_right">30dp</dimen>
+    <dimen name="table_margin_top">10dp</dimen>
+    <dimen name="table_margin_bottom">5dp</dimen>
+    <dimen name="defalut_width">0dp</dimen>
+    <dimen name="button_margin">3dp</dimen>
+    <dimen name="layout_vertical_margin_top">2dp</dimen>
+    <dimen name="loan_margin_top">2dp</dimen>
+    <dimen name="button_layout_top_margin">3dp</dimen>
+    <dimen name="emi_textview_top_padding">2dp</dimen>
+    <dimen name="compulsory_text_size">10sp</dimen>
+    <dimen name="datepicker_height">100dp</dimen>
+    <dimen name="radio_button_text_size">12sp</dimen>
+    <dimen name="radio_margin">20dp</dimen>
+    <dimen name="default_textSize">14sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="appbar_padding">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+
+</resources>

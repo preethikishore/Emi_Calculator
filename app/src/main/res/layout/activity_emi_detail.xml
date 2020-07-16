@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/emi_detaildrawer_layout"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity"
+    tools:openDrawer="start">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/page_color">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:id="@+id/toolbar"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:elevation="5dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_color"
+                android:layout_margin="@dimen/layout_vertical_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/style_emi_detail_heading"
+                    android:text="@string/emi_details_heading" />
+
+
+                <TableLayout
+                    android:id="@+id/tableLayout1"
+                    style="@style/style_emi_details_table_row"
+                    android:background="@drawable/bg_color">
+
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        style="@style/style_emi_details_table_row">
+
+                        <TextView
+                            style="@style/style_emi_detail_textview"
+                            android:text="@string/emi_detailsloan_amount" />
+
+
+                        <TextView
+                            android:id="@+id/emitextAmountValue"
+                            style="@style/style_emi_detail_textview"
+                            android:layout_column="1"
+                            android:text="@string/edit_text_default_value" />
+
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow2"
+                        style="@style/style_emi_details_table_row">
+
+                        <TextView
+
+                            style="@style/style_emi_detail_textview"
+                            android:text="@string/emi_detail_interest_text" />
+
+
+                        <TextView
+                            android:id="@+id/emiDetailInterestValue"
+                            style="@style/style_emi_detail_textview"
+                            android:layout_column="1"
+                            android:text="@string/edit_text_default_value" />
+
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow3"
+                        style="@style/style_emi_details_table_row">
+
+                        <TextView
+                            style="@style/style_emi_detail_textview"
+                            android:text="@string/emi_detail_peroid" />
+
+
+                        <TextView
+                            android:id="@+id/emiDetailPeriodValue"
+                            style="@style/style_emi_detail_textview"
+                            android:layout_column="1"
+                            android:text="@string/edit_text_default_value" />
+
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow4"
+                        style="@style/style_emi_details_table_row">
+
+                        <TextView
+                            style="@style/style_emi_detail_textview"
+                            android:text="@string/emi_detail_monthly_emi" />
+
+
+                        <TextView
+                            android:id="@+id/emiMonthlyEmiValue"
+                            style="@style/style_emi_detail_textview"
+                            android:layout_column="1"
+                            android:text="@string/edit_text_default_value" />
+
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow5"
+                        style="@style/style_emi_details_table_row">
+
+                        <TextView
+                            style="@style/style_emi_detail_textview"
+                            android:text="@string/emi_detail_total_interest" />
+
+
+                        <TextView
+                            android:id="@+id/emiTotalInterestValue"
+                            style="@style/style_emi_detail_textview"
+                            android:layout_column="1"
+                            android:text="@string/edit_text_default_value" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow6"
+                        style="@style/style_emi_details_table_row">
+
+                        <TextView
+                            style="@style/style_emi_detail_textview"
+                            android:text="@string/emi_detail_total_payment" />
+
+                        <TextView
+                            android:id="@+id/emiTotalPaymentText"
+                            style="@style/style_emi_detail_textview"
+                            android:layout_column="1"
+                            android:text="@string/edit_text_default_value" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+                <LinearLayout style="@style/style_sub_heading">
+
+
+                    <TextView
+                        style="@style/style_recycler_view_textview"
+                        android:text="@string/recyler_emi_period" />
+
+                    <TextView
+
+                        style="@style/style_recycler_view_textview"
+                        android:text="@string/recycler_emi_principle_paid" />
+
+                    <TextView
+                        style="@style/style_recycler_view_textview"
+                        android:text="@string/recycler_emi_interest" />
+
+                    <TextView
+
+                        style="@style/style_recycler_view_textview"
+                        android:text="@string/recycler_heading_principle_remain" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/emi_data_recyclerview"
+                    style="@style/style_recyler_view"
+                    android:background="@drawable/bg_color"
+                    tools:showIn="@layout/activity_emi_detail" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/emi_detail_nav_view"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/home_menu"/>
+</androidx.drawerlayout.widget.DrawerLayout>

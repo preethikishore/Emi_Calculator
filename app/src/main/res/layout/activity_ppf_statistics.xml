@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ppf_stat_drawer_layout"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity"
+    tools:openDrawer="start">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/page_color">
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:id="@+id/toolbar"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:elevation="5dp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_color"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/layout_vertical_margin"
+                >
+        <LinearLayout
+            style="@style/style_sub_heading"
+            android:layout_margin="@dimen/layout_vertical_margin"
+            android:layout_marginBottom="@dimen/emi_text_margin_top"
+            >
+            <TextView
+                android:text="@string/ppf_calculator_heading_details"
+                style="@style/style_emi_detail_heading" />
+
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/style_sub_heading"
+            android:background="@drawable/bg_color">
+
+
+            <TextView
+                android:id="@+id/ppfRecyclerinputAmount"
+                android:text="@string/rd_date"
+                style="@style/style_recycler_view_textview" />
+
+            <TextView
+                android:id="@+id/ppfRecyclerInterest"
+                android:text="@string/rd_recycler_heading_amount_interest"
+                style="@style/style_recycler_view_textview" />
+
+            <TextView
+                android:id="@+id/ppfRecyclerCaptilizedInterest"
+                android:text="@string/rd_recycler_heading_capitilized_interest"
+                style="@style/style_recycler_view_textview" />
+
+            <TextView
+                android:id="@+id/ppfRecyclerBalance"
+                android:text="@string/rd_recycler_heading_rdInterest"
+                style="@style/style_recycler_view_textview" />
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:background="@drawable/bg_color"
+            android:id="@+id/ppf_data_recyclerview"
+            tools:showIn="@layout/activity_emi_detail"
+            style="@style/style_recyler_view" />
+          </LinearLayout>
+
+        </LinearLayout>
+        </ScrollView>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/ppf_stat_nav_view"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/home_menu"/>
+</androidx.drawerlayout.widget.DrawerLayout>
