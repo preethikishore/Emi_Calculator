@@ -94,7 +94,7 @@
                 <EditText
                     android:id="@+id/ppfInterestValue"
                     style="@style/style_default_edit_text"
-                    android:text="@string/edit_text_default_value"
+
                     />
 
 

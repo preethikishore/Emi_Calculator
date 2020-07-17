@@ -29,20 +29,21 @@ public class GstActivity extends AppCompatActivity {
     RadioButton radio_button;
     Button Calculate;
     private EditText amount_text;
-    private Spinner gst_Spinner_Data;
+    private Spinner gstSpinnerData;
     private EditText textOthersOption;
-    private TextView orginal_cost;
-    private TextView net_gst_value;
-    private TextView gst_price;
-    private double net_gst_calculated_value;
-    private double input_amount;
-    private double gst_value;
+    private TextView orginalCost;
+    private TextView netGstValue;
+    private TextView gstPrice;
+    private double netGstCalculatedValue;
+    private double inputAmount;
+    private double gstValue;
     double selectedvalue =  25.0;
     String selectedOption;
     boolean status = false;
     private DrawerLayout drawer;
     ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     MessageComment messageComment = new MessageComment();
+    public Button shareButton;
 
     String[] items = new String[]{
             "ADD GST","REMOVE GST"
@@ -83,15 +84,17 @@ public class GstActivity extends AppCompatActivity {
         toggle.syncState();
 
         amount_text = findViewById(R.id.gst_calculation_amount_value);
-        orginal_cost = findViewById(R.id.gst_orginal_cost_value);
-        net_gst_value = findViewById(R.id.gst_net_price_value);
-        gst_price = findViewById(R.id.gst_price_value);
+        orginalCost = findViewById(R.id.gst_orginal_cost_value);
+        netGstValue = findViewById(R.id.gst_net_price_value);
+        gstPrice = findViewById(R.id.gst_price_value);
         radio_group = (RadioGroup)findViewById(R.id.gstradioButtonGroup);
         Calculate = findViewById(R.id.gst_button_Interest_Calc_Calculate);
-        gst_Spinner_Data = findViewById(R.id.add_gst);
+        gstSpinnerData = findViewById(R.id.add_gst);
         textOthersOption = findViewById(R.id.gst_radio_Others_text);
+        shareButton = findViewById(R.id.gst_share_result);
+        shareButton.setVisibility(View.INVISIBLE);
 
-        spinnerData.initspinnerfooter(gst_Spinner_Data, GstActivity.this, Arrays.asList(items));
+        spinnerData.initspinnerfooter(gstSpinnerData, GstActivity.this, Arrays.asList(items));
 
         radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
@@ -152,48 +155,64 @@ public class GstActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                shareButton.setVisibility(View.VISIBLE);
 
-                String spinnerValue = gst_Spinner_Data.getSelectedItem().toString();
+                String spinnerValue = gstSpinnerData.getSelectedItem().toString();
                 animationActivity.animation(v);
-                input_amount = ParseDouble(String.valueOf(amount_text.getText()));
+                inputAmount = ParseDouble(String.valueOf(amount_text.getText()));
+                Double otherOptionValue = Double.valueOf((String.valueOf(textOthersOption.getText())));
 
-                if (input_amount > 0) {
+
+                if (inputAmount > 0) {
 
                     if (spinnerValue.equals("ADD GST")) {
 
 
                         if (status == true) {
 
-                            selectedvalue = Double.valueOf((String.valueOf(textOthersOption.getText())));
-                            gst_value = input_amount * selectedvalue / 100;
-                            net_gst_calculated_value = input_amount + gst_value;
+                            if(otherOptionValue >0) {
 
+                                selectedvalue = Double.valueOf((String.valueOf(textOthersOption.getText())));
+                                gstValue = inputAmount * selectedvalue / 100;
+                                netGstCalculatedValue = inputAmount + gstValue;
+                            }
+                            else
+                            {
+                                Toast.makeText(GstActivity.this, messageComment.messageFillFeild, Toast.LENGTH_SHORT).show();
+
+                            }
 
                         } else {
-                            gst_value = input_amount * selectedvalue / 100;
-                            net_gst_calculated_value = input_amount + gst_value;
+                            gstValue = inputAmount * selectedvalue / 100;
+                            netGstCalculatedValue = inputAmount + gstValue;
 
                         }
                     } else {
 
                         if (status == true) {
+                            if(otherOptionValue >0) {
 
-                            selectedvalue = Double.valueOf((String.valueOf(textOthersOption.getText())));
-                            gst_value = input_amount * selectedvalue / 100;
-                            net_gst_calculated_value = input_amount - gst_value;
+                                selectedvalue = Double.valueOf((String.valueOf(textOthersOption.getText())));
+                                gstValue = inputAmount * selectedvalue / 100;
+                                netGstCalculatedValue = inputAmount - gstValue;
+                            }
+                            else
+                            {
+                                Toast.makeText(GstActivity.this, messageComment.messageFillFeild, Toast.LENGTH_SHORT).show();
 
+                            }
 
                         } else {
-                            gst_value = input_amount * selectedvalue / 100;
-                            net_gst_calculated_value = input_amount - gst_value;
+                            gstValue = inputAmount * selectedvalue / 100;
+                            netGstCalculatedValue = inputAmount - gstValue;
 
                         }
 
 
                     }
-                    orginal_cost.setText(String.valueOf(input_amount));
-                    net_gst_value.setText(String.valueOf(net_gst_calculated_value));
-                    gst_price.setText(String.valueOf(gst_value));
+                    orginalCost.setText(String.valueOf(inputAmount));
+                    netGstValue.setText(String.valueOf(netGstCalculatedValue));
+                    gstPrice.setText(String.valueOf(gstValue));
 
 
                 }
@@ -205,9 +224,37 @@ public class GstActivity extends AppCompatActivity {
                 }
             }
 
+
         });
 
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                String ShareInputAmount = String.valueOf(amount_text.getText());
+                String ShareRateOfInterest = String.valueOf(selectedvalue);
+                String ShareMaturity = String.valueOf(netGstCalculatedValue);
+                String ShareVatRate = String.valueOf(gstValue);
+
+
+                String a = "VAT Details  :" + "\n\n" + "Input Amount : " + ShareInputAmount + " \n" +
+                        "VAT Rate : " + ShareRateOfInterest + "%" + " \n" +
+                        "VAT Price :" + ShareVatRate +" \n "+
+                        "Net Price : " + ShareMaturity ;
+
+                String contentShare = new String(a);
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_SUBJECT, "SIP Information:");
+                share.putExtra(Intent.EXTRA_TEXT, contentShare);
+                startActivity(Intent.createChooser(share, "Share via"));
+
+
+
+
+
+            }
+        });
 
     }
 

@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 public class VatCalculatorActivity extends AppCompatActivity {
@@ -43,7 +44,9 @@ public class VatCalculatorActivity extends AppCompatActivity {
     private double input_amount;
     private TextView net_price_value;
     private DrawerLayout drawer;
+    public Button shareButton;
     MessageComment messageComment = new MessageComment();
+    final DecimalFormat df = new DecimalFormat("####0.00");
 
     String[] items = new String[]{
             "ADD GST","REMOVE GST"
@@ -90,6 +93,7 @@ public class VatCalculatorActivity extends AppCompatActivity {
         net_price_value = findViewById(R.id.vat_net_price_value);
         radio_group = (RadioGroup) findViewById(R.id.vatRadioButtonGroup);
         Calculate = findViewById(R.id.vat_button_Interest_Calc_Calculate);
+        shareButton = findViewById(R.id.vat_share_result);
 
         vat_Spinner_Data = findViewById(R.id.add_vat);
         spinnerData.initspinnerfooter(vat_Spinner_Data, VatCalculatorActivity.this, Arrays.asList(items));
@@ -151,37 +155,76 @@ public class VatCalculatorActivity extends AppCompatActivity {
             }
         });
 
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String ShareInputAmount = String.valueOf(amount_text.getText());
+                String ShareRateOfInterest = String.valueOf(selectedvalue);
+                String ShareMaturity = String.valueOf(net_price);
+                String ShareVatRate = String.valueOf(vat_price);
+
+
+                String a = "VAT Details  :" + "\n\n" + "Input Amount : " + ShareInputAmount + " \n" +
+                        "VAT Rate : " + ShareRateOfInterest + "%" + " \n" +
+                        "VAT Price :" + ShareVatRate +" \n "+
+                        "Net Price : " + ShareMaturity ;
+
+                String contentShare = new String(a);
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_SUBJECT, "SIP Information:");
+                share.putExtra(Intent.EXTRA_TEXT, contentShare);
+                startActivity(Intent.createChooser(share, "Share via"));
+
+            }
+        });
     }
+
 
     public void vat_calculate()
     {
 
         String selected_mode =  vat_Spinner_Data.getSelectedItem().toString();
         input_amount =  ParseDouble(String.valueOf(amount_text.getText()));
+        double vatOtherValue =  ParseDouble(String.valueOf(vat_other_text.getText()));
 
     if(input_amount > 0) {
         if (selected_mode.equals("ADD GST")) {
 
             if (status == true) {
+                if(vatOtherValue > 0) {
 
-                selectedvalue = Double.parseDouble((String.valueOf(vat_other_text.getText())));
-                vat_price = input_amount * selectedvalue / 100;
-                net_price = input_amount + vat_price;
+                    selectedvalue = Double.parseDouble((String.valueOf(vat_other_text.getText())));
+                    vat_price = input_amount * selectedvalue / 100;
+                    net_price = input_amount + vat_price;
+                }
+                else
+                {
+                    Toast.makeText(VatCalculatorActivity.this, messageComment.messageFillFeild, Toast.LENGTH_SHORT).show();
+
+                }
 
             } else {
                 vat_price = input_amount * selectedvalue / 100;
                 net_price = input_amount + vat_price;
             }
 
-
         } else {
 
 
             if (status == true) {
-                selectedvalue = Double.valueOf((String.valueOf(vat_other_text.getText())));
-                vat_price = input_amount * selectedvalue / 100;
-                net_price = input_amount - vat_price;
+                if(vatOtherValue > 0) {
+                    selectedvalue = Double.valueOf((String.valueOf(vat_other_text.getText())));
+                    vat_price = input_amount * selectedvalue / 100;
+                    net_price = input_amount - vat_price;
+                }
+                else
+                {
+                    Toast.makeText(VatCalculatorActivity.this, messageComment.messageFillFeild, Toast.LENGTH_SHORT).show();
 
+                }
             } else {
 
                 vat_price = input_amount * selectedvalue / 100;

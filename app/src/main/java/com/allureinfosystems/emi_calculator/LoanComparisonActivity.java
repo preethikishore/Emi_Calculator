@@ -64,6 +64,8 @@ public class LoanComparisonActivity extends AppCompatActivity {
     private Boolean showDetailsOne  = true;
     private Boolean showDetailsTwo = true;
     MessageComment messageComment = new  MessageComment();
+    private Button shareButton;
+    private Button resetButton;
 
 
     @Override
@@ -91,9 +93,11 @@ public class LoanComparisonActivity extends AppCompatActivity {
         loanTotalPaymentDifference = findViewById(R.id.loanTotalPaymentDifference);
         loanEmiDifference = findViewById(R.id.loanTotalEmiDifference);
         loanCalculate = findViewById(R.id.loanButtonCalculate);
+        shareButton = findViewById(R.id.loan_compare_share);
+        shareButton.setVisibility(View.INVISIBLE);
+        resetButton = findViewById(R.id.loanButtonReset);
+
         final ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
-
-
 
         NavigationView navigationView = findViewById(R.id.loan_nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -120,7 +124,13 @@ public class LoanComparisonActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
+      resetButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+          animationActivity.animation(v);
+          clear(v);
+         }
+      });
 
 
         loanRadioGroupOne.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -153,7 +163,72 @@ public class LoanComparisonActivity extends AppCompatActivity {
             }
         });
 
+ shareButton.setOnClickListener(new View.OnClickListener() {
+     @Override
+     public void onClick(View v) {
+         String shareStatusOne;
+         String shareStatusTwo;
 
+         if(statusOne)
+         {
+             shareStatusOne =  "Year";
+         }else
+         {
+             shareStatusOne =  "Months";
+         }
+
+         if(statusTwo)
+         {
+             shareStatusTwo =  "Year";
+         }else
+         {
+             shareStatusTwo =  "Months";
+         }
+
+         String shareLoanAmountOne = String.valueOf(loanAmountOne.getText());
+         String shareLoanAmountTwo = String.valueOf(loanAmountTwo.getText());
+         String ShareInterestOne = String.valueOf(loanInterestOne.getText());
+         String ShareInterestTwo = String.valueOf(loanInterestTwo.getText());
+         String sharePeriodOne = String.valueOf(loanPeriodOne.getText());
+         String sharePeriodTwo = String.valueOf(loanPeriodTwo.getText());
+         String shareMonthlyemiOne = String.valueOf(loanEmiOne.getText());
+         String shareMonthlyemiTwo = String.valueOf(loanEmiTwo.getText());
+         String shareInterestPayOne = String.valueOf(loanIntetrestPayOne.getText());
+         String shareInterestPayTwo = String.valueOf(loanIntetrestPayTwo.getText());
+         String c = String.valueOf(loanTotalPayOne.getText());
+         String shareTotalPayTwo = String.valueOf(loanTotalPayTwo.getText());
+         String shareTotalDifference = String.valueOf(loanTotalPaymentDifference.getText());
+         String shareEmiDifference = String.valueOf(loanEmiDifference.getText());
+
+
+         String a = "Loan Comparison Details  :" + "\n\n" +
+                 "Loan Amount One : " + shareLoanAmountOne + " \n" +
+                 "Interest Rate One: " + ShareInterestOne + "%" + " \n" +
+                 "Period One: " + sharePeriodOne +" - "+ shareStatusOne +"\n\n" +
+                 "Emi Amount One : " + shareMonthlyemiOne + "\n" +
+                 "Interest Pay One : " + shareInterestPayOne + "\n" +
+                 "Total Pay One : " + shareInterestPayOne + "\n\n" +
+
+                 "Loan Amount Two : " + shareLoanAmountTwo + " \n" +
+                 "Interest Rate Two: " + ShareInterestTwo + "%" + " \n" +
+                 "Period Two: " + sharePeriodTwo +" - "+ shareStatusTwo +"\n\n" +
+                 "Emi Amount Two : " + shareMonthlyemiTwo + "\n" +
+                 "Interest Pay Two : " + shareInterestPayTwo + "\n" +
+                 "Total Pay Two : " + shareInterestPayTwo + "\n\n" +
+
+                 "Emi Difference Two : " + shareEmiDifference + "\n" +
+                 "Total Pay Difference  : " + shareTotalDifference + "\n";
+
+         String contentShare = new String(a);
+         Intent share = new Intent(android.content.Intent.ACTION_SEND);
+         share.setType("text/plain");
+         share.putExtra(Intent.EXTRA_SUBJECT, "PPF Information:");
+         share.putExtra(Intent.EXTRA_TEXT, contentShare);
+         startActivity(Intent.createChooser(share, "Share via"));
+
+
+     }
+ });
         loanRadioGroupTwo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -188,6 +263,8 @@ public class LoanComparisonActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
+                shareButton.setVisibility(View.VISIBLE);
                 animationActivity.animation(v);
 
 
@@ -201,12 +278,6 @@ public class LoanComparisonActivity extends AppCompatActivity {
                 Double loanInputAmountTwo =ParseDouble(String.valueOf(loanAmountTwo.getText()));
                 DecimalFormat df = new DecimalFormat("####0.00");
 
-                System.out.println("statusOne :"  +statusOne);
-                System.out.println("tenureOne :"  +tenureOne);
-                System.out.println("statusTwo :"  +statusTwo);
-                System.out.println("tenureTwo:"  +tenureTwo);
-                System.out.println("interestOneText :"  +interestOneText);
-                System.out.println("interestTwoText:"  +interestTwoText);
 
                 if  (loanInputAmountOne > 0 && interestOneText > 0 && tenureOne > 0 &&
                         loanInputAmountTwo > 0 && interestTwoText > 0 && tenureTwo > 0)
@@ -423,6 +494,24 @@ public class LoanComparisonActivity extends AppCompatActivity {
         else return 0;
     }
 
+    public void clear(View v) {
+        loanAmountOne.setText("");
+        loanAmountTwo.setText("");
+        loanInterestOne.setText("");
+        loanInterestTwo.setText("");
+        loanPeriodOne.setText("");
+        loanPeriodTwo.setText("");
+        loanEmiOne.setText("0");
+        loanEmiTwo.setText("0");
+        loanTotalPayOne.setText("0");
+        loanTotalPayTwo.setText("0");
+        loanIntetrestPayOne.setText("0");
+        loanIntetrestPayTwo.setText("0");
+        loanTotalPayOne.setText("0");
+        loanTotalPayTwo.setText("0");
+        loanEmiDifference.setText("0");
+        loanTotalPaymentDifference.setText("0");
+    }
 
 
 

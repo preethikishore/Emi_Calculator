@@ -40,12 +40,15 @@ public class EmiCalculatorActivity extends AppCompatActivity {
     private EditText principle;
     private EditText interest;
     private EditText term;
+    private Button shareButton;
+    private Button resetButton;
     double emi;
     double p;
     double n;
     double r;
     private ArrayList<HashMap<String, String>> emidataDataset;
     HashMap<String, String> map;
+
     DecimalFormat df = new DecimalFormat("####0.00");
     Double interestSum = 0.0;
     Double emiTotalPayment  = 0.0;
@@ -70,6 +73,9 @@ public class EmiCalculatorActivity extends AppCompatActivity {
         piechart.CreatePieChartOne(pieChartOne);
         piechart.CreatePieChartOne(pieChartTwo);
         emiTotalPaymentText = findViewById(R.id.emiTotalPayValue);
+        shareButton = findViewById(R.id.emi_share_result);
+        resetButton = findViewById(R.id.emiButtonReset);
+        shareButton.setVisibility(View.INVISIBLE);
         drawer = findViewById(R.id.emi_drawer_layout);
 
 
@@ -98,6 +104,13 @@ public class EmiCalculatorActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animationActivity.animation(v);
+                clear(v);
+            }
+        });
 
         emiCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +119,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
                 Double termValue = ParseDouble(String.valueOf(term.getText()));
                 Double principleAmount = ParseDouble(String.valueOf(principle.getText()));
                 animationActivity.animation(v);
+                shareButton.setVisibility(View.VISIBLE);
                 if (principleAmount > 0 && interestVaue > 0 && termValue > 0)  {
                     if (interestVaue <= 50) {
                         if (termValue <= 40) {
@@ -162,6 +176,36 @@ public class EmiCalculatorActivity extends AppCompatActivity {
 
                 }
 
+
+            }
+        });
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String monthlyAmount = String.valueOf(emiMonthly.getText());
+                String ShareInputAmount = String.valueOf(principle.getText());
+                String ShareRateOfInterest = String.valueOf(interest.getText());
+                String ShareTenureInput = String.valueOf(term.getText());
+                String ShareTotalPay = String.valueOf(emiTotalPaymentText.getText());
+
+
+
+                String a = "PPF Details  :" + "\n\n" + "Input Amount : " + ShareInputAmount + " \n" +
+                        "Interest Rate : " + ShareRateOfInterest + "%" + " \n" +
+                        "Period : " + ShareTenureInput +"- Years"+  "\n" +
+                        "Emi Amount : " + monthlyAmount + "\n" +
+                        "Total Payment Value : " + ShareTotalPay + "\n" + "\n"
+                       ;
+
+                String contentShare = new String(a);
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_SUBJECT, "PPF Information:");
+                share.putExtra(Intent.EXTRA_TEXT, contentShare);
+                startActivity(Intent.createChooser(share, "Share via"));
 
             }
         });
@@ -226,7 +270,14 @@ public class EmiCalculatorActivity extends AppCompatActivity {
         }
         else return 0;
     }
+    public void clear(View v) {
+        principle.setText("");
+        interest.setText("");
+        term.setText("");
+        emiMonthly.setText("0");
+        emiTotalPaymentText.setText("0");
 
+    }
 
 
 }

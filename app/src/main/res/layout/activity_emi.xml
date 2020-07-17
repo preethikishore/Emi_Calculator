@@ -157,7 +157,7 @@
                     <include layout="@layout/space_width_layout" />
 
                     <Button
-                        android:id="@+id/buttonReset"
+                        android:id="@+id/emiButtonReset"
                         style="@style/style_button"
                         android:padding="@dimen/button_padding"
                         android:text="@string/button_reset_text" />
@@ -277,14 +277,21 @@
 
                 </LinearLayout>
                 <!--        Emi Monrhly Layout  End    -->
+                <Button
+                    android:id="@+id/emi_share_result"
+                    style="@style/style_button"
+                    android:layout_gravity="center"
+                    android:text="@string/button_share_text" />
 
                 <include layout="@layout/space_height_layout" />
 
 
             </LinearLayout>
 
+
             <!--            Second Layout Vertical   End  -->
         </LinearLayout>
+
         </LinearLayout>
 
 </ScrollView>

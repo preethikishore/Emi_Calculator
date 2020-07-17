@@ -130,7 +130,6 @@
                 android:hint="@string/hint_default_value"
                 android:inputType="number|numberDecimal"
                 android:textColor="@color/white_text_color"
-                android:textColorHint="@color/white_text_color"
                 android:visibility="invisible" />
 
             <LinearLayout style="@style/style_pagerview_linear_vertical">
@@ -222,7 +221,7 @@
 
 
                 <Button
-                    android:id="@+id/fd_share_result"
+                    android:id="@+id/vat_share_result"
                     style="@style/style_button"
                     android:layout_gravity="center"
                     android:text="@string/button_share_text" />

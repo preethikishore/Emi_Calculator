@@ -48,7 +48,9 @@ public class PPFActivity extends AppCompatActivity {
     private TextView ppftotalInterestValue;
     private TextView ppfMaturityValue;
     private Button ppfCalculate;
+    private Button ppfshareResult;
     ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
+    String inputMode;
 
     private int tenure;
     private boolean status = true;
@@ -60,7 +62,7 @@ public class PPFActivity extends AppCompatActivity {
     Double totalAmountPay;
     int yearStatus = 0;
 
-
+    String deposit_interval;
     GetDate getdate = new GetDate();
     SpinnerData spinnerData = new SpinnerData();
     DecimalFormat decimal = new DecimalFormat("####0.0");
@@ -135,13 +137,15 @@ public class PPFActivity extends AppCompatActivity {
         ppfCalculate = findViewById(R.id.ppfCalculation);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         ppfSelectDate.setText(currentDate);
+        ppfshareResult = findViewById(R.id.ppf_share_result);
+        ppfshareResult.setVisibility(View.INVISIBLE);
 
         final MessageComment messageComment = new MessageComment();
         ppfCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 animationActivity.animation(v);
-
+                ppfshareResult.setVisibility(View.VISIBLE);
                 Double inputAmountValue = ParseDouble(String.valueOf(ppfinputAmount.getText()));
                 Double interestPercentValue = ParseDouble(ppfRateOfInterestValue.getText().toString());
 
@@ -162,6 +166,40 @@ public class PPFActivity extends AppCompatActivity {
                     Toast.makeText(PPFActivity.this, messageComment.messageFillFeild, Toast.LENGTH_SHORT).show();
 
                 }
+
+            }
+        });
+
+        ppfshareResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String maturityAmount = String.valueOf(ppfMaturityValue.getText());
+                String ShareInputAmount = String.valueOf(ppfinputAmount.getText());
+                String ShareRateOfInterest = String.valueOf(ppfRateOfInterestValue.getText());
+                String ShareTenureInput = String.valueOf(deposit_interval);
+                String ShareTotalInterest = String.valueOf(ppftotalInterestValue.getText());
+                String ShareDepositMode = inputMode;
+                String ShareInvestDate = String.valueOf(ppfInvestDate.getText());
+                String ShareMaturityDate = String.valueOf(ppfMaturityDate.getText());
+                String ShareStatus;
+
+                String a = "PPF Details  :" + "\n\n" + "Input Amount : " + ShareInputAmount + " \n" +
+                        "Interest Rate : " + ShareRateOfInterest + "%" + " \n" +
+                        "Tenure Value : " + ShareTenureInput +  "\n" +
+                        "Deposit Mode : " + ShareDepositMode + " \n" + "\n" + "\n" +
+                        "Maturity Amount : " + maturityAmount + "\n" +
+                        "Total Interest Value : " + ShareTotalInterest + "\n" + "\n" +
+                        "Investment Date :" + ShareInvestDate + "\n" +
+                        "Maturity Date :" + ShareMaturityDate;
+
+                String contentShare = new String(a);
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_SUBJECT, "PPF Information:");
+                share.putExtra(Intent.EXTRA_TEXT, contentShare);
+                startActivity(Intent.createChooser(share, "Share via"));
+
+
 
             }
         });
@@ -212,25 +250,38 @@ public class PPFActivity extends AppCompatActivity {
 
     private void ppfCalculation()
     {
+        deposit_interval =  ppfSpinnerMaturity.getSelectedItem().toString();
 
-        String deposit_interval =  ppfSpinnerMaturity.getSelectedItem().toString();
-
-        switch(deposit_interval)
+        if(deposit_interval.equals("15 Years"))
         {
-            case "15 Years":
-                tenure = 15;
-              break;
-            case "20 Years":
-                tenure = 20;
-                break;
-            case "25 Years":
-                tenure = 25;
-                break;
-            case "30 Years":
-                tenure = 30;
-                break;
+            tenure = 15;
+        }else if(deposit_interval.equals("20 Years"))
+        {
+            tenure = 20;
+        }else if(deposit_interval.equals("25 Years"))
+        {
+            tenure = 25;
+        }else if(deposit_interval.equals("30 Years"))
+        {
+            tenure = 30;
         }
-        String inputMode =  ppfSpinnerDepositMode.getSelectedItem().toString();
+
+//        switch(deposit_interval)
+//        {
+//            case "15 Years":
+//                tenure = 15;
+//              break;
+//            case "20 Years":
+//                tenure = 20;
+//                break;
+//            case "25 Years":
+//                tenure = 25;
+//                break;
+//            case "30 Years":
+//                tenure = 30;
+//                break;
+//        }
+        inputMode =  ppfSpinnerDepositMode.getSelectedItem().toString();
         Double interestPercent = ParseDouble(ppfRateOfInterestValue.getText().toString());
 
         //interestPercent = (Double.parseDouble(ppfRateOfInterestValue.getText().toString()) / 100) / 12 ;

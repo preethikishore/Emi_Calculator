@@ -70,6 +70,7 @@ public class RdCalculatorActivity extends AppCompatActivity {
     HashMap<String, String> rdmap;
     ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     private DrawerLayout drawer;
+    private Button shareButton ;
 
     MessageComment messageComment = new MessageComment();
 
@@ -124,6 +125,47 @@ public class RdCalculatorActivity extends AppCompatActivity {
         rdButtonStat = findViewById(R.id.rdButtonCalcStatistics);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         rdSelectDate.setText(currentDate);
+        shareButton = findViewById(R.id.rdButtonShare);
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String maturityAmount = decimal.format(amount);
+                String ShareInputAmount = String.valueOf(rdInputAmountValue.getText());
+                String ShareRateOfInterest = String.valueOf(rdRateOfInterestValue.getText());
+                String ShareTenureInput = String.valueOf(rdTenureValue.getText());
+                String ShareMaturity = String.valueOf(maturityAmount);
+                String ShareTotalInterest = String.valueOf(decimal.format(inputAmount));
+
+                String ShareInvestDate = String.valueOf(rdSelectDate.getText());
+                String ShareMaturityDate = String.valueOf(rdDateOfMaturity.getText());
+                String ShareStatus;
+                if (status) {
+                    ShareStatus = "Years";
+                } else {
+                    ShareStatus = "Months";
+                }
+
+                String a = "RD Details  :" + "\n\n" + "Input Amount : " + ShareInputAmount + " \n" +
+                        "Interest Rate : " + ShareRateOfInterest + "%" + " \n" +
+                        "Tenure Value : " + ShareTenureInput + " - " + ShareStatus + "\n" +
+                        "Maturity Amount : " + ShareMaturity + "\n" +
+                        "Total Interest Value : " + ShareTotalInterest + "\n" + "\n" +
+                        "Investment Date :" + ShareInvestDate + "\n" +
+                        "Maturity Date :" + ShareMaturityDate;
+
+                String contentShare = new String(a);
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_SUBJECT, "RD Information:");
+                share.putExtra(Intent.EXTRA_TEXT, contentShare);
+                startActivity(Intent.createChooser(share, "Share via"));
+
+               System.out.println("clicked");
+
+
+            }
+        });
         rdButtonStat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

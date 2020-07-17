@@ -220,7 +220,7 @@
 
 
                 <Button
-                    android:id="@+id/fd_share_result"
+                    android:id="@+id/gst_share_result"
                     style="@style/style_button"
                     android:layout_gravity="center"
                     android:text="@string/button_share_text" />

@@ -282,7 +282,6 @@
 
 
                 <TextView
-                    android:id="@+id/sipTotalInterestValue"
                     style="@style/style_pageViewer_result_textView"
                     android:text="@string/interest_calculator_maturity_text" />
                 <TextView

@@ -81,6 +81,7 @@ public class compoundInterestFragment extends Fragment {
         buttonCalculate = rootView.findViewById(R.id.compound_button_Interest_Calc_Calculate);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         select_Date.setText(currentDate);
+        final MessageComment messageComment = new MessageComment();
 
         buttonGet.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -103,13 +104,13 @@ public class compoundInterestFragment extends Fragment {
                     }
                     else
                     {
-                        Toast.makeText(getActivity(), "please enter year value less than 40", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), messageComment.messageYearComment, Toast.LENGTH_SHORT).show();
 
                     }
                 }
                 else
                 {
-                    Toast.makeText(getActivity(), "please enter interest value less than 50", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), messageComment.messageInterestRateComment, Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -190,7 +191,7 @@ public class compoundInterestFragment extends Fragment {
             try {
                 return Double.parseDouble(strNumber);
             } catch(Exception e) {
-                return -1;   // or some value to mark this field is wrong. or make a function validates field first ...
+                return -1;
             }
         }
         else return 0;

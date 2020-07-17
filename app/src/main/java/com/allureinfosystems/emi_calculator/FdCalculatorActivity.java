@@ -54,6 +54,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
     GetDate getdate = new GetDate();
     SpinnerData spinnerData = new SpinnerData();
     private Button fdButtonStatistics;
+    private Button shareFDButton;
     DecimalFormat decimal = new DecimalFormat("####0.0");
     private ArrayList<HashMap<String, String>> fddataDataset;
     HashMap<String, String> fdmap;
@@ -66,7 +67,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
     String[] itemList = new String[]{
             "Cumulative", "Quarterly Payout", "Monthly Payout", "Short Term"
     };
-
+    int tenureValue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +90,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
         fdButtonCalculate = findViewById(R.id.fdButtonCalculate);
         fdButtonStatistics = findViewById(R.id.fdButtonStatistics);
         drawer = findViewById(R.id.fd_drawer_layout);
+        shareFDButton = findViewById(R.id.fdShareResult);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         selectDate.setText(currentDate);
 
@@ -117,6 +119,37 @@ public class FdCalculatorActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        shareFDButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String ShareInputAmount = String.valueOf(inputDepositAmount.getText());
+                String ShareRateOfInterest = String.valueOf(fdRateOfInterest.getText());
+                String ShareTenureInput = (int)(ParseDouble(fdTermYear.getText().toString())) + "-Year/" + (int)ParseDouble(fdTermMonth.getText().toString())+"-Months/" + (int) ParseDouble(fdTermDay.getText().toString())+"-Days";
+                String ShareMaturity = String.valueOf(fdMaturityAmount.getText());
+                String ShareTotalInterest = String.valueOf(fdTotalInterest.getText());
+                String ShareDepositMode = depositInterval;
+                String ShareInvestDate = String.valueOf(fdInvestmentDateValue.getText());
+                String ShareMaturityDate = String.valueOf(fdMaturityDate.getText());
+                String ShareStatus;
+                String a = "FD Details  :" + "\n\n" + "Input Amount : " + ShareInputAmount + " \n" +
+                        "Interest Rate : " + ShareRateOfInterest + "%" + " \n" +
+                        "Tenure Value : " + ShareTenureInput +  "\n" +
+                        "Deposit Mode : " + ShareDepositMode + " \n" + "\n" + "\n" +
+                        "Maturity Amount : " + ShareMaturity + "\n" +
+                        "Total Interest Value : " + ShareTotalInterest + "\n" + "\n" +
+                        "Investment Date :" + ShareInvestDate + "\n" +
+                        "Maturity Date :" + ShareMaturityDate;
+
+                String contentShare = new String(a);
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_SUBJECT, "FD Information:");
+                share.putExtra(Intent.EXTRA_TEXT, contentShare);
+                startActivity(Intent.createChooser(share, "Share via"));
+
+            }
+        });
 
         fdButtonStatistics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +164,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
                 int fdYearValue = (int) ParseDouble(fdTermYear.getText().toString());
                 int  fdMonthValue = (int)  ParseDouble(fdTermMonth.getText().toString());
                 int  fdDayValue =  (int)ParseDouble(fdTermDay.getText().toString());
-                int tenureValue = fdYearValue * 12+fdMonthValue+fdDayValue/ 365 * 12;
+                tenureValue = fdYearValue * 12+fdMonthValue+fdDayValue/ 365 * 12;
 
 
                 if(inputAmountValue >0 && inputInterestAmountValue>0 && tenureValue>0)
