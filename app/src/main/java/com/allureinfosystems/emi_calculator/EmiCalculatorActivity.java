@@ -11,18 +11,20 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -31,12 +33,9 @@ import java.util.HashMap;
 public class EmiCalculatorActivity extends AppCompatActivity {
 
     private Button buttonStatistices;
-    private PieChart pieChartOne;
-    private PieChart pieChartTwo;
     private Button emiCalculate;
     private TextView emiMonthly;
     private TextView emiTotalPaymentText;
-    CreatePieChart piechart = new CreatePieChart();
     private EditText principle;
     private EditText interest;
     private EditText term;
@@ -48,6 +47,8 @@ public class EmiCalculatorActivity extends AppCompatActivity {
     double r;
     private ArrayList<HashMap<String, String>> emidataDataset;
     HashMap<String, String> map;
+    private InterstitialAd mInterstitialAd;
+    private AdView mAdView;
 
     DecimalFormat df = new DecimalFormat("####0.00");
     Double interestSum = 0.0;
@@ -60,18 +61,32 @@ public class EmiCalculatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emi);
+        // Addind advertisement Start
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        // Advertisement end
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         buttonStatistices = findViewById(R.id.buttonStatistics);
-        pieChartOne = findViewById(R.id.piechart_one);
-        pieChartTwo = findViewById(R.id.piechart_two);
+
         principle = findViewById(R.id.emi_edit_principle);
         interest = findViewById(R.id.emi_edit_interest);
         term = findViewById(R.id.emi_edit_year);
         emiCalculate = findViewById(R.id.emi_buttonCalculate);
         emiMonthly = findViewById(R.id.textViewMonthllyemi);
-        piechart.CreatePieChartOne(pieChartOne);
-        piechart.CreatePieChartOne(pieChartTwo);
+
         emiTotalPaymentText = findViewById(R.id.emiTotalPayValue);
         shareButton = findViewById(R.id.emi_share_result);
         resetButton = findViewById(R.id.emiButtonReset);
@@ -142,37 +157,46 @@ public class EmiCalculatorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 animationActivity.animation(v);
 
-                Double interestVaue = ParseDouble(String.valueOf(interest.getText()));
+
+                Double interestVaule = ParseDouble(String.valueOf(interest.getText()));
                 Double   termValue = ParseDouble(String.valueOf(term.getText()));
+                Double principleAmount = ParseDouble(String.valueOf(principle.getText()));
+                if( principleAmount >0 && interestVaule>0 && termValue >0 ) {
+
+                    if (interestVaule <= 50) {
 
 
-                if (interestVaue <= 50) {
+                        if (termValue <= 40) {
+                            statsCalc();
+                            Intent intent = new Intent(EmiCalculatorActivity.this, emiDetailActivity.class);
+                            intent.putExtra("emiDataset", emidataDataset);
+                            intent.putExtra("inerestSum", interestSum);
+                            intent.putExtra("emiTotalPayText", emiTotalPayment);
+                            intent.putExtra("emiPrinciple", p);
+                            intent.putExtra("emiInterest", r * 1200);
+                            intent.putExtra("emiperiod", n);
+                            intent.putExtra("emiValue", emi);
+                            v.getContext().startActivity(intent);
+                            if (mInterstitialAd.isLoaded()) {
+                                mInterstitialAd.show();
+                            } else {
+                                Log.d("TAG", "The interstitial wasn't loaded yet.");
+                            }
 
+                        } else {
+                            Toast.makeText(EmiCalculatorActivity.this, messageComment.messageYearComment, Toast.LENGTH_SHORT).show();
 
-                    if(termValue <= 40)
-                    {
-                        statsCalc();
-                        Intent intent = new Intent(EmiCalculatorActivity.this, emiDetailActivity.class);
-                        intent.putExtra("emiDataset", emidataDataset);
-                        intent.putExtra("inerestSum", interestSum);
-                        intent.putExtra("emiTotalPayText", emiTotalPayment);
-                        intent.putExtra("emiPrinciple", p);
-                        intent.putExtra("emiInterest", r * 1200);
-                        intent.putExtra("emiperiod", n);
-                        intent.putExtra("emiValue", emi);
-                        v.getContext().startActivity(intent);
+                        }
+
+                    } else {
+                        Toast.makeText(EmiCalculatorActivity.this, messageComment.messageInterestRateComment, Toast.LENGTH_SHORT).show();
+
                     }
-                    else
-                    {
-                        Toast.makeText(EmiCalculatorActivity.this, messageComment.messageYearComment, Toast.LENGTH_SHORT).show();
-
-                    }
-
                 }
                 else
-
                 {
-                    Toast.makeText(EmiCalculatorActivity.this, messageComment.messageInterestRateComment, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EmiCalculatorActivity.this, messageComment.messageFillFeild, Toast.LENGTH_SHORT).show();
+
 
                 }
 

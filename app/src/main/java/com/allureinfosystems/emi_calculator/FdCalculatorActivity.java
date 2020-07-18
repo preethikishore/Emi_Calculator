@@ -32,7 +32,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 public class FdCalculatorActivity extends AppCompatActivity {
 
 
@@ -64,6 +70,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
     String depositInterval;
     Double tenure;
     MessageComment messageComment = new MessageComment();
+    private InterstitialAd mInterstitialAd;
 
     String[] itemList = new String[]{
             "Cumulative", "Quarterly Payout", "Monthly Payout", "Short Term"
@@ -73,6 +80,20 @@ public class FdCalculatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fd_calculator);
+        // Addind advertisement Start
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        // Advertisement end
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         inputDepositAmount = findViewById(R.id.fdInputAmountValue);
@@ -157,7 +178,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Double   inputInterestAmount = ParseDouble(String.valueOf(fdRateOfInterest.getText()));
+             //   Double   inputInterestAmount = ParseDouble(String.valueOf(fdRateOfInterest.getText()));
                 animationActivity.animation(v);
 
 
@@ -181,6 +202,11 @@ public class FdCalculatorActivity extends AppCompatActivity {
                                         Intent intent = new Intent(v.getContext(), FdStatisticsActivity.class);
                                         intent.putExtra("fdDataset", fddataDataset);
                                         v.getContext().startActivity(intent);
+                                        if (mInterstitialAd.isLoaded()) {
+                                            mInterstitialAd.show();
+                                        } else {
+                                            Log.d("TAG", "The interstitial wasn't loaded yet.");
+                                        }
                                     }else
                                     {
                                         Toast.makeText(FdCalculatorActivity.this, "Maximum Tenure Value 40 Years", Toast.LENGTH_SHORT).show();

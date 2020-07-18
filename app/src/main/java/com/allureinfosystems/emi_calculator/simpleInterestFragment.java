@@ -47,6 +47,7 @@ public class simpleInterestFragment extends Fragment {
     private TextView siInvestmentAmount;
     private TextView siMaturityDate;
     private TextView siInvestmentDate;
+    private TextView siTotalInterest;
     private double principleAmount;
     private double interestValue;
     private double term;
@@ -56,6 +57,8 @@ public class simpleInterestFragment extends Fragment {
     private String depositInterval;
     private TextView maturityText;
     private double investmentAmountValue;
+
+
     private Button buttonReset;
     Boolean status;
     String selectedTenureMode;
@@ -92,6 +95,7 @@ public class simpleInterestFragment extends Fragment {
         maturityText = rootView.findViewById(R.id.simple_interest_calculator_maturity_value);
         siInvestmentDate = rootView.findViewById(R.id.simple_interest_calculator_investment_date);
         siMaturityDate = rootView.findViewById(R.id.simple_interest_calculator_maturity_date);
+        siTotalInterest =rootView.findViewById(R.id.simple_interest_calculator_total_interest_value);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         selectDate.setText(currentDate);
         siRadioGroup = rootView.findViewById(R.id.siRadioButtonGroup);
@@ -193,10 +197,7 @@ public class simpleInterestFragment extends Fragment {
       term = ParseDouble(String.valueOf(siSavingTerm.getText()));
       int termValue = (int)ParseDouble(String.valueOf(siSavingTerm.getText()));
       depositInterval =  spinnerDepositFrequency.getSelectedItem().toString();
-      if(status)
-      {
-          term = term * 12;
-      }
+
 
       String Current = (String) selectDate.getText();
 
@@ -224,33 +225,66 @@ public class simpleInterestFragment extends Fragment {
       Log.d("Maturiy Date ", maturity);
       currentDate = (String) selectDate.getText();
 
+      double termInMonths = 0;
+      double interestRate = interestValue/1200;
+      double depositAmount = principleAmount;
+      double futureValue = principleAmount;
+      double interestCalc = 0;
+      double totalInterest = 0;
 
-      switch (depositInterval)
+      if(status)
+          termInMonths = term * 12 ;
+      else
+          termInMonths = term;
+      currentDate = (String) selectDate.getText();
+
+      for(int i =1; i<=termInMonths; i++)
       {
-           case "Yearly":  Amount = principleAmount * (1 + interestValue * term / 100);
-                          investmentAmountValue = principleAmount * term;
-                          break;
-          case  "Monthly": Amount = principleAmount * (1 + interestValue * term / (12 * 100));
-                           investmentAmountValue = principleAmount * 12 * term;
-                           break;
-          case  "Quarterly":  Amount = principleAmount * (1 + interestValue * term / (4 * 100));
-                              investmentAmountValue = principleAmount * 4 * term;
-                              break;
-          case  "Half Yearly": Amount = principleAmount * (1 + interestValue * term / (2 * 100));
-                               investmentAmountValue = principleAmount * 2 * term;
-                               break;
-          case  "Bi-Monthly":  Amount = principleAmount * (1 + interestValue * term / (6 * 100));
-                               investmentAmountValue = principleAmount * 6 * term;
-                               break;
-          case  "Thrice-Yearly": Amount = principleAmount * (1 + interestValue * term / (3 * 100));
-                                 investmentAmountValue = principleAmount * 3 * term;
-                                 break;
-          default:System.out.println("nothing");
+          if (futureValue > 0) {
+              interestCalc = futureValue * interestRate;
+              totalInterest += interestCalc;
 
+              if (depositInterval.equals("Yearly")) {
+                  if (i % 12 == 0) {
+                      futureValue += principleAmount;
+                      depositAmount+=principleAmount;
+                  }
+              } else if (depositInterval.equals("Monthly")) {
+                  futureValue += principleAmount;
+                  depositAmount+=principleAmount;
+              } else if (depositInterval.equals("Quarterly")) {
+                  if (i % 3 == 0) {
+                      futureValue += principleAmount;
+                      depositAmount+=principleAmount;
+                  }
+              } else if (depositInterval.equals("Half Yearly")) {
+                  if (i % 6 == 0) {
+                      futureValue += principleAmount;
+                      depositAmount+=principleAmount;
+                  }
+              } else if (depositInterval.equals("Bi-Monthly")) {
+                  if (i % 2 == 0) {
+                      futureValue += principleAmount;
+                      depositAmount+=principleAmount;
+                  }
+
+              } else if (depositInterval.equals("Thrice-Yearly")) {
+                  if (i % 4 == 0) {
+                      futureValue += principleAmount;
+                      depositAmount+=principleAmount;
+                  }
+              }
+          }
       }
 
       siInvestmentAmount.setText(String.valueOf(Amount));
       maturityText.setText(String.valueOf(investmentAmountValue));
+      siInvestmentDate.setText(Current);
+      siMaturityDate.setText(maturity);
+
+      siInvestmentAmount.setText(String.valueOf(depositAmount));
+      maturityText.setText(String.valueOf(futureValue));
+      siTotalInterest.setText(String.valueOf(totalInterest));
       siInvestmentDate.setText(Current);
       siMaturityDate.setText(maturity);
 
@@ -274,6 +308,7 @@ public class simpleInterestFragment extends Fragment {
         maturityText.setText("0");
         siMaturityDate.setVisibility(View.INVISIBLE);
         siInvestmentDate.setVisibility(View.INVISIBLE);
+        siTotalInterest.setText("0");
     }
 
 

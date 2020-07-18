@@ -62,7 +62,7 @@
             <TextView
                 android:id="@+id/textInterest"
                 style="@style/style_pageViewer_textView"
-                android:text="@string/emi_interest_textview"
+                android:text="@string/yearly_interest_textview"
                  />
 
                 <include layout="@layout/compulsoryhimt_layout" />
@@ -295,7 +295,7 @@
 
                         <TextView
                             style="@style/style_pageViewer_textView"
-                            android:layout_width="70dp"
+                            android:layout_width="90dp"
                             android:text="@string/investment_date_result" />
 
                     </LinearLayout>

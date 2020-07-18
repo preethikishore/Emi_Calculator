@@ -225,7 +225,7 @@ public class compoundInterestFragment extends Fragment {
         Calendar c = Calendar.getInstance();
         double termInMonths = 0;
         double monthlyDeposit = 0;
-        double interestRate = annualInterest/12;
+        double interestRate = annualInterest/1200;
         double depositAmount = principle;
         double futureValue = principle;
         double interestCalc = 0;
@@ -262,9 +262,7 @@ public class compoundInterestFragment extends Fragment {
         String maturity = sdf1.format(c.getTime());
 
         currentDate = (String) selectDate.getText();
-        interestRate = interestRate/1200;
-
-        for(int i =1; i<=term; i++)
+        for(int i =1; i<=termInMonths; i++)
         {
             depositAmount +=monthlyDeposit;
             futureValue+=monthlyDeposit;
