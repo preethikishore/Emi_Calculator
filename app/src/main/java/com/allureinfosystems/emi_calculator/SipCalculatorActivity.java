@@ -65,6 +65,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
     private double interestAmt = 0;
     private String selected_tenure_mode;
     boolean status;
+    private Button sipReset;
     private ArrayList<HashMap<String, String>> sipdataDataset;
     HashMap<String, String> sipmap;
     MaturityDateCalculation maturityDateCalculation = new MaturityDateCalculation();
@@ -72,6 +73,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     String deposit_interval;
+
 
     DecimalFormat decimal = new DecimalFormat("####0.0");
 
@@ -134,8 +136,18 @@ public class SipCalculatorActivity extends AppCompatActivity {
         sipShareResult = findViewById(R.id.sip_share_result);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         sipSelectDate.setText(currentDate);
+        sipReset = findViewById(R.id.sipButtonReset);
+        sipShareResult.setVisibility(View.INVISIBLE);
 
         final DecimalFormat df = new DecimalFormat("####0.00");
+        sipReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sipShareResult.setVisibility(View.INVISIBLE);
+                animationActivity.animation(v);
+                clear(v);
+            }
+        });
 
         sipShareResult.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,7 +267,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 animationActivity.animation(v);
-
+                sipShareResult.setVisibility(View.VISIBLE);
                 inputAmount = ParseDouble(String.valueOf(sipAmountOfDeposit.getText()));
                 double sipInterest = ParseDouble(String.valueOf(sipRateOfInterest.getText()));
                 double sipTenure = ParseDouble(String.valueOf(tenureInput.getText()));
@@ -396,6 +408,16 @@ public class SipCalculatorActivity extends AppCompatActivity {
             }
         } else return 0;
     }
+    public void clear(View v) {
+        sipAmountOfDeposit.setText("");
+        sipRateOfInterest.setText("");
+        tenureInput.setText("");
+        sipInvestAmount.setText("0");
+        sipMaturityValue.setText("0");
+        sipTotalInterest.setText("0");
+        sipMaturityDate.setVisibility(View.INVISIBLE);
+        sipDateOfInvestment.setVisibility(View.INVISIBLE);
 
+    }
 
 }

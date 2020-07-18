@@ -12,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,29 +31,42 @@ import java.util.Locale;
  */
 public class compoundInterestFragment extends Fragment {
 
-    private android.widget.Spinner spinner_Deposit_Frequency;
+
+    private android.widget.Spinner spinnerCompoundingFrequency;
+    private RadioGroup ciRadioGroup;
+    private RadioButton ciRadiButton;
+    private RadioGroup ciDepoistWithdrawRadioGroup;
+    private RadioButton ciDepoistWithdrawRadioButton;
     private DatePickerDialog picker;
     private Button buttonGet;
-    private TextView select_Date;
-    private TextView principle_text;
-    private TextView interest_rate_text;
-    private TextView term_text;
+    private TextView selectDate;
+    private EditText principleText;
+    private EditText interestRateText;
+    private EditText termText;
     private double principle;
-    private double interest;
+    private double annualInterest;
     private double term;
-    private String deposit_interval;
+    private String depositInterval;
     private String currentDate;
     private String maturityDate;
-    private TextView Maturity_Text;
-    private TextView investment_value_text;
-    private double Amount;
-    private TextView investment_date;
-    private TextView maturity_date;
+    private TextView maturityText;
+    private TextView investmentValueText;
+    private TextView investmentDate;
+    private TextView maturityDateValue;
     private Button buttonCalculate;
+    private Button buttonReset;
+    private TextView ciTotalInterest;
+    private EditText depositWithdrawAmount;
+    private Double monthlyAmount;
+    Boolean status;
+    Boolean statusDeposit;
+    String selectedTenureMode;
+    String selectedOptionWD;
+    double totalInterest;
+    ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
 
-    private double investment_amount_value;
+    private double investmentAmountValue;
     String[] items = new String[]{
-            "Select",
             "Yearly", "Monthly", "Quarterly", "Half Yearly","Bi-Monthly","Thrice-Yearly"
     };
 
@@ -65,29 +81,98 @@ public class compoundInterestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_compound_interest, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_compound_interest, container, false);
 
-        spinner_Deposit_Frequency = rootView.findViewById(R.id.compound_spinner_deposit_frequency);
-
-        select_Date = rootView.findViewById(R.id.compound_date_of_investment_value);
+        spinnerCompoundingFrequency =rootView.findViewById(R.id.compound_spinner_compounding_frequency);
+        selectDate = rootView.findViewById(R.id.compound_date_of_investment_value);
         buttonGet = rootView.findViewById(R.id.compound_buttongetdate);
-        principle_text = rootView.findViewById(R.id.compound_interset_principle_value);
-        interest_rate_text = rootView.findViewById(R.id.compound_interset_interesst_rate_value);
-        term_text = rootView.findViewById(R.id.compound_saving_period_value);
-        investment_value_text = rootView.findViewById(R.id.compound_investment_amount);
-        Maturity_Text = rootView.findViewById(R.id.compound_maturity_value);
-        investment_date = rootView.findViewById(R.id.compound_investment_date);
-        maturity_date = rootView.findViewById(R.id.compound_maturity_date);
+        principleText = rootView.findViewById(R.id.compound_interset_principle_value);
+        interestRateText = rootView.findViewById(R.id.compound_interset_interesst_rate_value);
+        termText = rootView.findViewById(R.id.compound_saving_period_value);
+        investmentValueText = rootView.findViewById(R.id.compound_investment_amount);
+        maturityText = rootView.findViewById(R.id.compound_maturity_value);
+        investmentDate = rootView.findViewById(R.id.compound_investment_date);
+        maturityDateValue = rootView.findViewById(R.id.compound_maturity_date);
         buttonCalculate = rootView.findViewById(R.id.compound_button_Interest_Calc_Calculate);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        select_Date.setText(currentDate);
+        selectDate.setText(currentDate);
+        ciRadioGroup = rootView.findViewById(R.id.ciRadioButtonGroup);
+        ciDepoistWithdrawRadioGroup = rootView.findViewById(R.id.deposit_withdraw_RadioButtonGroup);
+        ciTotalInterest =rootView.findViewById(R.id.compound_total_interest_value);
+        depositWithdrawAmount= rootView.findViewById(R.id.deposit_withraw_amount_value);
         final MessageComment messageComment = new MessageComment();
+
+        buttonReset = rootView.findViewById(R.id.buttonCIReset);
+        ciRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int radioid = ciRadioGroup.getCheckedRadioButtonId();
+                ciRadiButton = rootView.findViewById(radioid);
+                status = false;
+
+                if (ciRadiButton.isChecked()) {
+
+                    selectedTenureMode = (String) ciRadiButton.getText();
+                    System.out.println("Selected tenure  mode :"  +selectedTenureMode);
+
+                    if (selectedTenureMode.equals("Year"))
+                    {
+                        status = true;
+
+                    }else
+                    {
+                        status = false;
+
+
+                    }
+
+                }
+
+            }
+        });
+
+        ciDepoistWithdrawRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int radioid = ciDepoistWithdrawRadioGroup.getCheckedRadioButtonId();
+                ciDepoistWithdrawRadioButton = rootView.findViewById(radioid);
+                statusDeposit = false;
+
+                if (ciDepoistWithdrawRadioButton.isChecked()) {
+
+                    selectedOptionWD = (String) ciDepoistWithdrawRadioButton.getText();
+                    System.out.println("Selected Deposit  mode :"  +selectedOptionWD);
+
+                    if (selectedOptionWD.equals("Deposit"))
+                    {
+                        statusDeposit = true;
+
+                    }else
+                    {
+                        statusDeposit = false;
+
+
+                    }
+
+                }
+
+            }
+        });
+
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animationActivity.animation(v);
+                clear(v);
+            }
+        });
+
 
         buttonGet.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                getdate.getdate(select_Date,picker, getActivity());
+                getdate.getdate(selectDate,picker, getActivity());
             }
         });
 
@@ -95,12 +180,14 @@ public class compoundInterestFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-
-                Double  CIinterestValue = ParseDouble(String.valueOf(interest_rate_text.getText()));
-                Double   CIterm = ParseDouble(String.valueOf(term_text.getText()));
+                animationActivity.animation(v);
+                investmentDate.setVisibility(View.VISIBLE);
+                maturityDateValue.setVisibility(View.VISIBLE);
+                Double  CIinterestValue = ParseDouble(String.valueOf(interestRateText.getText()));
+                Double   CIterm = ParseDouble(String.valueOf(termText.getText()));
                 if(CIinterestValue <= 50) {
                     if(CIterm <=40) {
-                        calculate_simple_interest_Amount();
+                        calculateCompoudInterest();
                     }
                     else
                     {
@@ -118,25 +205,43 @@ public class compoundInterestFragment extends Fragment {
 
 
 
-        spinnerData.initspinnerfooter(spinner_Deposit_Frequency,getActivity(), Arrays.asList(items));
+        spinnerData.initspinnerfooter(spinnerCompoundingFrequency,getActivity(), Arrays.asList(items));
 
         return rootView;
     }
 
-    public void calculate_simple_interest_Amount()
+    public void calculateCompoudInterest()
     {
 
-        principle = ParseDouble(String.valueOf(principle_text.getText()));
-        interest = ParseDouble(String.valueOf(interest_rate_text.getText()));
-        term =  ParseDouble(String.valueOf(term_text.getText()));
-        deposit_interval =  spinner_Deposit_Frequency.getSelectedItem().toString();
+        principle = ParseDouble(String.valueOf(principleText.getText()));
+        annualInterest = ParseDouble(String.valueOf(interestRateText.getText()));
+        term =  ParseDouble(String.valueOf(termText.getText()));
+        int termValue = (int)ParseDouble(String.valueOf(termText.getText()));
+        depositInterval =  spinnerCompoundingFrequency.getSelectedItem().toString();
+        monthlyAmount = ParseDouble(String.valueOf(depositWithdrawAmount.getText()));
 
-        String Current = (String) select_Date.getText();
-        Log.d("Current Date  *****",Current);
-
+        String Current = (String) selectDate.getText();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
         Calendar c = Calendar.getInstance();
+        double termInMonths = 0;
+        double monthlyDeposit = 0;
+        double interestRate = annualInterest/12;
+        double depositAmount = principle;
+        double futureValue = principle;
+        double interestCalc = 0;
+        totalInterest = 0;
+        double capitalizedInterest = 0;
+
+        if (statusDeposit)
+            monthlyDeposit = monthlyAmount;
+        else
+            monthlyDeposit = monthlyAmount*-1;
+
+
+        if(status)
+            termInMonths = term * 12 ;
+        else
+            termInMonths = term;
 
         try {
             c.setTime(sdf.parse(Current));
@@ -145,44 +250,73 @@ public class compoundInterestFragment extends Fragment {
 
             e.printStackTrace();
         }
-        c.add(Calendar.YEAR, 10);
-        SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+
+        if(status) {
+            c.add(Calendar.YEAR, termValue);
+        }
+        else
+        {
+            c.add(Calendar.MONTH, termValue);
+        }
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
         String maturity = sdf1.format(c.getTime());
 
-        Log.d("Maturiy Date ", maturity);
-        currentDate = (String) select_Date.getText();
+        currentDate = (String) selectDate.getText();
+        interestRate = interestRate/1200;
 
-
-        switch (deposit_interval)
+        for(int i =1; i<=term; i++)
         {
-            case "Yearly":  Amount = principle * (1 + interest * term / 100);
-                investment_amount_value = principle * term;
-                break;
-            case  "Monthly": Amount = principle * (1 + interest * term / (12 * 100));
-                investment_amount_value = principle * 12 * term;
-                break;
-            case  "Quarterly":  Amount = principle * (1 + interest * term / (4 * 100));
-                investment_amount_value = principle * 4 * term;
-                break;
-            case  "Half Yearly": Amount = principle * (1 + interest * term / (2 * 100));
-                investment_amount_value = principle * 2 * term;
-                break;
-            case  "Bi-Monthly":  Amount = principle * (1 + interest * term / (6 * 100));
-                investment_amount_value = principle * 6 * term;
-                break;
-            case  "Thrice-Yearly": Amount = principle * (1 + interest * term / (3 * 100));
-                investment_amount_value = principle * 3 * term;
-                break;
-            default:System.out.println("nothing");
+            depositAmount +=monthlyDeposit;
+            futureValue+=monthlyDeposit;
+            if (futureValue < 0)
+                futureValue = 0;
+            if (futureValue > 0) {
+                interestCalc = futureValue * interestRate;
+                totalInterest += interestCalc;
+                capitalizedInterest += interestCalc;
 
+                if (depositInterval.equals("Yearly")) {
+                    if (i % 12 == 0) {
+                        futureValue += capitalizedInterest;
+                        capitalizedInterest = 0;
+                    }
+
+                } else if (depositInterval.equals("Monthly")) {
+                    futureValue += capitalizedInterest;
+                    capitalizedInterest = 0;
+                } else if (depositInterval.equals("Quarterly")) {
+                    if (i % 3 == 0) {
+                        futureValue += capitalizedInterest;
+                        capitalizedInterest = 0;
+                    }
+
+                } else if (depositInterval.equals("Half Yearly")) {
+                    if (i % 6 == 0) {
+                        futureValue += capitalizedInterest;
+                        capitalizedInterest = 0;
+                    }
+                } else if (depositInterval.equals("Bi-Monthly")) {
+                    if (i % 2 == 0) {
+                        futureValue += capitalizedInterest;
+                        capitalizedInterest = 0;
+                    }
+
+                } else if (depositInterval.equals("Thrice-Yearly")) {
+                    if (i % 4 == 0) {
+                        futureValue += capitalizedInterest;
+                        capitalizedInterest = 0;
+                    }
+                }
+            }
         }
 
-        investment_value_text.setText(String.valueOf(Amount));
-        Maturity_Text.setText(String.valueOf(investment_amount_value));
-        investment_date.setText(Current);
-        maturity_date.setText(maturity);
 
 
+        investmentValueText.setText(String.valueOf(depositAmount));
+        maturityText.setText(String.valueOf(futureValue));
+        ciTotalInterest.setText(String.valueOf(totalInterest));
+        investmentDate.setText(Current);
+        maturityDateValue.setText(maturity);
 
     }
 
@@ -196,7 +330,16 @@ public class compoundInterestFragment extends Fragment {
         }
         else return 0;
     }
-
+    public void clear(View v) {
+        principleText.setText("");
+        interestRateText.setText("");
+        termText.setText("");
+        depositWithdrawAmount.setText("");
+        investmentValueText.setText("0");
+        maturityText.setText("0");
+        investmentDate.setVisibility(View.INVISIBLE);
+        maturityDateValue.setVisibility(View.INVISIBLE);
+    }
 
 
 }

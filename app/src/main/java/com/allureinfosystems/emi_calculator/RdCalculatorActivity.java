@@ -71,6 +71,7 @@ public class RdCalculatorActivity extends AppCompatActivity {
     ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     private DrawerLayout drawer;
     private Button shareButton ;
+    private Button resetButton;
 
     MessageComment messageComment = new MessageComment();
 
@@ -126,6 +127,16 @@ public class RdCalculatorActivity extends AppCompatActivity {
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         rdSelectDate.setText(currentDate);
         shareButton = findViewById(R.id.rdButtonShare);
+        shareButton.setVisibility(View.INVISIBLE);
+        resetButton = findViewById(R.id.fdButtonReset);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clear(v);
+            }
+        });
+
+
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,6 +240,7 @@ public class RdCalculatorActivity extends AppCompatActivity {
         rdButtonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                shareButton.setVisibility(View.VISIBLE);
 
                 Double interestPercentValue  = ParseDouble(rdRateOfInterestValue.getText().toString());
                 int  tenureValue = (int)ParseDouble(rdTenureValue.getText().toString());
@@ -323,6 +335,8 @@ public class RdCalculatorActivity extends AppCompatActivity {
 
     private void rdCalculation()
     {
+        rdDateOfMaturity.setVisibility(View.VISIBLE);
+        rdCalculatedInvestDate.setVisibility(View.VISIBLE);
         Double interestPercent = ParseDouble(rdRateOfInterestValue.getText().toString());
         inputAmount = ParseDouble(String.valueOf(rdInputAmountValue.getText()));
         interestPercent =   interestPercent /100/12;
@@ -398,6 +412,19 @@ public class RdCalculatorActivity extends AppCompatActivity {
             }
         }
         else return 0;
+    }
+
+    public void clear(View v) {
+        rdInputAmountValue.setText("");
+        rdRateOfInterestValue.setText("");
+        rdTenureValue.setText("");
+        rdInvestmentAmount.setText("0");
+        rdMaturityValue.setText("0");
+        rdTotalInterest.setText("0");
+
+        rdDateOfMaturity.setVisibility(View.INVISIBLE);
+        rdCalculatedInvestDate.setVisibility(View.INVISIBLE);
+
     }
 
 }

@@ -55,6 +55,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
     SpinnerData spinnerData = new SpinnerData();
     private Button fdButtonStatistics;
     private Button shareFDButton;
+    private Button fdReset;
     DecimalFormat decimal = new DecimalFormat("####0.0");
     private ArrayList<HashMap<String, String>> fddataDataset;
     HashMap<String, String> fdmap;
@@ -91,6 +92,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
         fdButtonStatistics = findViewById(R.id.fdButtonStatistics);
         drawer = findViewById(R.id.fd_drawer_layout);
         shareFDButton = findViewById(R.id.fdShareResult);
+        fdReset = findViewById(R.id.fdButtonReset);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         selectDate.setText(currentDate);
 
@@ -219,6 +221,15 @@ public class FdCalculatorActivity extends AppCompatActivity {
 
             }
         });
+
+
+       fdReset.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               animationActivity.animation(v);
+               clear(v);
+           }
+       });
 
 
 
@@ -398,6 +409,8 @@ public class FdCalculatorActivity extends AppCompatActivity {
             System.out.println("amount : " + amount);
         } while (i > 0);
 
+        fdMaturityDate.setVisibility(View.VISIBLE);
+        fdInvestmentDateValue.setVisibility(View.VISIBLE);
         fdInvestmentAmount.setText(String.valueOf(inputAmount));
         fdMaturityAmount.setText(String.valueOf(decimal.format(amount)));
         fdTotalInterest.setText(String.valueOf(decimal.format(totalInterest)));
@@ -417,6 +430,21 @@ public class FdCalculatorActivity extends AppCompatActivity {
             }
         }
         else return 0;
+    }
+
+    public void clear(View v) {
+        inputDepositAmount.setText("");
+        fdRateOfInterest.setText("");
+        fdTermYear.setText("");
+        fdTermMonth.setText("");
+        fdTermDay.setText("");
+        fdInvestmentAmount.setText("0");
+        fdMaturityAmount.setText("0");
+        fdTotalInterest.setText("0");
+
+        fdMaturityDate.setVisibility(View.INVISIBLE);
+        fdInvestmentDateValue.setVisibility(View.INVISIBLE);
+
     }
 
 }

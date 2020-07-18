@@ -21,6 +21,13 @@
             android:orientation="vertical"
 
             >
+            <TextView
+
+                style="@style/style_pageViewer_textView"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/compound_interest_calculation"
+                />
             <!--        Text and edit Vertical View Principle start -->
             <LinearLayout style="@style/style_pagerview_linear_vertical">
 
@@ -52,7 +59,7 @@
                     <TextView
                         android:id="@+id/textInterest"
                         style="@style/style_pageViewer_textView"
-                        android:text="@string/emi_interest_textview"
+                        android:text="@string/yearly_interest_textview"
                         />
 
                     <include layout="@layout/compulsoryhimt_layout" />
@@ -96,30 +103,99 @@
 
                 </LinearLayout>
 
+                        <RadioGroup
+                            android:id="@+id/ciRadioButtonGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="@dimen/radio_margin">
+
+                            <RadioButton
+                                android:id="@+id/ciRadioButtonYear"
+                                style="@style/style_radio_button"
+                                android:checked="true"
+                                android:text="@string/sip_radio_button_year" />
+
+                            <RadioButton
+                                android:id="@+id/ciRadioButtonMonth"
+                                style="@style/style_radio_button"
+                                android:checked="true"
+                                android:text="@string/sip_radio_button_month" />
 
 
-                <EditText
-                    android:id="@+id/compound_saving_period_value"
-                    style="@style/style_default_edit_text"
-                    />
+                        </RadioGroup>
+
+
+
+                    <EditText
+                        android:id="@+id/compound_saving_period_value"
+                        style="@style/style_default_edit_text"
+                        />
+
+
 
 
             </LinearLayout>
             <!--        Text and edit Vertical View Period End -->
 
+            <LinearLayout style="@style/style_pagerview_linear_vertical">
+
+
+                <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
+
+                    <TextView
+                        style="@style/style_pageViewer_textView"
+                        android:text="@string/regular_monthly_deposit_withdraw"
+                        />
+                    <include layout="@layout/compulsoryhimt_layout" />
+
+
+
+
+                </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/deposit_withdraw_RadioButtonGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/radio_margin">
+
+                    <RadioButton
+                        android:id="@+id/ciRadioButtonDeposit"
+                        style="@style/style_radio_button"
+                        android:checked="true"
+                        android:text="@string/Deposit" />
+
+                    <RadioButton
+                        android:id="@+id/ciRadioButtonWithdraw"
+                        style="@style/style_radio_button"
+                        android:checked="true"
+                        android:text="@string/Withdraw" />
+
+
+                </RadioGroup>
+
+                <EditText
+                    android:id="@+id/deposit_withraw_amount_value"
+                    style="@style/style_default_edit_text"
+                    />
+
+
+            </LinearLayout>
 
             <LinearLayout
                 style="@style/style_interest_calculator_inner_horizontal"
                 android:layout_margin="7dp">
 
                 <TextView
-                    android:id="@+id/text_deposit_frequency"
+                    android:id="@+id/text_compounding_frequency"
                     style="@style/style_pageViewer_textView"
                     android:layout_width="wrap_content"
-                    android:text="@string/interest_calculator_deposit_frequency" />
+                    android:text="@string/interest_calculator_compounding_frequency" />
 
                 <Spinner
-                    android:id="@+id/compound_spinner_deposit_frequency"
+                    android:id="@+id/compound_spinner_compounding_frequency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:popupBackground="@color/page_color"
@@ -136,8 +212,8 @@
 
 
                     <TextView
-                        android:id="@+id/text_date_of_investment"
-                        android:layout_width="100dp"
+
+                        android:layout_width="80dp"
                         style="@style/style_pageViewer_textView"
                         android:text="@string/date_of_investment"
                         />
@@ -146,7 +222,9 @@
                     <TextView
                         android:id="@+id/compound_date_of_investment_value"
                         android:layout_width="wrap_content"
-                        style="@style/style_pageViewer_textView"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white_text_color"
+                        android:padding="1dp"
 
                         />
 
@@ -162,6 +240,8 @@
                         />
 
                 </LinearLayout>
+
+
 
                 <!--                android:layout_centerHorizontal="true"-->
 
@@ -179,7 +259,7 @@
 
 
                 <Button
-                    android:id="@+id/button_Interest_Calc_Reset"
+                    android:id="@+id/buttonCIReset"
                     style="@style/style_button"
                     android:text="@string/button_reset_text" />
 
@@ -291,8 +371,8 @@
                             <TextView
 
                                 style="@style/style_pageViewer_textView"
-                                android:layout_width="wrap_content"
-                                android:text="@string/investment_date_result" />
+                                android:layout_width="60dp"
+                                android:text="@string/maturity_date_result" />
 
 
                         </LinearLayout>

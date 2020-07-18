@@ -21,6 +21,15 @@
         android:orientation="vertical"
 
         >
+        <TextView
+
+            style="@style/style_pageViewer_textView"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/simple_interest_calculation"
+            />
+
+
         <!--        Text and edit Vertical View Principle start -->
         <LinearLayout style="@style/style_pagerview_linear_vertical">
 
@@ -101,6 +110,27 @@
 
             </LinearLayout>
 
+            <RadioGroup
+                android:id="@+id/siRadioButtonGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/radio_margin">
+
+                <RadioButton
+                    android:id="@+id/siRadioButtonYear"
+                    style="@style/style_radio_button"
+                    android:checked="true"
+                    android:text="@string/sip_radio_button_year" />
+
+                <RadioButton
+                    android:id="@+id/siRadioButtonMonth"
+                    style="@style/style_radio_button"
+                    android:checked="true"
+                    android:text="@string/sip_radio_button_month" />
+
+
+            </RadioGroup>
 
 
             <EditText
@@ -153,7 +183,8 @@
                 <TextView
                     android:id="@+id/simple_date_of_investment_value"
                     android:layout_width="wrap_content"
-                    style="@style/style_pageViewer_textView"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white_text_color"
 
                     />
 
@@ -186,7 +217,7 @@
 
 
             <Button
-                android:id="@+id/button_Interest_Calc_Reset"
+                android:id="@+id/buttonSIReset"
                 style="@style/style_button"
                 android:text="@string/button_reset_text" />
 

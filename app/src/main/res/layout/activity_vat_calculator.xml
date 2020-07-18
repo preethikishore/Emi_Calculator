@@ -164,7 +164,7 @@
 
 
                 <Button
-                    android:id="@+id/vat_button_Interest_Calc_Reset"
+                    android:id="@+id/vatResetButton"
                     style="@style/style_button"
                     android:text="@string/button_reset_text" />
 

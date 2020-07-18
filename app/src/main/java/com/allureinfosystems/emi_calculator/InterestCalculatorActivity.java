@@ -20,8 +20,8 @@ public class InterestCalculatorActivity extends AppCompatActivity {
 
 
     private TabLayout tabLayout;
-    private TabItem simple_interest;
-    private TabItem compound_interest;
+    private TabItem simpleInterest;
+    private TabItem compoundInterest;
     private ViewPager viewPager;
     private DrawerLayout drawer;
 
@@ -32,8 +32,8 @@ public class InterestCalculatorActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         tabLayout = findViewById(R.id.tabLayout);
-        simple_interest = findViewById(R.id.simple_interest);
-        compound_interest = findViewById(R.id.compound_interest);
+        simpleInterest = findViewById(R.id.simple_interest);
+        compoundInterest = findViewById(R.id.compound_interest);
         viewPager = findViewById(R.id.page_viewer);
         drawer = findViewById(R.id.interest_calci_drawer_layout);
 
@@ -65,6 +65,7 @@ public class InterestCalculatorActivity extends AppCompatActivity {
 
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -74,7 +75,7 @@ public class InterestCalculatorActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override

@@ -163,7 +163,7 @@
 
 
                 <Button
-                    android:id="@+id/gst_button_Interest_Calc_Reset"
+                    android:id="@+id/gstResetButton"
                     style="@style/style_button"
                     android:text="@string/button_reset_text" />
 

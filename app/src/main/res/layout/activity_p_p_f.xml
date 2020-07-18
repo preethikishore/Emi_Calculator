@@ -210,7 +210,7 @@
 
 
                 <Button
-                    android:id="@+id/ppfStatistics"
+                    android:id="@+id/ppfReset"
                     style="@style/style_button"
                     android:text="@string/button_reset_text" />
 

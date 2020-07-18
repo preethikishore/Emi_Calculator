@@ -44,6 +44,7 @@ public class GstActivity extends AppCompatActivity {
     ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     MessageComment messageComment = new MessageComment();
     public Button shareButton;
+    public Button gstReset;
 
     String[] items = new String[]{
             "ADD GST","REMOVE GST"
@@ -93,6 +94,14 @@ public class GstActivity extends AppCompatActivity {
         textOthersOption = findViewById(R.id.gst_radio_Others_text);
         shareButton = findViewById(R.id.gst_share_result);
         shareButton.setVisibility(View.INVISIBLE);
+        gstReset = findViewById(R.id.gstResetButton);
+        gstReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animationActivity.animation(v);
+                clear(v);
+            }
+        });
 
         spinnerData.initspinnerfooter(gstSpinnerData, GstActivity.this, Arrays.asList(items));
 
@@ -230,7 +239,7 @@ public class GstActivity extends AppCompatActivity {
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                animationActivity.animation(v);
                 String ShareInputAmount = String.valueOf(amount_text.getText());
                 String ShareRateOfInterest = String.valueOf(selectedvalue);
                 String ShareMaturity = String.valueOf(netGstCalculatedValue);
@@ -268,6 +277,14 @@ public class GstActivity extends AppCompatActivity {
             }
         }
         else return 0;
+    }
+    public void clear(View v) {
+        amount_text.setText("");
+        textOthersOption.setText("");
+        orginalCost.setText("0");
+        netGstValue.setText("0");
+        gstPrice.setText("0");
+
     }
 
 }

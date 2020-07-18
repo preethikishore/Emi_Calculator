@@ -51,7 +51,7 @@ public class PPFActivity extends AppCompatActivity {
     private Button ppfshareResult;
     ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     String inputMode;
-
+    private Button ppfReset;
     private int tenure;
     private boolean status = true;
     Double interestPayout ;
@@ -121,7 +121,7 @@ public class PPFActivity extends AppCompatActivity {
         toggle.syncState();
 
 
-
+        ppfReset = findViewById(R.id.ppfReset);
         ppfSpinnerMaturity = findViewById(R.id.ppfMaturityDuration);
         ppfSpinnerDepositMode = findViewById(R.id.ppfSpinnerDepositMode);
         ppfSelectDate = findViewById(R.id.ppf_date_of_investment_value);
@@ -146,6 +146,9 @@ public class PPFActivity extends AppCompatActivity {
             public void onClick(final View v) {
                 animationActivity.animation(v);
                 ppfshareResult.setVisibility(View.VISIBLE);
+
+                ppfInvestDate.setVisibility(View.VISIBLE);
+                ppfMaturityDate.setVisibility(View.VISIBLE);
                 Double inputAmountValue = ParseDouble(String.valueOf(ppfinputAmount.getText()));
                 Double interestPercentValue = ParseDouble(ppfRateOfInterestValue.getText().toString());
 
@@ -167,6 +170,16 @@ public class PPFActivity extends AppCompatActivity {
 
                 }
 
+            }
+        });
+
+        ppfReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animationActivity.animation(v);
+                ppfshareResult.setVisibility(View.INVISIBLE);
+
+                clear(v);
             }
         });
 
@@ -250,6 +263,7 @@ public class PPFActivity extends AppCompatActivity {
 
     private void ppfCalculation()
     {
+
         deposit_interval =  ppfSpinnerMaturity.getSelectedItem().toString();
 
         if(deposit_interval.equals("15 Years"))
@@ -401,6 +415,17 @@ public class PPFActivity extends AppCompatActivity {
             }
         }
         else return 0;
+    }
+    public void clear(View v) {
+        ppfinputAmount.setText("");
+        ppfRateOfInterestValue.setText("");
+        ppfInvestAmount.setText("0");
+        ppftotalInterestValue.setText("0");
+        ppfMaturityValue.setText("0");
+
+        ppfInvestDate.setVisibility(View.INVISIBLE);
+        ppfMaturityDate.setVisibility(View.INVISIBLE);
+
     }
 
 }

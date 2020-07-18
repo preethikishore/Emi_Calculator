@@ -140,7 +140,6 @@
                             android:text="@string/sip_radio_button_month" />
 
 
-
                     </RadioGroup>
 
 
@@ -208,7 +207,7 @@
 
 
                 <Button
-                    android:id="@+id/rdButtonInterestCalcReset"
+                    android:id="@+id/rdButtonReset"
                     style="@style/style_button"
                     android:text="@string/button_reset_text" />
 

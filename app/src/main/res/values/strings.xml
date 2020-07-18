@@ -102,4 +102,11 @@
     <string name="sip_recycler_heading_capitilized_interest">Investment Amount</string>
     <string name="sip_recycler_heading_sipBalance">SIP Balance</string>
     <string name="ppf_calculator_heading_details">PPF Statistcs</string>
+    <string name="interest_calculator_compounding_frequency">Compounding Frequency</string>
+    <string name="regular_monthly_deposit_withdraw">Regular Monthly Deposit/Wthdraw</string>
+    <string name="yearly_interest_textview">Yearly Interest Value</string>
+    <string name="Deposit">Deposit</string>
+    <string name="Withdraw">Withdraw</string>
+    <string name="simple_interest_calculation">Simple Interest Calculation</string>
+    <string name="compound_interest_calculation">Compound Interest calculation</string>
 </resources>
