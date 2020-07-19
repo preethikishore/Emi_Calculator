@@ -41,9 +41,7 @@
                 android:text="@string/fd_calculator_heading_details"
                 style="@style/style_emi_detail_heading" />
 
-
-
-        <LinearLayout style="@style/style_sub_heading"
+                <LinearLayout style="@style/style_sub_heading"
             android:background="@drawable/bg_color">
 
 
@@ -59,7 +57,7 @@
 
             <TextView
                 android:id="@+id/fdRecyclerCaptilizedInterest"
-                android:text="@string/rd_recycler_heading_capitilized_interest"
+                android:text="@string/rd_recycler_head_capitalized_interest"
                 style="@style/style_recycler_view_textview" />
 
             <TextView
@@ -70,12 +68,16 @@
 
         </LinearLayout>
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:background="@drawable/bg_color"
             android:id="@+id/fd_data_recyclerview"
             tools:showIn="@layout/activity_emi_detail"
             style="@style/style_recyler_view" />
+
+
     </LinearLayout>
+
 
         </LinearLayout>
 

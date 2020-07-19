@@ -7,7 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -57,10 +59,12 @@ public class EmiCalculatorActivity extends AppCompatActivity {
     ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     private DrawerLayout drawer;
     MessageComment messageComment = new MessageComment();
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emi);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // Addind advertisement Start
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -76,6 +80,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         // Advertisement end
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

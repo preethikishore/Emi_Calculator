@@ -91,7 +91,7 @@
     <string name="rd_recyler_heding_principle">Input Amount</string>
     <string name="rd_recycler_heading_monthly_interest">Monthly Interest</string>
     <string name="rd_recycler_heading_rdInterest">Balance</string>
-    <string name="rd_recycler_heading_capitilized_interest">Interest Capitilized</string>
+    <string name="rd_recycler_head_capitalized_interest">Interest Capitalized/Payout</string>
     <string name="rd_date">Date</string>
     <string name="rd_recycler_heading_amount_interest">Interest Amount</string>
     <string name="fd_calculator_heading_details">FD Statistics</string>
@@ -99,7 +99,7 @@
     <string name="sip_calculator_heading_details">SIP Statistics</string>
     <string name="sip_recycler_heading_rdInterest">RD Balance</string>
     <string name="sip_recycler_heading_amount_interest">Interest Amount</string>
-    <string name="sip_recycler_heading_capitilized_interest">Investment Amount</string>
+    <string name="sip_recycler_head_capitalized_interest">Investment Amount</string>
     <string name="sip_recycler_heading_sipBalance">SIP Balance</string>
     <string name="ppf_calculator_heading_details">PPF Statistcs</string>
     <string name="interest_calculator_compounding_frequency">Compounding Frequency</string>

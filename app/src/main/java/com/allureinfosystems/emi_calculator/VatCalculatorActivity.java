@@ -7,7 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,10 +55,12 @@ public class VatCalculatorActivity extends AppCompatActivity {
             "ADD GST","REMOVE GST"
     };
     SpinnerData spinnerData = new SpinnerData();
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vat_calculator);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Toolbar toolbar = findViewById(R.id.toolbar);
         vatReset = findViewById(R.id.vatResetButton);
         setSupportActionBar(toolbar);

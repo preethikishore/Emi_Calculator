@@ -8,8 +8,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,10 +78,12 @@ public class FdCalculatorActivity extends AppCompatActivity {
             "Cumulative", "Quarterly Payout", "Monthly Payout", "Short Term"
     };
     int tenureValue;
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fd_calculator);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // Addind advertisement Start
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -432,12 +436,50 @@ public class FdCalculatorActivity extends AppCompatActivity {
                 }
 
             }
+            else if (depositInterval.equals("Quarterly Payout")) {
+                quarterCounter++;
+                capitalizedInterest += interestPayout;
+
+                if (quarterCounter == 3) {
+                    fdmap = new HashMap<>();
+                    fdmap.put("fdDate", date);
+                    fdmap.put("fdInterestAmount", String.valueOf(decimal.format(interestPayout)));
+                    fdmap.put("fdCaptilzedInterest", String.valueOf(decimal.format(capitalizedInterest)));
+                    fdmap.put("fdBalance", String.valueOf(decimal.format(amount)));
+                    fddataDataset.add(fdmap);
+                    capitalizedInterest = 0.0;
+                    quarterCounter = 0;
+                } else {
+
+                    if (i > 1) {
+                        amount += 0;
+                        fdmap = new HashMap<>();
+                        int defaultCapInterest = 0;
+                        fdmap.put("fdDate", date);
+                        fdmap.put("fdInterestAmount", String.valueOf(decimal.format(interestPayout)));
+                        fdmap.put("fdCaptilzedInterest", String.valueOf(defaultCapInterest));
+                        fdmap.put("fdBalance", String.valueOf(decimal.format(amount)));
+                        fddataDataset.add(fdmap);
+                    }
+                    else {
+                        fdmap = new HashMap<>();
+                        fdmap.put("fdDate", date);
+                        fdmap.put("fdInterestAmount", String.valueOf(decimal.format(interestPayout)));
+                        fdmap.put("fdCaptilzedInterest", String.valueOf(decimal.format(capitalizedInterest)));
+                        fdmap.put("fdBalance", String.valueOf(decimal.format(amount)));
+                        fddataDataset.add(fdmap);
+                        capitalizedInterest = 0.0;
+                        quarterCounter = 0;
+                    }
+                }
+
+            }
             else
             {
                 fdmap = new HashMap<>();
                 fdmap.put("fdDate", date);
                 fdmap.put("fdInterestAmount", String.valueOf(decimal.format(interestPayout)));
-                fdmap.put("fdCaptilzedInterest", String.valueOf(decimal.format(capitalizedInterest)));
+                fdmap.put("fdCaptilzedInterest", String.valueOf(decimal.format(interestPayout)));
                 fdmap.put("fdBalance", String.valueOf(decimal.format(amount)));
                 fddataDataset.add(fdmap);
             }

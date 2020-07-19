@@ -8,8 +8,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -91,11 +93,12 @@ public class SipCalculatorActivity extends AppCompatActivity {
     };
     MessageComment messageComment = new MessageComment();
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sip_calculator);
-
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -217,7 +220,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
                 inputAmount = ParseDouble(String.valueOf(sipAmountOfDeposit.getText()));
                 double sipInterest = ParseDouble(String.valueOf(sipRateOfInterest.getText()));
                 double sipTenure = ParseDouble(String.valueOf(tenureInput.getText()));
-                if (inputAmount < 0 && sipInterest < 0 && sipTenure < 0) {
+                if (inputAmount > 0 && sipInterest > 0 && sipTenure > 0) {
 
                     if (sipInterest <= 50) {
 

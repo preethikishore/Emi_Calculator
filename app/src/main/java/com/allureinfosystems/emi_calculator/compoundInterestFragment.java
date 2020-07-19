@@ -1,6 +1,7 @@
 package com.allureinfosystems.emi_calculator;
 
 import android.app.DatePickerDialog;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -84,7 +85,6 @@ public class compoundInterestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_compound_interest, container, false);
-
         spinnerCompoundingFrequency =rootView.findViewById(R.id.compound_spinner_compounding_frequency);
         selectDate = rootView.findViewById(R.id.compound_date_of_investment_value);
         buttonGet = rootView.findViewById(R.id.compound_buttongetdate);

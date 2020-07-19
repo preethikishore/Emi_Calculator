@@ -61,7 +61,7 @@
 
             <TextView
                 android:id="@+id/rdRecyclerCaptilizedInterest"
-                android:text="@string/rd_recycler_heading_capitilized_interest"
+                android:text="@string/rd_recycler_head_capitalized_interest"
                 style="@style/style_recycler_view_textview" />
 
             <TextView
