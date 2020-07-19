@@ -50,7 +50,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
     private AdView mAdView;
 
-    DecimalFormat df = new DecimalFormat("####0.00");
+    DecimalFormat df = new DecimalFormat("####0.0");
     Double interestSum = 0.0;
     Double emiTotalPayment  = 0.0;
     CommonFuns commonFuns = new CommonFuns();
@@ -172,9 +172,9 @@ public class EmiCalculatorActivity extends AppCompatActivity {
                             intent.putExtra("emiDataset", emidataDataset);
                             intent.putExtra("inerestSum", interestSum);
                             intent.putExtra("emiTotalPayText", emiTotalPayment);
-                            intent.putExtra("emiPrinciple", p);
-                            intent.putExtra("emiInterest", r * 1200);
-                            intent.putExtra("emiperiod", n);
+                            intent.putExtra("emiPrinciple", principleAmount);
+                            intent.putExtra("emiInterest", interestVaule);
+                            intent.putExtra("emiperiod", termValue);
                             intent.putExtra("emiValue", emi);
                             v.getContext().startActivity(intent);
                             if (mInterstitialAd.isLoaded()) {
@@ -240,7 +240,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
 
 
     private void statsCalc() {
-        Double principleAmount =ParseDouble(String.valueOf(principle.getText()));
+        Double principleAmount = ParseDouble(String.valueOf(principle.getText()));
         Double interestRate = ParseDouble(String.valueOf(interest.getText()));
         Double   tenureValue = ParseDouble(String.valueOf(term.getText()));
         r = interestRate /1200;

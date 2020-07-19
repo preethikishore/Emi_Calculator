@@ -405,12 +405,10 @@ public class LoanComparisonActivity extends AppCompatActivity {
                         loanTotalPayTwo.setText(df.format(totalPayTwoValue));
 
                         // emi Difference
-                        emiDifference = Math.abs(emiOne) - Math.abs(emiTwo);
+                        emiDifference = Math.abs(emiOne - emiTwo);
                         loanEmiDifference.setText(df.format(emiDifference));
-                        totalPayDifference = (long) (Math.abs(totalPayOneValue) - Math.abs(totalPayTwoValue));
-                        if (totalPayDifference < 0) {
-                            totalPayDifference = totalPayDifference * -1;
-                        }
+                        totalPayDifference = (long) (Math.abs(totalPayOneValue - totalPayTwoValue));
+
                         loanTotalPaymentDifference.setText(df.format((totalPayDifference)));
                     }
                 }

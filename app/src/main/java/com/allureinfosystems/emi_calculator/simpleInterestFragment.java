@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -57,10 +58,10 @@ public class simpleInterestFragment extends Fragment {
     private String depositInterval;
     private TextView maturityText;
     private double investmentAmountValue;
-
+    final DecimalFormat df = new DecimalFormat("####0.0");
 
     private Button buttonReset;
-    Boolean status;
+    Boolean status = false;
     String selectedTenureMode;
     MessageComment messageComment = new MessageComment();
     ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
@@ -278,13 +279,13 @@ public class simpleInterestFragment extends Fragment {
       }
 
       siInvestmentAmount.setText(String.valueOf(Amount));
-      maturityText.setText(String.valueOf(investmentAmountValue));
+      maturityText.setText(String.valueOf(df.format(investmentAmountValue)));
       siInvestmentDate.setText(Current);
       siMaturityDate.setText(maturity);
 
-      siInvestmentAmount.setText(String.valueOf(depositAmount));
-      maturityText.setText(String.valueOf(futureValue));
-      siTotalInterest.setText(String.valueOf(totalInterest));
+      siInvestmentAmount.setText(String.valueOf(df.format(depositAmount)));
+      maturityText.setText(String.valueOf(df.format(futureValue)));
+      siTotalInterest.setText(String.valueOf(df.format(totalInterest)));
       siInvestmentDate.setText(Current);
       siMaturityDate.setText(maturity);
 

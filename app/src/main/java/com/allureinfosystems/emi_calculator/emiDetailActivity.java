@@ -38,7 +38,7 @@ public class emiDetailActivity extends AppCompatActivity {
     private TextView interestRate;
     private TextView period;
     private TextView emiMonthly;
-    DecimalFormat df = new DecimalFormat("####0.00");
+    DecimalFormat df = new DecimalFormat("####0.0");
     private DrawerLayout drawer;
 
     @Override

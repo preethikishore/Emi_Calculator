@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 public class GstActivity extends AppCompatActivity {
@@ -45,6 +46,7 @@ public class GstActivity extends AppCompatActivity {
     MessageComment messageComment = new MessageComment();
     public Button shareButton;
     public Button gstReset;
+    DecimalFormat df = new DecimalFormat("####0.00");
 
     String[] items = new String[]{
             "ADD GST","REMOVE GST"
@@ -169,7 +171,7 @@ public class GstActivity extends AppCompatActivity {
                 String spinnerValue = gstSpinnerData.getSelectedItem().toString();
                 animationActivity.animation(v);
                 inputAmount = ParseDouble(String.valueOf(amount_text.getText()));
-                Double otherOptionValue = Double.valueOf((String.valueOf(textOthersOption.getText())));
+                Double otherOptionValue = ParseDouble((String.valueOf(textOthersOption.getText())));
 
 
                 if (inputAmount > 0) {
@@ -181,7 +183,7 @@ public class GstActivity extends AppCompatActivity {
 
                             if(otherOptionValue >0) {
 
-                                selectedvalue = Double.valueOf((String.valueOf(textOthersOption.getText())));
+                                selectedvalue = ParseDouble((String.valueOf(textOthersOption.getText())));
                                 gstValue = inputAmount * selectedvalue / 100;
                                 netGstCalculatedValue = inputAmount + gstValue;
                             }
@@ -201,9 +203,10 @@ public class GstActivity extends AppCompatActivity {
                         if (status == true) {
                             if(otherOptionValue >0) {
 
-                                selectedvalue = Double.valueOf((String.valueOf(textOthersOption.getText())));
-                                gstValue = inputAmount * selectedvalue / 100;
-                                netGstCalculatedValue = inputAmount - gstValue;
+                                selectedvalue = ParseDouble((String.valueOf(textOthersOption.getText())));
+                                netGstCalculatedValue = inputAmount;
+                                gstValue = netGstCalculatedValue - (netGstCalculatedValue/(1+selectedvalue/100));
+                                inputAmount = netGstCalculatedValue/(1+selectedvalue/100);
                             }
                             else
                             {
@@ -212,16 +215,17 @@ public class GstActivity extends AppCompatActivity {
                             }
 
                         } else {
-                            gstValue = inputAmount * selectedvalue / 100;
-                            netGstCalculatedValue = inputAmount - gstValue;
+                            netGstCalculatedValue = inputAmount;
+                            gstValue = netGstCalculatedValue - (netGstCalculatedValue/(1+selectedvalue/100));
+                            inputAmount = netGstCalculatedValue/(1+selectedvalue/100);
 
                         }
 
 
                     }
-                    orginalCost.setText(String.valueOf(inputAmount));
-                    netGstValue.setText(String.valueOf(netGstCalculatedValue));
-                    gstPrice.setText(String.valueOf(gstValue));
+                    orginalCost.setText(df.format(inputAmount));
+                    netGstValue.setText(df.format(netGstCalculatedValue));
+                    gstPrice.setText(df.format(gstValue));
 
 
                 }

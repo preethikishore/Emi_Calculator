@@ -23,6 +23,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -72,6 +80,8 @@ public class RdCalculatorActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private Button shareButton ;
     private Button resetButton;
+    private InterstitialAd mInterstitialAd;
+    private AdView mAdView;
 
     MessageComment messageComment = new MessageComment();
 
@@ -108,6 +118,15 @@ public class RdCalculatorActivity extends AppCompatActivity {
                 , R.string.navigation_drawer_open, R.string.navigation_drawer_open);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         rdInputAmountValue = findViewById(R.id.rdDepositAmountValue);
         rdRateOfInterestValue = findViewById(R.id.rdInterestValue);
@@ -128,10 +147,11 @@ public class RdCalculatorActivity extends AppCompatActivity {
         rdSelectDate.setText(currentDate);
         shareButton = findViewById(R.id.rdButtonShare);
         shareButton.setVisibility(View.INVISIBLE);
-        resetButton = findViewById(R.id.fdButtonReset);
+        resetButton = findViewById(R.id.rdButtonReset);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                animationActivity.animation(v);
                 clear(v);
             }
         });
@@ -197,6 +217,11 @@ public class RdCalculatorActivity extends AppCompatActivity {
                                 Intent intent = new Intent(v.getContext(), RdSatatisticsActivity.class);
                                 intent.putExtra("rdDataset", rddataDataset);
                                 v.getContext().startActivity(intent);
+                                if (mInterstitialAd.isLoaded()) {
+                                    mInterstitialAd.show();
+                                } else {
+                                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                                }
                             }
                             else
                             {
@@ -210,6 +235,11 @@ public class RdCalculatorActivity extends AppCompatActivity {
                               Intent intent = new Intent(v.getContext(), RdSatatisticsActivity.class);
                               intent.putExtra("rdDataset", rddataDataset);
                               v.getContext().startActivity(intent);
+                              if (mInterstitialAd.isLoaded()) {
+                                  mInterstitialAd.show();
+                              } else {
+                                  Log.d("TAG", "The interstitial wasn't loaded yet.");
+                              }
 
                           }else
                           {

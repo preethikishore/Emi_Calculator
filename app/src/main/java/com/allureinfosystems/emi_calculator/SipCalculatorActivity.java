@@ -12,6 +12,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,14 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -73,7 +82,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     String deposit_interval;
-
+    private InterstitialAd mInterstitialAd;
 
     DecimalFormat decimal = new DecimalFormat("####0.0");
 
@@ -117,6 +126,17 @@ public class SipCalculatorActivity extends AppCompatActivity {
                 , R.string.navigation_drawer_open, R.string.navigation_drawer_open);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
 
         sipSpinnerDepositFrequency = findViewById(R.id.sipDepositFrequecy);
         sipSelectDate = findViewById(R.id.sipInvestDate);
@@ -208,6 +228,11 @@ public class SipCalculatorActivity extends AppCompatActivity {
                                 Intent intent = new Intent(v.getContext(), SipStatisticsActivity.class);
                                 intent.putExtra("sipDataset", sipdataDataset);
                                 v.getContext().startActivity(intent);
+                                if (mInterstitialAd.isLoaded()) {
+                                    mInterstitialAd.show();
+                                } else {
+                                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                                }
                             } else {
                                 Toast.makeText(SipCalculatorActivity.this, messageComment.messageYearComment, Toast.LENGTH_SHORT).show();
                             }
@@ -217,6 +242,11 @@ public class SipCalculatorActivity extends AppCompatActivity {
                                 Intent intent = new Intent(v.getContext(), SipStatisticsActivity.class);
                                 intent.putExtra("sipDataset", sipdataDataset);
                                 v.getContext().startActivity(intent);
+                                if (mInterstitialAd.isLoaded()) {
+                                    mInterstitialAd.show();
+                                } else {
+                                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                                }
                             } else {
                                 Toast.makeText(SipCalculatorActivity.this, messageComment.messagePeroidMonth, Toast.LENGTH_SHORT).show();
                             }

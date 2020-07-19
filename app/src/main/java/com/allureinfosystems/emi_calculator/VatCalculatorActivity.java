@@ -235,7 +235,7 @@ public class VatCalculatorActivity extends AppCompatActivity {
             if (status == true) {
                 if(vatOtherValue > 0) {
 
-                    selectedvalue = Double.parseDouble((String.valueOf(vatOtherText.getText())));
+                    selectedvalue = ParseDouble((String.valueOf(vatOtherText.getText())));
                     vatPrice = inputAmount * selectedvalue / 100;
                     netPrice = inputAmount + vatPrice;
                 }
@@ -255,9 +255,12 @@ public class VatCalculatorActivity extends AppCompatActivity {
 
             if (status == true) {
                 if(vatOtherValue > 0) {
-                    selectedvalue = Double.valueOf((String.valueOf(vatOtherText.getText())));
-                    vatPrice = inputAmount * selectedvalue / 100;
-                    netPrice = inputAmount - vatPrice;
+                    selectedvalue = ParseDouble((String.valueOf(vatOtherText.getText())));
+
+                    netPrice = inputAmount;
+                    vatPrice = netPrice - (netPrice/(1+selectedvalue/100));
+                    inputAmount = netPrice/(1+selectedvalue/100);
+
                 }
                 else
                 {
@@ -266,15 +269,16 @@ public class VatCalculatorActivity extends AppCompatActivity {
                 }
             } else {
 
-                vatPrice = inputAmount * selectedvalue / 100;
-                netPrice = inputAmount - vatPrice;
+                netPrice = inputAmount;
+                vatPrice = netPrice - (netPrice/(1+selectedvalue/100));
+                inputAmount = netPrice/(1+selectedvalue/100);
 
             }
 
         }
-        orginalCost.setText(String.valueOf(inputAmount));
-        netPriceValue.setText(String.valueOf(netPrice));
-        vatPriceText.setText(String.valueOf(vatPrice));
+        orginalCost.setText(df.format(inputAmount));
+        netPriceValue.setText(df.format(netPrice));
+        vatPriceText.setText(df.format(vatPrice));
     }
     else
     {

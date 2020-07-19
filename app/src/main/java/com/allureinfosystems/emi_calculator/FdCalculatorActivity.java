@@ -180,8 +180,6 @@ public class FdCalculatorActivity extends AppCompatActivity {
 
              //   Double   inputInterestAmount = ParseDouble(String.valueOf(fdRateOfInterest.getText()));
                 animationActivity.animation(v);
-
-
                 Double inputAmountValue = ParseDouble(String.valueOf(inputDepositAmount.getText()));
                 Double   inputInterestAmountValue = ParseDouble(String.valueOf(fdRateOfInterest.getText()));
                 int fdYearValue = (int) ParseDouble(fdTermYear.getText().toString());
@@ -368,13 +366,10 @@ public class FdCalculatorActivity extends AppCompatActivity {
         c.add(Calendar.YEAR, fdYear);
         SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
         String maturity = sdf1.format(c.getTime());
-        Log.d("Maturiy Date ", maturity);
         c.add(Calendar.MONTH, fdMonth);
         maturity = sdf1.format(c.getTime());
-        Log.d("Maturiy Date ", maturity);
         c.add(Calendar.DAY_OF_MONTH, fdDay);
         maturity = sdf1.format(c.getTime());
-        Log.d("Maturiy Date ", maturity);
 
         Double i = tenure;
         Double interestPayout = 0.0;
@@ -383,8 +378,6 @@ public class FdCalculatorActivity extends AppCompatActivity {
         int quarterCounter = 0;
         Double amount = 0.0;
 
-        System.out.println("inputAmount : " + inputAmount);
-        System.out.println("i : " + i);
         amount += inputAmount;
         fddataDataset = new ArrayList<HashMap<String, String>>();
 
@@ -394,7 +387,6 @@ public class FdCalculatorActivity extends AppCompatActivity {
             c.add(Calendar.MONTH, 1);
             String date = sdf1.format(c.getTime());
 
-            System.out.println("i : " + i);
             if (i > 1)
                 interestPayout = amount * (interestPercent / 12);
             else
@@ -406,33 +398,52 @@ public class FdCalculatorActivity extends AppCompatActivity {
 
                 if (quarterCounter == 3) {
                     amount += capitalizedInterest;
+                    fdmap = new HashMap<>();
+                    fdmap.put("fdDate", date);
+                    fdmap.put("fdInterestAmount", String.valueOf(decimal.format(interestPayout)));
+                    fdmap.put("fdCaptilzedInterest", String.valueOf(decimal.format(capitalizedInterest)));
+                    fdmap.put("fdBalance", String.valueOf(decimal.format(amount)));
+                    fddataDataset.add(fdmap);
                     capitalizedInterest = 0.0;
                     quarterCounter = 0;
                 } else {
-                    System.out.println("i : " + i);
-                    if (i > 1)
+
+                    if (i > 1) {
                         amount += 0;
+                        fdmap = new HashMap<>();
+                        int defaultCapInterest = 0;
+                        fdmap.put("fdDate", date);
+                        fdmap.put("fdInterestAmount", String.valueOf(decimal.format(interestPayout)));
+                        fdmap.put("fdCaptilzedInterest", String.valueOf(defaultCapInterest));
+                        fdmap.put("fdBalance", String.valueOf(decimal.format(amount)));
+                        fddataDataset.add(fdmap);
+                    }
                     else {
-                        System.out.println("i : " + i);
                         amount += capitalizedInterest;
+                        fdmap = new HashMap<>();
+                        fdmap.put("fdDate", date);
+                        fdmap.put("fdInterestAmount", String.valueOf(decimal.format(interestPayout)));
+                        fdmap.put("fdCaptilzedInterest", String.valueOf(decimal.format(capitalizedInterest)));
+                        fdmap.put("fdBalance", String.valueOf(decimal.format(amount)));
+                        fddataDataset.add(fdmap);
                         capitalizedInterest = 0.0;
                         quarterCounter = 0;
                     }
                 }
 
             }
+            else
+            {
+                fdmap = new HashMap<>();
+                fdmap.put("fdDate", date);
+                fdmap.put("fdInterestAmount", String.valueOf(decimal.format(interestPayout)));
+                fdmap.put("fdCaptilzedInterest", String.valueOf(decimal.format(capitalizedInterest)));
+                fdmap.put("fdBalance", String.valueOf(decimal.format(amount)));
+                fddataDataset.add(fdmap);
+            }
             totalInterest += interestPayout;
 
             i--;
-            fdmap = new HashMap<>();
-            fdmap.put("fdDate", date);
-            fdmap.put("fdInterestAmount", String.valueOf(decimal.format(interestPayout)));
-            fdmap.put("fdCaptilzedInterest", String.valueOf(decimal.format(capitalizedInterest)));
-            fdmap.put("fdBalance", String.valueOf(decimal.format(amount)));
-            fddataDataset.add(fdmap);
-
-
-            System.out.println("amount : " + amount);
         } while (i > 0);
 
         fdMaturityDate.setVisibility(View.VISIBLE);

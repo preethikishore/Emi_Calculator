@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -58,11 +59,12 @@ public class compoundInterestFragment extends Fragment {
     private TextView ciTotalInterest;
     private EditText depositWithdrawAmount;
     private Double monthlyAmount;
-    Boolean status;
-    Boolean statusDeposit;
+    Boolean status = false;
+    Boolean statusDeposit = false;
     String selectedTenureMode;
     String selectedOptionWD;
     double totalInterest;
+    final DecimalFormat df = new DecimalFormat("####0.0");
     ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
 
     private double investmentAmountValue;
@@ -264,11 +266,9 @@ public class compoundInterestFragment extends Fragment {
         currentDate = (String) selectDate.getText();
         for(int i =1; i<=termInMonths; i++)
         {
-            depositAmount +=monthlyDeposit;
             futureValue+=monthlyDeposit;
-            if (futureValue < 0)
-                futureValue = 0;
             if (futureValue > 0) {
+                depositAmount +=monthlyDeposit;
                 interestCalc = futureValue * interestRate;
                 totalInterest += interestCalc;
                 capitalizedInterest += interestCalc;
@@ -306,13 +306,18 @@ public class compoundInterestFragment extends Fragment {
                     }
                 }
             }
+            else
+            {
+                futureValue=0;
+                depositAmount =0;
+            }
         }
 
 
 
-        investmentValueText.setText(String.valueOf(depositAmount));
-        maturityText.setText(String.valueOf(futureValue));
-        ciTotalInterest.setText(String.valueOf(totalInterest));
+        investmentValueText.setText(df.format(depositAmount));
+        maturityText.setText(df.format(futureValue));
+        ciTotalInterest.setText(df.format(totalInterest));
         investmentDate.setText(Current);
         maturityDateValue.setText(maturity);
 
@@ -335,6 +340,7 @@ public class compoundInterestFragment extends Fragment {
         depositWithdrawAmount.setText("");
         investmentValueText.setText("0");
         maturityText.setText("0");
+        investmentValueText.setText("0");
         investmentDate.setVisibility(View.INVISIBLE);
         maturityDateValue.setVisibility(View.INVISIBLE);
     }

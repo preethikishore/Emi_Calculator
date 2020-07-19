@@ -12,6 +12,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
 
 import java.text.DecimalFormat;
@@ -61,7 +67,7 @@ public class PPFActivity extends AppCompatActivity {
     Double amount ;
     Double totalAmountPay;
     int yearStatus = 0;
-
+    private InterstitialAd mInterstitialAd;
     String deposit_interval;
     GetDate getdate = new GetDate();
     SpinnerData spinnerData = new SpinnerData();
@@ -120,7 +126,15 @@ public class PPFActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
         ppfReset = findViewById(R.id.ppfReset);
         ppfSpinnerMaturity = findViewById(R.id.ppfMaturityDuration);
         ppfSpinnerDepositMode = findViewById(R.id.ppfSpinnerDepositMode);
@@ -232,6 +246,12 @@ public class PPFActivity extends AppCompatActivity {
                       Intent intent = new Intent(v.getContext(), ppfStatisticsActivity.class);
                       intent.putExtra("ppfDataset", ppfDataset);
                       v.getContext().startActivity(intent);
+
+                      if (mInterstitialAd.isLoaded()) {
+                          mInterstitialAd.show();
+                      } else {
+                          Log.d("TAG", "The interstitial wasn't loaded yet.");
+                      }
                   }
                   else
                   {
