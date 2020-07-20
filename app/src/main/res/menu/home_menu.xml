@@ -3,24 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
-        <item android:id="@+id/help"
-            android:icon="@drawable/homepage"
-            android:title="Help"/>
-        <item android:id="@+id/setting"
-            android:icon="@drawable/homepage"
-            android:title="Setting"/>
+        <item
+            android:id="@+id/help"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="@string/about_option_head" />
+        <item
+            android:id="@+id/setting"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="@string/credit_option_head" />
 
     </group>
-    <item android:title="communicate">
-        <menu>
-        <item android:id="@+id/share"
-            android:icon="@drawable/menu_icon"
-            android:title="Share">
-        </item>
 
-        </menu>
-
-
-    </item>
 
 </menu>

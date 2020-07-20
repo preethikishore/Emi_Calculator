@@ -15,6 +15,11 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -28,6 +33,7 @@ public class FdStatisticsActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager fdLayoutManager;
     private ArrayList<? extends HashMap<String, String>> items;
     private DrawerLayout drawer;
+    private AdView mAdView;
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +68,17 @@ public class FdStatisticsActivity extends AppCompatActivity {
                 , R.string.navigation_drawer_open, R.string.navigation_drawer_open);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+         //add advertisement
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
 
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+       // End Advertisement
         items = (ArrayList<? extends HashMap<String, String>>) getIntent().getSerializableExtra("fdDataset");
         fdRecyclerView = (RecyclerView) findViewById(R.id.fd_data_recyclerview);
         fdRecyclerView.setHasFixedSize(true);

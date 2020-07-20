@@ -272,7 +272,7 @@ public class LoanComparisonActivity extends AppCompatActivity {
                 animationActivity.animation(v);
 
 
-                showDetailsOne =true;
+                showDetailsOne = true;
                 showDetailsTwo =  true;
                 Double interestOneText = ParseDouble(String.valueOf(loanInterestOne.getText()));
                 Double tenureOne = ParseDouble(String.valueOf(loanPeriodOne.getText()));

@@ -83,7 +83,6 @@ public class RdCalculatorActivity extends AppCompatActivity {
     private Button shareButton ;
     private Button resetButton;
     private InterstitialAd mInterstitialAd;
-    private AdView mAdView;
 
     MessageComment messageComment = new MessageComment();
 
@@ -122,13 +121,14 @@ public class RdCalculatorActivity extends AppCompatActivity {
                 , R.string.navigation_drawer_open, R.string.navigation_drawer_open);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-8564435465482275/3880292929");
         AdRequest adRequest = new AdRequest.Builder().build();
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
@@ -160,7 +160,6 @@ public class RdCalculatorActivity extends AppCompatActivity {
             }
         });
 
-
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,7 +170,6 @@ public class RdCalculatorActivity extends AppCompatActivity {
                 String ShareTenureInput = String.valueOf(rdTenureValue.getText());
                 String ShareMaturity = String.valueOf(maturityAmount);
                 String ShareTotalInterest = String.valueOf(decimal.format(inputAmount));
-
                 String ShareInvestDate = String.valueOf(rdSelectDate.getText());
                 String ShareMaturityDate = String.valueOf(rdDateOfMaturity.getText());
                 String ShareStatus;
@@ -196,7 +194,6 @@ public class RdCalculatorActivity extends AppCompatActivity {
                 share.putExtra(Intent.EXTRA_TEXT, contentShare);
                 startActivity(Intent.createChooser(share, "Share via"));
 
-               System.out.println("clicked");
 
 
             }
@@ -217,7 +214,7 @@ public class RdCalculatorActivity extends AppCompatActivity {
 
                             if(tenureValue <= 40)
                             {
-
+                                rdCalculation();
                                 Intent intent = new Intent(v.getContext(), RdSatatisticsActivity.class);
                                 intent.putExtra("rdDataset", rddataDataset);
                                 v.getContext().startActivity(intent);
@@ -236,6 +233,7 @@ public class RdCalculatorActivity extends AppCompatActivity {
                         {
                           if(tenureValue <= 480)
                           {
+                              rdCalculation();
                               Intent intent = new Intent(v.getContext(), RdSatatisticsActivity.class);
                               intent.putExtra("rdDataset", rddataDataset);
                               v.getContext().startActivity(intent);
@@ -338,7 +336,6 @@ public class RdCalculatorActivity extends AppCompatActivity {
                 if (rdRadioButton.isChecked()) {
 
                   selectedTenureMode = (String) rdRadioButton.getText();
-                  System.out.println("Selected tenure  mode :"  +selectedTenureMode);
 
                     if (selectedTenureMode.equals("Year"))
                     {
@@ -375,7 +372,6 @@ public class RdCalculatorActivity extends AppCompatActivity {
         inputAmount = ParseDouble(String.valueOf(rdInputAmountValue.getText()));
         interestPercent =   interestPercent /100/12;
 
-       // interestPercent = (Double.parseDouble(rdRateOfInterestValue.getText().toString()) / 100) / 12 ;
         int tenure = (int)ParseDouble(rdTenureValue.getText().toString());
         maturityDateCalculation.caculateMaturityDate(status,tenure,rdDateOfInvestment,rdDateOfMaturity,rdCalculatedInvestDate);
         String rdDate = (String) rdSelectDate.getText();

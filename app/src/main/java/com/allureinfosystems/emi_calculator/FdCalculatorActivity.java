@@ -92,7 +92,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
             }
         });
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-8564435465482275/3880292929");
         AdRequest adRequest = new AdRequest.Builder().build();
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
@@ -117,6 +117,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
         fdButtonStatistics = findViewById(R.id.fdButtonStatistics);
         drawer = findViewById(R.id.fd_drawer_layout);
         shareFDButton = findViewById(R.id.fdShareResult);
+        shareFDButton.setVisibility(View.INVISIBLE);
         fdReset = findViewById(R.id.fdButtonReset);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         selectDate.setText(currentDate);
@@ -201,6 +202,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
                                 if( fdDayValue <=14600) {
                                     if(tenureValue <= 480)
                                     {
+                                        fdCalculation();
                                         Intent intent = new Intent(v.getContext(), FdStatisticsActivity.class);
                                         intent.putExtra("fdDataset", fddataDataset);
                                         v.getContext().startActivity(intent);
@@ -265,6 +267,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 animationActivity.animation(v);
+                shareFDButton.setVisibility(View.VISIBLE);
                 Double inputAmountValue = ParseDouble(String.valueOf(inputDepositAmount.getText()));
                 Double   inputInterestAmountValue = ParseDouble(String.valueOf(fdRateOfInterest.getText()));
                 int fdYearValue = (int) ParseDouble(fdTermYear.getText().toString());
@@ -282,6 +285,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
                             if( fdDayValue <=14600) {
                                 if(tenureValue <= 480)
                                 {
+
                                     fdCalculation();
                                 }else
                                 {

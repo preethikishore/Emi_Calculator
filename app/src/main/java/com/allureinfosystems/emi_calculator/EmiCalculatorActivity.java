@@ -73,7 +73,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
             }
         });
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-8564435465482275/3880292929");
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -143,6 +143,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
                 if (principleAmount > 0 && interestVaue > 0 && termValue > 0)  {
                     if (interestVaue <= 50) {
                         if (termValue <= 40) {
+
                             statsCalc();
                         } else {
                             Toast.makeText(EmiCalculatorActivity.this, messageComment.messageYearComment, Toast.LENGTH_SHORT).show();
@@ -294,7 +295,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
             try {
                 return Double.parseDouble(strNumber);
             } catch(Exception e) {
-                return -1;   // or some value to mark this field is wrong. or make a function validates field first ...
+                return -1;
             }
         }
         else return 0;

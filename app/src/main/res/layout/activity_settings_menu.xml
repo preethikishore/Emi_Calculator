@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:padding="6dp"
-                android:text="Settings"
+                android:text="Credit"
                 android:textAlignment="center"
                 android:textColor="@color/white_text_color"
                 android:textSize="24sp"
@@ -42,16 +42,14 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="1. Settings Page Home page will display the district level and state level details based on users current location.\n\n
-2. Click on each District for District Level Data.\n\n
-3. Refresh Button will help to update the Data.\n\n
-4. Global Button will display consolidated global statistics as well as country data.\n\n
-5. For detailed country data, click on the country.\n\n
-6. National Button will display consolidated Indian statistics as well as state level data.\n\n
-5. Clicking on the state will give detailed state statistics as well as district level data."
+                android:text="1. Icons made by https://www.flaticon.com/authors/freepik from https://www.flaticon.com/\n\n
+2. Images from https://pixabay.com/\n\n
+3. Privacy Policy : https://sites.google.com/view/allureinfosysprivacypolicy.\n\n
+PS: Please contact Allure Info Systems (allureinfosys@gmail.com) for any Details."
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

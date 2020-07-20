@@ -185,24 +185,46 @@ public class compoundInterestFragment extends Fragment {
                 animationActivity.animation(v);
                 investmentDate.setVisibility(View.VISIBLE);
                 maturityDateValue.setVisibility(View.VISIBLE);
-                Double  CIinterestValue = ParseDouble(String.valueOf(interestRateText.getText()));
-                Double   CIterm = ParseDouble(String.valueOf(termText.getText()));
-                if(CIinterestValue <= 50) {
-                    if(CIterm <=40) {
-                        calculateCompoudInterest();
-                    }
-                    else
-                    {
-                        Toast.makeText(getActivity(), messageComment.messageYearComment, Toast.LENGTH_SHORT).show();
+                Double principleTextValue = ParseDouble(String.valueOf(principleText.getText()));
+                Double CIinterestValue = ParseDouble(String.valueOf(interestRateText.getText()));
+                Double CIterm = ParseDouble(String.valueOf(termText.getText()));
+                Double monthlyAmount = ParseDouble(String.valueOf(depositWithdrawAmount.getText()));
+                if (principleTextValue > 0 && CIinterestValue > 0 && CIterm > 0 && monthlyAmount > 0) {
+
+                    if (CIinterestValue <= 50) {
+
+                        if(status) {
+
+                            if (CIterm <= 40) {
+                                calculateCompoudInterest();
+                            } else {
+                                Toast.makeText(getActivity(), messageComment.messageYearComment, Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        }else
+                        {
+                            if (CIterm <= 480) {
+                                calculateCompoudInterest();
+                            } else {
+                                Toast.makeText(getActivity(), messageComment.messagePeroidMonth, Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        }
+
+
+                    } else {
+                        Toast.makeText(getActivity(), messageComment.messageInterestRateComment, Toast.LENGTH_SHORT).show();
 
                     }
-                }
-                else
+                }else
                 {
-                    Toast.makeText(getActivity(), messageComment.messageInterestRateComment, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), messageComment.messageFillFeild, Toast.LENGTH_SHORT).show();
 
                 }
             }
+
         });
 
 
@@ -237,7 +259,7 @@ public class compoundInterestFragment extends Fragment {
         if (statusDeposit)
             monthlyDeposit = monthlyAmount;
         else
-            monthlyDeposit = monthlyAmount*-1;
+            monthlyDeposit = monthlyAmount * -1;
 
 
         if(status)
@@ -264,7 +286,7 @@ public class compoundInterestFragment extends Fragment {
         String maturity = sdf1.format(c.getTime());
 
         currentDate = (String) selectDate.getText();
-        for(int i =1; i<=termInMonths; i++)
+        for(int i =1; i <= termInMonths; i++)
         {
             futureValue+=monthlyDeposit;
             if (futureValue > 0) {
@@ -308,8 +330,8 @@ public class compoundInterestFragment extends Fragment {
             }
             else
             {
-                futureValue=0;
-                depositAmount =0;
+                futureValue = 0;
+                depositAmount = 0;
             }
         }
 

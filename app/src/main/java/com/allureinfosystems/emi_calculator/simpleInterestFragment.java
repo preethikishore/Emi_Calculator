@@ -148,15 +148,30 @@ public class simpleInterestFragment extends Fragment {
               Double  SIinterestValue = ParseDouble(String.valueOf(siInterestValue.getText()));
               Double   SIterm = ParseDouble(String.valueOf(siSavingTerm.getText()));
               principleAmount = ParseDouble(String.valueOf(siPrincipleAmount.getText()));
-              if(principleAmount > 0 && SIinterestValue >0 && SIterm>0) {
+              if(principleAmount > 0 && SIinterestValue > 0 && SIterm > 0) {
                   if (SIinterestValue <= 50) {
 
-                      if (SIterm <= 40) {
-                          calculate_simple_interest_Amount();
-                      } else {
-                          Toast.makeText(getActivity(), messageComment.messageYearComment, Toast.LENGTH_SHORT).show();
+                      if(status) {
+
+                          if (SIterm <= 40) {
+                              calculate_simple_interest_Amount();
+                          } else {
+                              Toast.makeText(getActivity(), messageComment.messageYearComment, Toast.LENGTH_SHORT).show();
+
+                          }
+
+                      }else
+                      {
+                          if (SIterm <= 480) {
+                              calculate_simple_interest_Amount();
+                          } else {
+                              Toast.makeText(getActivity(), messageComment.messagePeroidMonth, Toast.LENGTH_SHORT).show();
+
+                          }
 
                       }
+
+
                   } else {
                       Toast.makeText(getActivity(), messageComment.messageInterestRateComment, Toast.LENGTH_SHORT).show();
 
@@ -278,10 +293,7 @@ public class simpleInterestFragment extends Fragment {
           }
       }
 
-      siInvestmentAmount.setText(String.valueOf(Amount));
-      maturityText.setText(String.valueOf(df.format(investmentAmountValue)));
-      siInvestmentDate.setText(Current);
-      siMaturityDate.setText(maturity);
+
 
       siInvestmentAmount.setText(String.valueOf(df.format(depositAmount)));
       maturityText.setText(String.valueOf(df.format(futureValue)));

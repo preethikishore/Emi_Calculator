@@ -2,12 +2,14 @@ package com.allureinfosystems.emi_calculator;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -47,7 +49,6 @@ public class MainActivity extends AppCompatActivity  {
     private AdView mAdView;
     private DrawerLayout drawer;
 
-    private InterstitialAd mInterstitialAd;
     ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity  {
         buttonGstCalc = findViewById(R.id.buttonGstCalc);
         buttonVat = findViewById(R.id.buttonVat);
         drawer = findViewById(R.id.drawer_layout);
+
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -97,12 +99,11 @@ public class MainActivity extends AppCompatActivity  {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
 
         buttonEmi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,12 +112,7 @@ public class MainActivity extends AppCompatActivity  {
                 animationActivity.animation(v);
                 Intent intent = new Intent(MainActivity.this, EmiCalculatorActivity.class);
                 startActivity(intent);
-//                if (mInterstitialAd.isLoaded()) {
-//                    mInterstitialAd.show();
-//                } else {
-//                    Log.d("TAG", "The interstitial wasn't loaded yet.");
-//                }
-            }
+         }
         });
 
         buttonLoan.setOnClickListener(new View.OnClickListener() {
@@ -202,18 +198,25 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
+    public void onBackPressed() {
 
+        if (drawer.isDrawerOpen(GravityCompat.START))
+        {
+            drawer.closeDrawer(GravityCompat.START);
+        }else {
 
-    public void OnBackPressed()
-    {
-     if (drawer.isDrawerOpen(GravityCompat.START))
-     {
-         drawer.closeDrawer(GravityCompat.START);
-     }else
-     {
-         super.onBackPressed();
-     }
+            new AlertDialog.Builder(this)
+                    .setTitle("Really Exit?")
+                    .setMessage("Are you sure you want to exit?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            MainActivity.super.onBackPressed();
+                            finishAffinity();
+                        }
+                    }).create().show();
+        }
     }
 
 

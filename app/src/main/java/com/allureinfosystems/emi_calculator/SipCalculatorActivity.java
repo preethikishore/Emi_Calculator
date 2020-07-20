@@ -136,7 +136,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
             }
         });
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-8564435465482275/3880292929");
         AdRequest adRequest = new AdRequest.Builder().build();
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 

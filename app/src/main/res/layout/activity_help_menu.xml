@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:padding="6dp"
-                android:text="Help"
+                android:text="Emi Calculator"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
@@ -42,13 +42,14 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="1. Home page will display the district level and state level details based on users current location.\n\n
-2. Click on each District for District Level Data.\n\n
-3. Refresh Button will help to update the Data.\n\n
-4. Global Button will display consolidated global statistics as well as country data.\n\n
-5. For detailed country data, click on the country.\n\n
-6. National Button will display consolidated Indian statistics as well as state level data.\n\n
-5. Clicking on the state will give detailed state statistics as well as district level data."
+                android:text=" The EMI Calculator app is a great solution for calculating financial calculations such as EMI, FD, RD, PPF and SIP .\n\n
+It also displays detailed chart of each calculation and give user an opportunity to share their calculations.\n\n
+\n\n
+Support :\n
+For any Support , queries and improvements regarding to this application please contact:.\n\n
+\n
+allureinfosys@gmail.com\n
+Thank You!!!"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
         </LinearLayout>

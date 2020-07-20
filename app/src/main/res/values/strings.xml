@@ -109,4 +109,8 @@
     <string name="Withdraw">Withdraw</string>
     <string name="simple_interest_calculation">Simple Interest Calculation</string>
     <string name="compound_interest_calculation">Compound Interest calculation</string>
+    <string name="help_option_head">Help</string>
+    <string name="setting_option_head">Setting</string>
+    <string name="about_option_head">About</string>
+    <string name="credit_option_head">Credit</string>
 </resources>
