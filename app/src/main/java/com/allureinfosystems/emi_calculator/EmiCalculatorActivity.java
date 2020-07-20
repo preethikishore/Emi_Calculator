@@ -10,9 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,31 +32,26 @@ import java.util.HashMap;
 
 public class EmiCalculatorActivity extends AppCompatActivity {
 
-    private Button buttonStatistices;
-    private Button emiCalculate;
     private TextView emiMonthly;
     private TextView emiTotalPaymentText;
     private EditText principle;
     private EditText interest;
     private EditText term;
     private Button shareButton;
-    private Button resetButton;
-    double emi;
-    double p;
-    double n;
-    double r;
+    private double emi;
+    private double n;
+    private double r;
     private ArrayList<HashMap<String, String>> emidataDataset;
-    HashMap<String, String> map;
+    private HashMap<String, String> map;
     private InterstitialAd mInterstitialAd;
-    private AdView mAdView;
 
-    DecimalFormat df = new DecimalFormat("####0.0");
-    Double interestSum = 0.0;
-    Double emiTotalPayment  = 0.0;
-    CommonFuns commonFuns = new CommonFuns();
-    ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
+    private DecimalFormat df = new DecimalFormat("####0.0");
+    private Double interestSum = 0.0;
+    private Double emiTotalPayment  = 0.0;
+    private CommonFuns commonFuns = new CommonFuns();
+    private ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     private DrawerLayout drawer;
-    MessageComment messageComment = new MessageComment();
+    private MessageComment messageComment = new MessageComment();
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +67,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
         });
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-8564435465482275/3880292929");
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -84,17 +77,17 @@ public class EmiCalculatorActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        buttonStatistices = findViewById(R.id.buttonStatistics);
+        Button buttonStatistices = findViewById(R.id.buttonStatistics);
 
         principle = findViewById(R.id.emi_edit_principle);
         interest = findViewById(R.id.emi_edit_interest);
         term = findViewById(R.id.emi_edit_year);
-        emiCalculate = findViewById(R.id.emi_buttonCalculate);
+        Button emiCalculate = findViewById(R.id.emi_buttonCalculate);
         emiMonthly = findViewById(R.id.textViewMonthllyemi);
 
         emiTotalPaymentText = findViewById(R.id.emiTotalPayValue);
         shareButton = findViewById(R.id.emi_share_result);
-        resetButton = findViewById(R.id.emiButtonReset);
+        Button resetButton = findViewById(R.id.emiButtonReset);
         shareButton.setVisibility(View.INVISIBLE);
         drawer = findViewById(R.id.emi_drawer_layout);
 
@@ -128,16 +121,16 @@ public class EmiCalculatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 animationActivity.animation(v);
-                clear(v);
+                clear();
             }
         });
 
         emiCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Double interestVaue = ParseDouble(String.valueOf(interest.getText()));
-                Double termValue = ParseDouble(String.valueOf(term.getText()));
-                Double principleAmount = ParseDouble(String.valueOf(principle.getText()));
+                double interestVaue = ParseDouble(String.valueOf(interest.getText()));
+                double termValue = ParseDouble(String.valueOf(term.getText()));
+                double principleAmount = ParseDouble(String.valueOf(principle.getText()));
                 animationActivity.animation(v);
                 shareButton.setVisibility(View.VISIBLE);
                 if (principleAmount > 0 && interestVaue > 0 && termValue > 0)  {
@@ -246,9 +239,11 @@ public class EmiCalculatorActivity extends AppCompatActivity {
 
 
     private void statsCalc() {
+        emiTotalPayment = 0.0;
+        interestSum = 0.0;
         Double principleAmount = ParseDouble(String.valueOf(principle.getText()));
-        Double interestRate = ParseDouble(String.valueOf(interest.getText()));
-        Double   tenureValue = ParseDouble(String.valueOf(term.getText()));
+        double interestRate = ParseDouble(String.valueOf(interest.getText()));
+        double tenureValue = ParseDouble(String.valueOf(term.getText()));
         r = interestRate /1200;
         n = tenureValue * 12;
         emi = Math.ceil(((principleAmount * r) * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
@@ -290,7 +285,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
             emiTotalPaymentText.setText(df.format(emiTotalPayment));
         }
 
-    double ParseDouble(String strNumber) {
+    private double ParseDouble(String strNumber) {
         if (strNumber != null && strNumber.length() > 0) {
             try {
                 return Double.parseDouble(strNumber);
@@ -300,7 +295,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
         }
         else return 0;
     }
-    public void clear(View v) {
+    private void clear() {
         principle.setText("");
         interest.setText("");
         term.setText("");

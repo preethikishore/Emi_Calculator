@@ -22,8 +22,7 @@ public class SipDataAdapter  extends RecyclerView.Adapter<SipDataAdapter.MyViewH
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.sip_data, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        return new MyViewHolder(v);
     }
 
     @Override
@@ -43,13 +42,13 @@ public class SipDataAdapter  extends RecyclerView.Adapter<SipDataAdapter.MyViewH
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView sipDate;
-        public TextView sipInterestAmount;
-        public TextView sipBalance;
-        public TextView sipCapitalizedInterest;
+        TextView sipDate;
+        TextView sipInterestAmount;
+        TextView sipBalance;
+        TextView sipCapitalizedInterest;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
             sipDate = (TextView) itemView.findViewById(R.id.sipRecyclerInvestDate);
             sipInterestAmount = (TextView) itemView.findViewById(R.id.sipRecyclerInterestAmount);

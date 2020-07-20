@@ -22,7 +22,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
@@ -30,25 +29,8 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 
 public class emiDetailActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<? extends HashMap<String, String>> items;
-    private double interestSumValue;
-    private double totalPayValue;
-    private double loanAmountValue;
-    private double emiInterestValue;
-    private double emiPeriodValue;
-    private double emiValue;
-    private TextView interestSum;
-    private TextView totalPay;
-    private TextView loanAmount;
-    private TextView interestRate;
-    private TextView period;
-    private TextView emiMonthly;
-    DecimalFormat df = new DecimalFormat("####0.0");
+    private DecimalFormat df = new DecimalFormat("####0.0");
     private DrawerLayout drawer;
-    private AdView mAdView;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -90,25 +72,26 @@ public class emiDetailActivity extends AppCompatActivity {
             }
         });
 
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
 
-        items = (ArrayList<? extends HashMap<String, String>>) getIntent().getSerializableExtra("emiDataset");
-        interestSumValue = getIntent().getDoubleExtra("inerestSum",0);
-        totalPayValue = getIntent().getDoubleExtra("emiTotalPayText",0);
-        loanAmountValue = getIntent().getDoubleExtra("emiPrinciple",0);
-        emiInterestValue = getIntent().getDoubleExtra("emiInterest",0);
-        emiPeriodValue = getIntent().getDoubleExtra("emiperiod",0);
-        emiValue = getIntent().getDoubleExtra("emiValue",0);
-        recyclerView = (RecyclerView) findViewById(R.id.emi_data_recyclerview);
-        emiMonthly = findViewById(R.id.emiMonthlyEmiValue);
-        loanAmount = findViewById(R.id.emitextAmountValue);
-        interestRate = findViewById(R.id.emiDetailInterestValue);
-        period = findViewById( R.id.emiDetailPeriodValue);
-        totalPay = findViewById(R.id.emiTotalPaymentText);
-        interestSum = findViewById(R.id.emiTotalInterestValue);
+        //noinspection unchecked
+        ArrayList<? extends HashMap<String, String>> items = (ArrayList<? extends HashMap<String, String>>) getIntent().getSerializableExtra("emiDataset");
+        double interestSumValue = getIntent().getDoubleExtra("inerestSum", 0);
+        double totalPayValue = getIntent().getDoubleExtra("emiTotalPayText", 0);
+        double loanAmountValue = getIntent().getDoubleExtra("emiPrinciple", 0);
+        double emiInterestValue = getIntent().getDoubleExtra("emiInterest", 0);
+        double emiPeriodValue = getIntent().getDoubleExtra("emiperiod", 0);
+        double emiValue = getIntent().getDoubleExtra("emiValue", 0);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.emi_data_recyclerview);
+        TextView emiMonthly = findViewById(R.id.emiMonthlyEmiValue);
+        TextView loanAmount = findViewById(R.id.emitextAmountValue);
+        TextView interestRate = findViewById(R.id.emiDetailInterestValue);
+        TextView period = findViewById(R.id.emiDetailPeriodValue);
+        TextView totalPay = findViewById(R.id.emiTotalPaymentText);
+        TextView interestSum = findViewById(R.id.emiTotalInterestValue);
 
 
         loanAmount.setText(df.format(loanAmountValue));
@@ -120,9 +103,9 @@ public class emiDetailActivity extends AppCompatActivity {
 
 
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new EmidataAdapter(items);
+        RecyclerView.Adapter mAdapter = new EmidataAdapter(items);
         recyclerView.setAdapter(mAdapter);
 
     }

@@ -18,7 +18,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/page_color">
 
@@ -54,7 +54,6 @@
 
                 <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
                     <TextView
-                        android:id="@+id/textPrinciple"
                         style="@style/style_pageViewer_textView"
                         android:text="@string/deposit_amount_textview" />
 
@@ -66,7 +65,8 @@
                 <EditText
                     android:id="@+id/rdDepositAmountValue"
                     style="@style/style_default_edit_text"
-                  />
+                    tools:ignore="LabelFor"
+                    android:importantForAutofill="no" />
 
             </LinearLayout>
             <!--        Text and edit Vertical View Principle end -->
@@ -79,7 +79,6 @@
                 <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
 
                     <TextView
-                        android:id="@+id/textInterest"
                         style="@style/style_pageViewer_textView"
                         android:text="@string/rate_of_interest_text"
                         />
@@ -88,7 +87,7 @@
                     <TextView
 
                         style="@style/style_pageViewer_hinttextView"
-                        android:text="Max 50% per annum"
+                        android:text="@string/max_50_per_annum"
                         />
 
 
@@ -98,7 +97,8 @@
                 <EditText
                     android:id="@+id/rdInterestValue"
                     style="@style/style_default_edit_text"
-                    />
+                    tools:ignore="LabelFor"
+                    android:importantForAutofill="no" />
 
 
             </LinearLayout>
@@ -125,21 +125,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginLeft="@dimen/radio_margin">
-
-                        <RadioButton
-                            android:id="@+id/rdRadioButtonYear"
-                            style="@style/style_radio_button"
-                            android:checked="true"
-                            android:text="@string/sip_radio_button_year" />
-
-                        <RadioButton
-                            android:id="@+id/rdRadioButtonMonth"
-                            style="@style/style_radio_button"
-                            android:checked="true"
-                            android:text="@string/sip_radio_button_month" />
+                        android:layout_marginStart="@dimen/radio_margin">
 
 
+                    <RadioButton
+                        android:id="@+id/rdRadioButtonYear"
+                        style="@style/style_radio_button"
+                        android:checked="true"
+                        android:text="@string/sip_radio_button_year" />
+
+                    <RadioButton
+                        android:id="@+id/rdRadioButtonMonth"
+                        style="@style/style_radio_button"
+                        android:checked="true"
+                        android:text="@string/sip_radio_button_month" />
                     </RadioGroup>
 
 
@@ -150,7 +149,8 @@
                 <EditText
                     android:id="@+id/rdTenureValue"
                     style="@style/style_default_edit_text"
-                    />
+                    tools:ignore="LabelFor"
+                    android:importantForAutofill="no" />
 
 
             </LinearLayout>
@@ -175,7 +175,8 @@
                     <TextView
                         android:id="@+id/rdDateOfInvestment"
                         android:layout_width="wrap_content"
-                        style="@style/style_pageViewer_textView"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white_text_color"
 
                         />
 
@@ -185,10 +186,10 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_text"
                         android:textColor="@color/cardview_dark_background"
-                        android:textSize="10dp"
+                        android:textSize="10sp"
                         android:text="@string/get_date"
                         android:textAllCaps="false"
-                      />
+                        tools:ignore="PrivateResource" />
 
                 </LinearLayout>
 
@@ -232,9 +233,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/resultlayout"
-                style="@style/style_pagerview_linear_vertical">
+            <LinearLayout style="@style/style_pagerview_linear_vertical">
 
 
                 <TextView
@@ -267,7 +266,8 @@
                 <LinearLayout android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    android:baselineAligned="false">
 
 
                     <LinearLayout
@@ -279,12 +279,14 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                                app:srcCompat="@android:drawable/ic_menu_my_calendar"
+                                android:contentDescription="@string/calender_date" />
 
 
                             <TextView
@@ -311,17 +313,19 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                                app:srcCompat="@android:drawable/ic_menu_my_calendar"
+                                android:contentDescription="@string/calender_date"/>
 
                             <TextView
                                 style="@style/style_pageViewer_textView"
                                 android:layout_width="wrap_content"
-                                android:text="@string/investment_date_result"
+                                android:text="@string/maturity_date_result"
                                 />
 
                         </LinearLayout>

@@ -16,7 +16,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/page_color"
         android:orientation="vertical">
 
@@ -59,13 +59,13 @@
                 android:id="@+id/simple_interest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Simple Interest" />
+                android:text="@string/simple_interest" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/compound_interest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Compound Interest" />
+                android:text="@string/compound_interest" />
 
         </com.google.android.material.tabs.TabLayout>
 

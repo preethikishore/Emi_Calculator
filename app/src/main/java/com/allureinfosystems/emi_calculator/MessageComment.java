@@ -1,6 +1,6 @@
 package com.allureinfosystems.emi_calculator;
 
-public class MessageComment {
+class MessageComment {
 
     String messageInterestRateComment = "Please Enter Interest up to 50%";
     String messageYearComment = "Please Enter Year Value  Less than 40";

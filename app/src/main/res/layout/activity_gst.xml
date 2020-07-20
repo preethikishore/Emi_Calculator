@@ -50,7 +50,6 @@
 
                 <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
                     <TextView
-                        android:id="@+id/textPrinciple"
                         style="@style/style_pageViewer_textView"
                         android:text="@string/deposit_amount_textview" />
 
@@ -62,7 +61,8 @@
                 <EditText
                     android:id="@+id/gst_calculation_amount_value"
                     style="@style/style_default_edit_text"
-                    />
+                    tools:ignore="LabelFor"
+                    android:importantForAutofill="no" />
 
             </LinearLayout>
             <!--        Text and edit Vertical View Amount end -->
@@ -75,7 +75,7 @@
                 android:id="@+id/gstradioButtonGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/radio_margin">
+                android:layout_marginStart="@dimen/radio_margin">
 
                 <RadioButton
                     android:id="@+id/radio_button_first_option"
@@ -112,8 +112,6 @@
                     style="@style/style_radio_button"
                     android:checked="false"
                     android:text="@string/radio_others_option" />
-
-
             </RadioGroup>
 
 
@@ -126,12 +124,14 @@
                 android:id="@+id/gst_radio_Others_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/radio_margin"
+                android:layout_marginStart="@dimen/radio_margin"
                 android:inputType="number|numberDecimal"
-                android:text="@string/edit_text_default_value"
+                android:hint="@string/hint_default_value"
                 android:textColor="@color/white_text_color"
                 android:textColorHint="@color/white_text_color"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
 
             <LinearLayout style="@style/style_pagerview_linear_vertical">
 
@@ -185,9 +185,7 @@
 
 
 
-            <LinearLayout
-                android:id="@+id/resultlayout"
-                style="@style/style_pagerview_linear_vertical">
+            <LinearLayout style="@style/style_pagerview_linear_vertical">
 
                 <!--RESULT Layout Start INVESTMENT AND 6 VERTICAL START   -->
 
@@ -233,8 +231,6 @@
                 android:id="@+id/adView"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
                 android:layout_gravity="center"
                 ads:adSize="BANNER"
                 ads:adUnitId="ca-app-pub-8564435465482275/4071864619">

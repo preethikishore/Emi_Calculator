@@ -20,14 +20,18 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 public class ppfStatisticsActivity extends AppCompatActivity {
 
-    private RecyclerView ppfRecyclerView;
-    private RecyclerView.Adapter ppfAdapter;
-    private RecyclerView.LayoutManager ppfLayoutManager;
-    private ArrayList<? extends HashMap<String, String>> ppfItems;
     private DrawerLayout drawer;
+    private AdView mAdView;
 
+    @SuppressWarnings("unchecked")
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +67,22 @@ public class ppfStatisticsActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
 
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
-        ppfItems = (ArrayList<? extends HashMap<String, String>>) getIntent().getSerializableExtra("ppfDataset");
-        ppfRecyclerView = (RecyclerView) findViewById(R.id.ppf_data_recyclerview);
+        ArrayList<? extends HashMap<String, String>> ppfItems = (ArrayList<? extends HashMap<String, String>>) getIntent().getSerializableExtra("ppfDataset");
+        RecyclerView ppfRecyclerView = (RecyclerView) findViewById(R.id.ppf_data_recyclerview);
         ppfRecyclerView.setHasFixedSize(true);
-        ppfLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager ppfLayoutManager = new LinearLayoutManager(getApplicationContext());
         ppfRecyclerView.setLayoutManager(ppfLayoutManager);
-        ppfAdapter = new PPFDataAdapter(ppfItems);
+        RecyclerView.Adapter ppfAdapter = new PPFDataAdapter(ppfItems);
         ppfRecyclerView.setAdapter(ppfAdapter);
 
 

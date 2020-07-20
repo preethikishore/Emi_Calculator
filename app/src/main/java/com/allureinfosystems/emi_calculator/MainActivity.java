@@ -13,23 +13,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuInflater;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupMenu;
-
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -37,19 +30,9 @@ public class MainActivity extends AppCompatActivity  {
 
     //implements NavigationView.OnNavigationItemSelectedListener
 
-    private Button buttonEmi;
-    private Button buttonLoan;
-    private Button buttonInterestCal;
-    private Button buttonFdCal;
-    private Button buttonRdCal;
-    private Button buttonSipCal;
-    private Button buttonPPFCal;
-    private Button buttonGstCalc;
-    private Button buttonVat;
-    private AdView mAdView;
     private DrawerLayout drawer;
 
-    ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
+    private ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +41,15 @@ public class MainActivity extends AppCompatActivity  {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        buttonEmi = findViewById(R.id.btnemi);
-        buttonLoan = findViewById(R.id.buttonloan);
-        buttonInterestCal = findViewById(R.id.button_interest);
-        buttonFdCal = findViewById(R.id.button_fd_calc);
-        buttonRdCal = findViewById(R.id.button_rd_calc);
-        buttonSipCal = findViewById(R.id.buttonSip);
-        buttonPPFCal = findViewById(R.id.buttonPPFCal);
-        buttonGstCalc = findViewById(R.id.buttonGstCalc);
-        buttonVat = findViewById(R.id.buttonVat);
+        Button buttonEmi = findViewById(R.id.btnemi);
+        Button buttonLoan = findViewById(R.id.buttonloan);
+        Button buttonInterestCal = findViewById(R.id.button_interest);
+        Button buttonFdCal = findViewById(R.id.button_fd_calc);
+        Button buttonRdCal = findViewById(R.id.button_rd_calc);
+        Button buttonSipCal = findViewById(R.id.buttonSip);
+        Button buttonPPFCal = findViewById(R.id.buttonPPFCal);
+        Button buttonGstCalc = findViewById(R.id.buttonGstCalc);
+        Button buttonVat = findViewById(R.id.buttonVat);
         drawer = findViewById(R.id.drawer_layout);
 
 
@@ -100,7 +83,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 

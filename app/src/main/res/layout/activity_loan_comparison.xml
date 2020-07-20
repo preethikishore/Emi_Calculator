@@ -94,10 +94,11 @@
 
                         <RadioGroup
                             android:id="@+id/loanOneRadioGroup"
-                            android:layout_width="88dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="2dp"
+                            android:layout_marginStart="2dp"
                             android:orientation="vertical">
+
 
                             <RadioButton
                                 android:id="@+id/loanRadioButtonYear"
@@ -164,9 +165,9 @@
                         android:text="@string/loan_period_textview" />
                         <RadioGroup
                             android:id="@+id/loanTwoRadioGroup"
-                            android:layout_width="88dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="2dp"
+                            android:layout_marginStart="2dp"
                             android:orientation="vertical">
 
                             <RadioButton

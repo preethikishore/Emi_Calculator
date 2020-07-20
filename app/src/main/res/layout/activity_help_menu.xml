@@ -8,7 +8,6 @@
    >
 
     <ScrollView
-        android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -19,38 +18,29 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/helpTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:padding="6dp"
-                android:text="Emi Calculator"
+                android:text="@string/emi_calculator_head"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:text=" The EMI Calculator app is a great solution for calculating financial calculations such as EMI, FD, RD, PPF and SIP .\n\n
-It also displays detailed chart of each calculation and give user an opportunity to share their calculations.\n\n
-\n\n
-Support :\n
-For any Support , queries and improvements regarding to this application please contact:.\n\n
-\n
-allureinfosys@gmail.com\n
-Thank You!!!"
-                android:textColor="#FFFFFF"
+                android:text="@string/adout_meaasage"
+                android:textColor="@color/white_text_color"
                 android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>

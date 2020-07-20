@@ -26,14 +26,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
-import com.google.android.material.navigation.NavigationView;
+
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -44,13 +44,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Objects;
 
 public class SipCalculatorActivity extends AppCompatActivity {
 
     private Spinner sipSpinnerDepositFrequency;
     private DatePickerDialog datePickerDialog;
-    private Button sipButtonDateGet;
-    private Button sipButtonCalculate;
     private TextView sipSelectDate;
     private RadioGroup sipRadioGroup;
     private RadioButton sipRadioButton;
@@ -61,39 +60,34 @@ public class SipCalculatorActivity extends AppCompatActivity {
     private TextView sipDateOfInvestment;
     private TextView sipMaturityDate;
     private TextView sipInvestAmount;
-    private TextView sipInterest;
     private TextView sipMaturityValue;
     private TextView sipTotalInterest;
     private Button sipShareResult;
-    GetDate getdate = new GetDate();
-    SpinnerData spinnerData = new SpinnerData();
+    private GetDate getdate = new GetDate();
+    private SpinnerData spinnerData = new SpinnerData();
 
     private double inputAmount;
-    private double interestPercent;
-    private int tenure;
     private double maturityAmt = 0;
     private double investmentAmt = 0;
     private double interestAmt = 0;
     private String selected_tenure_mode;
-    boolean status;
-    private Button sipReset;
+    private boolean status;
     private ArrayList<HashMap<String, String>> sipdataDataset;
-    HashMap<String, String> sipmap;
-    MaturityDateCalculation maturityDateCalculation = new MaturityDateCalculation();
-    private Button sipButtonStat;
+    private HashMap<String, String> sipmap;
+    private MaturityDateCalculation maturityDateCalculation = new MaturityDateCalculation();
     private DrawerLayout drawer;
-    ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
-    String deposit_interval;
+    private ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
+    private String deposit_interval;
     private InterstitialAd mInterstitialAd;
 
-    DecimalFormat decimal = new DecimalFormat("####0.0");
+    private DecimalFormat decimal = new DecimalFormat("####0.0");
 
-    String[] items = new String[]{
+    private String[] items = new String[]{
             "Yearly", "Monthly", "Quarterly", "Half Yearly", "Bi-Monthly", "Thrice-Yearly"
     };
-    MessageComment messageComment = new MessageComment();
+    private MessageComment messageComment = new MessageComment();
 
-    @SuppressLint("SourceLockedOrientationActivity")
+    @SuppressLint({"SourceLockedOrientationActivity", "CutPasteId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,7 +137,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
 
         sipSpinnerDepositFrequency = findViewById(R.id.sipDepositFrequecy);
         sipSelectDate = findViewById(R.id.sipInvestDate);
-        sipButtonDateGet = findViewById(R.id.sipButtonDateGet);
+        Button sipButtonDateGet = findViewById(R.id.sipButtonDateGet);
         sipAmountOfDeposit = findViewById(R.id.sipInputAmoutValue);
         sipRateOfInterest = findViewById(R.id.sipRateOfInterestValue);
         tenureInput = findViewById(R.id.sipTenureValue);
@@ -151,15 +145,15 @@ public class SipCalculatorActivity extends AppCompatActivity {
         sipDateOfInvestment = findViewById(R.id.sipInvestMentCalculatedDate);
         sipMaturityDate = findViewById(R.id.sipCalculatedMaturityValue);
         sipInvestAmount = findViewById(R.id.sipInvestAmountResult);
-        sipInterest = findViewById(R.id.sipRateOfInterestValue);
+        TextView sipInterest = findViewById(R.id.sipRateOfInterestValue);
         sipMaturityValue = findViewById(R.id.sipMaturityValue);
-        sipButtonCalculate = findViewById(R.id.sipButtonCalculate);
+        Button sipButtonCalculate = findViewById(R.id.sipButtonCalculate);
         sipTotalInterest = findViewById(R.id.sip_calculator_total_interest_value);
-        sipButtonStat = findViewById(R.id.sipButtonStati);
+        Button sipButtonStat = findViewById(R.id.sipButtonStati);
         sipShareResult = findViewById(R.id.sip_share_result);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         sipSelectDate.setText(currentDate);
-        sipReset = findViewById(R.id.sipButtonReset);
+        Button sipReset = findViewById(R.id.sipButtonReset);
         sipShareResult.setVisibility(View.INVISIBLE);
 
         final DecimalFormat df = new DecimalFormat("####0.00");
@@ -168,7 +162,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 sipShareResult.setVisibility(View.INVISIBLE);
                 animationActivity.animation(v);
-                clear(v);
+                clear();
             }
         });
 
@@ -180,8 +174,8 @@ public class SipCalculatorActivity extends AppCompatActivity {
                 String ShareInputAmount = String.valueOf(sipAmountOfDeposit.getText());
                 String ShareRateOfInterest = String.valueOf(sipRateOfInterest.getText());
                 String ShareTenureInput = String.valueOf(tenureInput.getText());
-                String ShareMaturity = String.valueOf(maturityAmount);
-                String ShareTotalInterest = String.valueOf(df.format(interestAmt));
+                String ShareMaturity = maturityAmount;
+                String ShareTotalInterest = df.format(interestAmt);
                 String ShareDepositMode = deposit_interval;
                 String ShareInvestDate = String.valueOf(sipSelectDate.getText());
                 String ShareMaturityDate = String.valueOf(sipMaturityDate.getText());
@@ -281,13 +275,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
 
                     selected_tenure_mode = (String) sipRadioButton.getText();
 
-                    if (selected_tenure_mode.equals("Year")) {
-                        status = true;
-
-                    } else {
-                        status = false;
-
-                    }
+                    status = selected_tenure_mode.equals("Year");
 
                 }
 
@@ -362,7 +350,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
 
 
         deposit_interval = sipSpinnerDepositFrequency.getSelectedItem().toString();
-        tenure = (int) ParseDouble(String.valueOf(tenureInput.getText()));
+        int tenure = (int) ParseDouble(String.valueOf(tenureInput.getText()));
 
         maturityDateCalculation.caculateMaturityDate(status, tenure, sipSelectDate, sipMaturityDate, sipDateOfInvestment);
 
@@ -375,7 +363,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
 
         try {
-            c.setTime(sdf.parse(rdDate));
+            c.setTime(Objects.requireNonNull(sdf.parse(rdDate)));
 
         } catch (ParseException e) {
 
@@ -383,7 +371,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
         }
 
         inputAmount = ParseDouble(String.valueOf(sipAmountOfDeposit.getText()));
-        interestPercent = ParseDouble(String.valueOf(sipRateOfInterest.getText()));
+        double interestPercent = ParseDouble(String.valueOf(sipRateOfInterest.getText()));
         interestPercent = (interestPercent / 100) / 12;
 
         sipdataDataset = new ArrayList<HashMap<String, String>>();
@@ -432,7 +420,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
 
     }
 
-    double ParseDouble(String strNumber) {
+    private double ParseDouble(String strNumber) {
         if (strNumber != null && strNumber.length() > 0) {
             try {
                 return Double.parseDouble(strNumber);
@@ -441,7 +429,7 @@ public class SipCalculatorActivity extends AppCompatActivity {
             }
         } else return 0;
     }
-    public void clear(View v) {
+    private void clear() {
         sipAmountOfDeposit.setText("");
         sipRateOfInterest.setText("");
         tenureInput.setText("");

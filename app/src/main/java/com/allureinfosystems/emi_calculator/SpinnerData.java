@@ -1,13 +1,12 @@
 package com.allureinfosystems.emi_calculator;
 
 import android.content.Context;
-import android.graphics.Color;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +16,7 @@ import java.util.List;
 public class SpinnerData extends AppCompatActivity {
 
 
+    @SuppressWarnings("unchecked")
     public void initspinnerfooter(android.widget.Spinner spinner_Deposit_Frequency, Context context, List items) {
 
 

@@ -2,7 +2,7 @@ package com.allureinfosystems.emi_calculator;
 
 import android.view.View;
 
-public class ButtonAnimationActivity {
+class ButtonAnimationActivity {
 
     public void animation(final View v)
     {

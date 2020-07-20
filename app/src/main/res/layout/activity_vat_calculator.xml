@@ -17,7 +17,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/page_color">
 
@@ -51,7 +51,6 @@
 
                 <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
                     <TextView
-                        android:id="@+id/textPrinciple"
                         style="@style/style_pageViewer_textView"
                         android:text="@string/deposit_amount_textview" />
 
@@ -62,7 +61,9 @@
 
                 <EditText
                     android:id="@+id/vat_calculation_amount_value"
-                    style="@style/style_default_edit_text" />
+                    style="@style/style_default_edit_text"
+                    tools:ignore="LabelFor"
+                    android:importantForAutofill="no" />
 
             </LinearLayout>
             <!--        Text and edit Vertical View Amount end -->
@@ -75,8 +76,7 @@
                 android:id="@+id/vatRadioButtonGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/radio_margin">
-
+                android:layout_marginStart="@dimen/radio_margin">
                 <RadioButton
                     android:id="@+id/radio_button_first_option"
                     style="@style/style_radio_button"
@@ -126,11 +126,12 @@
                 android:id="@+id/vat_radio_Others_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/radio_margin"
+                android:layout_marginStart="@dimen/radio_margin"
                 android:hint="@string/hint_default_value"
                 android:inputType="number|numberDecimal"
                 android:textColor="@color/white_text_color"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:importantForAutofill="no" />
 
             <LinearLayout style="@style/style_pagerview_linear_vertical">
 
@@ -186,9 +187,7 @@
 
 
 
-            <LinearLayout
-                android:id="@+id/resultlayout"
-                style="@style/style_pagerview_linear_vertical">
+            <LinearLayout style="@style/style_pagerview_linear_vertical">
 
                 <!--RESULT Layout Start INVESTMENT AND 6 VERTICAL START   -->
 

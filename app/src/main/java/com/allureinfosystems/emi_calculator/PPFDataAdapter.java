@@ -24,8 +24,7 @@ public class PPFDataAdapter extends RecyclerView.Adapter<PPFDataAdapter.MyViewHo
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.ppf_data, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        return new MyViewHolder(v);
     }
 
     @Override
@@ -45,13 +44,13 @@ public class PPFDataAdapter extends RecyclerView.Adapter<PPFDataAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView ppfDate;
-        public TextView ppfinterestAmount;
-        public TextView ppfBalance;
-        public TextView ppfCapitalizedInterest;
+        TextView ppfDate;
+        TextView ppfinterestAmount;
+        TextView ppfBalance;
+        TextView ppfCapitalizedInterest;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
             ppfDate = (TextView) itemView.findViewById(R.id.ppfRecyclerInvestDate);
             ppfinterestAmount = (TextView) itemView.findViewById(R.id.ppfRecyclerInterestAmount);

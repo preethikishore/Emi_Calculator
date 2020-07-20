@@ -28,12 +28,9 @@ import java.util.HashMap;
 public class FdStatisticsActivity extends AppCompatActivity {
 
 
-    private RecyclerView fdRecyclerView;
-    private RecyclerView.Adapter fdAdapter;
-    private RecyclerView.LayoutManager fdLayoutManager;
-    private ArrayList<? extends HashMap<String, String>> items;
     private DrawerLayout drawer;
-    private AdView mAdView;
+
+    @SuppressWarnings("unchecked")
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,17 +72,17 @@ public class FdStatisticsActivity extends AppCompatActivity {
             }
         });
 
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
        // End Advertisement
-        items = (ArrayList<? extends HashMap<String, String>>) getIntent().getSerializableExtra("fdDataset");
-        fdRecyclerView = (RecyclerView) findViewById(R.id.fd_data_recyclerview);
+        ArrayList<? extends HashMap<String, String>> items = (ArrayList<? extends HashMap<String, String>>) getIntent().getSerializableExtra("fdDataset");
+        RecyclerView fdRecyclerView = (RecyclerView) findViewById(R.id.fd_data_recyclerview);
         fdRecyclerView.setHasFixedSize(true);
-        fdLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager fdLayoutManager = new LinearLayoutManager(getApplicationContext());
         fdRecyclerView.setLayoutManager(fdLayoutManager);
 
-        fdAdapter = new FdDataAdapter(items);
+        RecyclerView.Adapter fdAdapter = new FdDataAdapter(items);
         fdRecyclerView.setAdapter(fdAdapter);
 
 

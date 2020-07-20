@@ -1,14 +1,11 @@
 package com.allureinfosystems.emi_calculator;
 
 import android.app.DatePickerDialog;
-import android.content.pm.ActivityInfo;
+
 import android.os.Build;
 import android.os.Bundle;
-
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +23,13 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class compoundInterestFragment extends Fragment {
+ public class compoundInterestFragment extends Fragment {
 
 
     private android.widget.Spinner spinnerCompoundingFrequency;
@@ -50,7 +48,6 @@ public class compoundInterestFragment extends Fragment {
     private double term;
     private String depositInterval;
     private String currentDate;
-    private String maturityDate;
     private TextView maturityText;
     private TextView investmentValueText;
     private TextView investmentDate;
@@ -60,21 +57,20 @@ public class compoundInterestFragment extends Fragment {
     private TextView ciTotalInterest;
     private EditText depositWithdrawAmount;
     private Double monthlyAmount;
-    Boolean status = false;
-    Boolean statusDeposit = false;
-    String selectedTenureMode;
-    String selectedOptionWD;
-    double totalInterest;
-    final DecimalFormat df = new DecimalFormat("####0.0");
-    ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
+    private Boolean status = false;
+    private Boolean statusDeposit = false;
+    private String selectedTenureMode;
+    private String selectedOptionWD;
+    private double totalInterest;
+    private final DecimalFormat df = new DecimalFormat("####0.0");
+    private ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
 
-    private double investmentAmountValue;
-    String[] items = new String[]{
+    private String[] items = new String[]{
             "Yearly", "Monthly", "Quarterly", "Half Yearly","Bi-Monthly","Thrice-Yearly"
     };
 
-    GetDate getdate = new GetDate();
-    SpinnerData spinnerData = new SpinnerData();
+    private GetDate getdate  = new GetDate();
+    private SpinnerData spinnerData = new SpinnerData();
 
     public compoundInterestFragment() {
         // Required empty public constructor
@@ -110,23 +106,13 @@ public class compoundInterestFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int radioid = ciRadioGroup.getCheckedRadioButtonId();
                 ciRadiButton = rootView.findViewById(radioid);
-                status = false;
+                //status = false;
 
                 if (ciRadiButton.isChecked()) {
 
                     selectedTenureMode = (String) ciRadiButton.getText();
-                    System.out.println("Selected tenure  mode :"  +selectedTenureMode);
 
-                    if (selectedTenureMode.equals("Year"))
-                    {
-                        status = true;
-
-                    }else
-                    {
-                        status = false;
-
-
-                    }
+                    status = selectedTenureMode.equals("Year");
 
                 }
 
@@ -145,16 +131,7 @@ public class compoundInterestFragment extends Fragment {
                     selectedOptionWD = (String) ciDepoistWithdrawRadioButton.getText();
                     System.out.println("Selected Deposit  mode :"  +selectedOptionWD);
 
-                    if (selectedOptionWD.equals("Deposit"))
-                    {
-                        statusDeposit = true;
-
-                    }else
-                    {
-                        statusDeposit = false;
-
-
-                    }
+                    statusDeposit = selectedOptionWD.equals("Deposit");
 
                 }
 
@@ -165,7 +142,7 @@ public class compoundInterestFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 animationActivity.animation(v);
-                clear(v);
+                clear();
             }
         });
 
@@ -185,10 +162,10 @@ public class compoundInterestFragment extends Fragment {
                 animationActivity.animation(v);
                 investmentDate.setVisibility(View.VISIBLE);
                 maturityDateValue.setVisibility(View.VISIBLE);
-                Double principleTextValue = ParseDouble(String.valueOf(principleText.getText()));
-                Double CIinterestValue = ParseDouble(String.valueOf(interestRateText.getText()));
-                Double CIterm = ParseDouble(String.valueOf(termText.getText()));
-                Double monthlyAmount = ParseDouble(String.valueOf(depositWithdrawAmount.getText()));
+                double principleTextValue = ParseDouble(String.valueOf(principleText.getText()));
+                double CIinterestValue = ParseDouble(String.valueOf(interestRateText.getText()));
+                double CIterm = ParseDouble(String.valueOf(termText.getText()));
+                double monthlyAmount = ParseDouble(String.valueOf(depositWithdrawAmount.getText()));
                 if (principleTextValue > 0 && CIinterestValue > 0 && CIterm > 0 && monthlyAmount > 0) {
 
                     if (CIinterestValue <= 50) {
@@ -234,7 +211,7 @@ public class compoundInterestFragment extends Fragment {
         return rootView;
     }
 
-    public void calculateCompoudInterest()
+    private void calculateCompoudInterest()
     {
 
         principle = ParseDouble(String.valueOf(principleText.getText()));
@@ -245,7 +222,7 @@ public class compoundInterestFragment extends Fragment {
         monthlyAmount = ParseDouble(String.valueOf(depositWithdrawAmount.getText()));
 
         String Current = (String) selectDate.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy",Locale.UK);
         Calendar c = Calendar.getInstance();
         double termInMonths = 0;
         double monthlyDeposit = 0;
@@ -268,7 +245,7 @@ public class compoundInterestFragment extends Fragment {
             termInMonths = term;
 
         try {
-            c.setTime(sdf.parse(Current));
+            c.setTime(Objects.requireNonNull(sdf.parse(Current)));
 
         } catch (ParseException e) {
 
@@ -282,18 +259,23 @@ public class compoundInterestFragment extends Fragment {
         {
             c.add(Calendar.MONTH, termValue);
         }
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy",Locale.UK);
         String maturity = sdf1.format(c.getTime());
 
         currentDate = (String) selectDate.getText();
         for(int i =1; i <= termInMonths; i++)
         {
             futureValue+=monthlyDeposit;
+            System.out.println("futureValue: "+futureValue);
             if (futureValue > 0) {
                 depositAmount +=monthlyDeposit;
+                System.out.println("depositAmount: "+depositAmount);
                 interestCalc = futureValue * interestRate;
+                System.out.println("interestCalc:"+interestCalc);
                 totalInterest += interestCalc;
+                System.out.println("totalInterest: "+totalInterest);
                 capitalizedInterest += interestCalc;
+                System.out.println("capitalizedInterest: "+capitalizedInterest);
 
                 if (depositInterval.equals("Yearly")) {
                     if (i % 12 == 0) {
@@ -335,8 +317,6 @@ public class compoundInterestFragment extends Fragment {
             }
         }
 
-
-
         investmentValueText.setText(df.format(depositAmount));
         maturityText.setText(df.format(futureValue));
         ciTotalInterest.setText(df.format(totalInterest));
@@ -345,7 +325,7 @@ public class compoundInterestFragment extends Fragment {
 
     }
 
-    double ParseDouble(String strNumber) {
+    private double ParseDouble(String strNumber) {
         if (strNumber != null && strNumber.length() > 0) {
             try {
                 return Double.parseDouble(strNumber);
@@ -355,7 +335,7 @@ public class compoundInterestFragment extends Fragment {
         }
         else return 0;
     }
-    public void clear(View v) {
+    private void clear() {
         principleText.setText("");
         interestRateText.setText("");
         termText.setText("");

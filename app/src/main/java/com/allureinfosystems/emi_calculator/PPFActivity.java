@@ -39,47 +39,43 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Objects;
 
 public class PPFActivity extends AppCompatActivity {
 
     private Spinner ppfSpinnerMaturity;
     private Spinner ppfSpinnerDepositMode;
-    private Button ppfButtonGet;
     private DatePickerDialog picker;
     private TextView ppfSelectDate;
     private EditText ppfinputAmount;
     private EditText ppfRateOfInterestValue;
     private TextView ppfMaturityDate;
     private TextView ppfInvestDate;
-    private Button ppfButtonStstsics;
     private TextView ppfInvestAmount;
     private TextView ppftotalInterestValue;
     private TextView ppfMaturityValue;
-    private Button ppfCalculate;
     private Button ppfshareResult;
-    ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
-    String inputMode;
-    private Button ppfReset;
+    private ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
+    private String inputMode;
     private int tenure;
-    private boolean status = true;
-    Double interestPayout ;
-    Double totalInterest  ;
-    Double capitalizedInterest;
-    Double inputAmount ;
-    Double amount ;
-    Double totalAmountPay;
-    int yearStatus = 0;
+    private Double interestPayout ;
+    private Double totalInterest  ;
+    private Double capitalizedInterest;
+    private Double inputAmount ;
+    private Double amount ;
+    private Double totalAmountPay;
+    private int yearStatus = 0;
     private InterstitialAd mInterstitialAd;
-    String deposit_interval;
-    GetDate getdate = new GetDate();
-    SpinnerData spinnerData = new SpinnerData();
-    DecimalFormat decimal = new DecimalFormat("####0.0");
+    private String deposit_interval;
+    private GetDate getdate = new GetDate();
+    private SpinnerData spinnerData = new SpinnerData();
+    private DecimalFormat decimal = new DecimalFormat("####0.0");
     private ArrayList<HashMap<String, String>> ppfDataset;
-    HashMap<String, String> ppfmap;
-    MaturityDateCalculation maturityDateCalculation = new MaturityDateCalculation();
+    private HashMap<String, String> ppfmap;
+    private MaturityDateCalculation maturityDateCalculation = new MaturityDateCalculation();
     private DrawerLayout drawer;
 
-    String[] items = new String[]{
+    private String[] items = new String[]{
             "15 Years",
             "20 Years",
             "25 Years",
@@ -87,7 +83,7 @@ public class PPFActivity extends AppCompatActivity {
 
     };
 
-    String[] modes = new String[]{
+    private String[] modes = new String[]{
             "Fixed Yearly Amount",
             "Fixed Monthly Amount"
     };
@@ -138,20 +134,20 @@ public class PPFActivity extends AppCompatActivity {
         mInterstitialAd.setAdUnitId("ca-app-pub-8564435465482275/3880292929");
         AdRequest adRequest = new AdRequest.Builder().build();
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
-        ppfReset = findViewById(R.id.ppfReset);
+        Button ppfReset = findViewById(R.id.ppfReset);
         ppfSpinnerMaturity = findViewById(R.id.ppfMaturityDuration);
         ppfSpinnerDepositMode = findViewById(R.id.ppfSpinnerDepositMode);
         ppfSelectDate = findViewById(R.id.ppf_date_of_investment_value);
-        ppfButtonGet = findViewById(R.id.ppfButtonGetDate);
+        Button ppfButtonGet = findViewById(R.id.ppfButtonGetDate);
         ppfinputAmount = findViewById(R.id.ppfDepositAmountValue);
         ppfRateOfInterestValue = findViewById(R.id.ppfInterestValue);
         ppfInvestDate = findViewById(R.id.ppfInvestDate);
         ppfMaturityDate = findViewById(R.id.ppfMaturityDate);
-        ppfButtonStstsics = findViewById(R.id.ppfCalcStatistics);
+        Button ppfButtonStstsics = findViewById(R.id.ppfCalcStatistics);
         ppfInvestAmount = findViewById(R.id.ppfInvestAmount);
         ppftotalInterestValue = findViewById(R.id.ppfTotalInterestValue);
         ppfMaturityValue = findViewById(R.id.ppfMaturityValue);
-        ppfCalculate = findViewById(R.id.ppfCalculation);
+        Button ppfCalculate = findViewById(R.id.ppfCalculation);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         ppfSelectDate.setText(currentDate);
         ppfshareResult = findViewById(R.id.ppf_share_result);
@@ -166,8 +162,8 @@ public class PPFActivity extends AppCompatActivity {
 
                 ppfInvestDate.setVisibility(View.VISIBLE);
                 ppfMaturityDate.setVisibility(View.VISIBLE);
-                Double inputAmountValue = ParseDouble(String.valueOf(ppfinputAmount.getText()));
-                Double interestPercentValue = ParseDouble(ppfRateOfInterestValue.getText().toString());
+                double inputAmountValue = ParseDouble(String.valueOf(ppfinputAmount.getText()));
+                double interestPercentValue = ParseDouble(ppfRateOfInterestValue.getText().toString());
 
                 if(inputAmountValue >0 && interestPercentValue >0) {
                     if(interestPercentValue<=50) {
@@ -239,8 +235,8 @@ public class PPFActivity extends AppCompatActivity {
             public void onClick(final View v) {
                 animationActivity.animation(v);
 
-                Double inputAmountValue = ParseDouble(String.valueOf(ppfinputAmount.getText()));
-                Double interestPercentValue = ParseDouble(ppfRateOfInterestValue.getText().toString());
+                double inputAmountValue = ParseDouble(String.valueOf(ppfinputAmount.getText()));
+                double interestPercentValue = ParseDouble(ppfRateOfInterestValue.getText().toString());
 
               if(inputAmountValue >0 && interestPercentValue >0) {
                   if(interestPercentValue<=50) {
@@ -324,13 +320,14 @@ public class PPFActivity extends AppCompatActivity {
         //interestPercent = (Double.parseDouble(ppfRateOfInterestValue.getText().toString()) / 100) / 12 ;
         interestPercent = interestPercent/100/12;
 
+        boolean status = true;
         maturityDateCalculation.caculateMaturityDate(status,tenure,ppfSelectDate,ppfMaturityDate,ppfInvestDate);
         String ppfDate = (String)  ppfSelectDate.getText();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Calendar c = Calendar.getInstance();
 
         try {
-            c.setTime(sdf.parse(ppfDate));
+            c.setTime(Objects.requireNonNull(sdf.parse(ppfDate)));
 
         } catch (ParseException e) {
 
@@ -429,7 +426,7 @@ public class PPFActivity extends AppCompatActivity {
 
 
     }
-    double ParseDouble(String strNumber) {
+    private double ParseDouble(String strNumber) {
         if (strNumber != null && strNumber.length() > 0) {
             try {
                 return Double.parseDouble(strNumber);
@@ -439,7 +436,7 @@ public class PPFActivity extends AppCompatActivity {
         }
         else return 0;
     }
-    public void clear(View v) {
+    private void clear(View v) {
         ppfinputAmount.setText("");
         ppfRateOfInterestValue.setText("");
         ppfInvestAmount.setText("0");

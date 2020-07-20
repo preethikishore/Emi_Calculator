@@ -29,9 +29,9 @@ import java.util.Arrays;
 public class VatCalculatorActivity extends AppCompatActivity {
 
 
-    RadioGroup radioGroup;
-    RadioButton radioButton;
-    Button Calculate;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
+    private Button Calculate;
     private Spinner vatSpinnerData;
     private EditText amountText;
     private EditText vatOtherText;
@@ -39,22 +39,21 @@ public class VatCalculatorActivity extends AppCompatActivity {
     private TextView vatPriceText;
     private double vatPrice;
     private double netPrice;
-    String selectedOption;
-    double selectedvalue = 25.0;
-    boolean status = false;
-    private double inputAmount;
+    private String selectedOption;
+    private double selectedvalue = 25.0;
+    private boolean status = false;
     private TextView netPriceValue;
     private DrawerLayout drawer;
-    public Button shareButton;
-    public Button vatReset;
-    MessageComment messageComment = new MessageComment();
-    ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
-    final DecimalFormat df = new DecimalFormat("####0.0");
+    private Button shareButton;
+    private Button vatReset;
+    private MessageComment messageComment = new MessageComment();
+    private ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
+    private final DecimalFormat df = new DecimalFormat("####0.0");
 
-    String[] items = new String[]{
+    private String[] items = new String[]{
             "ADD GST","REMOVE GST"
     };
-    SpinnerData spinnerData = new SpinnerData();
+    private SpinnerData spinnerData = new SpinnerData();
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,31 +122,6 @@ public class VatCalculatorActivity extends AppCompatActivity {
                         vatOtherText.setVisibility(View.INVISIBLE);
                     }
 
-//                    if(selectedOption.equals("5%"))
-//                    {
-//                        selectedvalue = 5.0;
-//                        status = false;
-//                    }else if(selectedOption.equals("10%"))
-//                    {
-//                        selectedvalue = 10.0;
-//                        status = false;
-//                    }else if(selectedOption.equals("15%"))
-//                    {
-//                        selectedvalue = 15.0;
-//                        status = false;
-//                    }else if(selectedOption.equals("20%"))
-//                    {
-//                        selectedvalue = 20.0;
-//                        status = false;
-//                    }else if(selectedOption.equals("25%"))
-//                    {
-//                        selectedvalue = 25.0;
-//                        status = false;
-//                    }else if(selectedOption.equals( "Others"))
-//                    {
-//                        status = true;
-//                    }
-
                     switch (selectedOption) {
                         case "5%":
                             selectedvalue = 5.0;
@@ -183,7 +157,7 @@ public class VatCalculatorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 animationActivity.animation(v);
                 shareButton.setVisibility(View.INVISIBLE);
-                clear(v);
+                clear();
             }
         });
 
@@ -226,17 +200,17 @@ public class VatCalculatorActivity extends AppCompatActivity {
     }
 
 
-    public void vat_calculate()
+    private void vat_calculate()
     {
 
         String selected_mode =  vatSpinnerData.getSelectedItem().toString();
-        inputAmount =  ParseDouble(String.valueOf(amountText.getText()));
+        double inputAmount = ParseDouble(String.valueOf(amountText.getText()));
         double vatOtherValue =  ParseDouble(String.valueOf(vatOtherText.getText()));
 
     if(inputAmount > 0) {
         if (selected_mode.equals("ADD GST")) {
 
-            if (status == true) {
+            if (status) {
                 if(vatOtherValue > 0) {
 
                     selectedvalue = ParseDouble((String.valueOf(vatOtherText.getText())));
@@ -257,7 +231,7 @@ public class VatCalculatorActivity extends AppCompatActivity {
         } else {
 
 
-            if (status == true) {
+            if (status) {
                 if(vatOtherValue > 0) {
                     selectedvalue = ParseDouble((String.valueOf(vatOtherText.getText())));
 
@@ -291,7 +265,7 @@ public class VatCalculatorActivity extends AppCompatActivity {
     }
 
     }
-    double ParseDouble(String strNumber) {
+    private double ParseDouble(String strNumber) {
         if (strNumber != null && strNumber.length() > 0) {
             try {
                 return Double.parseDouble(strNumber);
@@ -301,7 +275,7 @@ public class VatCalculatorActivity extends AppCompatActivity {
         }
         else return 0;
     }
-    public void clear(View v) {
+    private void clear() {
         amountText.setText("");
         vatOtherText.setText("");
         orginalCost.setText("0");

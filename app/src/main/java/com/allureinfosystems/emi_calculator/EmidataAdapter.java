@@ -28,8 +28,7 @@ public class EmidataAdapter extends RecyclerView.Adapter<EmidataAdapter.MyViewHo
     public EmidataAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.emidata, parent, false);
-        EmidataAdapter.MyViewHolder vh = new EmidataAdapter.MyViewHolder(v);
-        return vh;
+        return new MyViewHolder(v);
     }
 
 
@@ -53,13 +52,13 @@ public class EmidataAdapter extends RecyclerView.Adapter<EmidataAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
 
-        public TextView period;
-        public TextView principlePaid;
-        public TextView interestCalc;
-        public TextView principleRemains;
+        TextView period;
+        TextView principlePaid;
+        TextView interestCalc;
+        TextView principleRemains;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
             period = (TextView) itemView.findViewById(R.id.recyclerPeriod);
             principlePaid = (TextView) itemView.findViewById(R.id.recyclerPrinciplePaid);

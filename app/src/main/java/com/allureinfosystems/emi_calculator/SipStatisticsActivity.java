@@ -15,6 +15,12 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -22,12 +28,10 @@ import java.util.HashMap;
 
 public class SipStatisticsActivity extends AppCompatActivity {
 
-    private RecyclerView sipRecyclerView;
-    private RecyclerView.Adapter sipAdapter;
-    private RecyclerView.LayoutManager sipLayoutManager;
-    private ArrayList<? extends HashMap<String, String>> sipItems;
     private DrawerLayout drawer;
 
+    private AdView mAdView;
+    @SuppressWarnings("unchecked")
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +66,22 @@ public class SipStatisticsActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
 
-        sipItems = (ArrayList<? extends HashMap<String, String>>) getIntent().getSerializableExtra("sipDataset");
-        sipRecyclerView = (RecyclerView) findViewById(R.id.sip_data_recyclerview);
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        ArrayList<? extends HashMap<String, String>> sipItems = (ArrayList<? extends HashMap<String, String>>) getIntent().getSerializableExtra("sipDataset");
+        RecyclerView sipRecyclerView = (RecyclerView) findViewById(R.id.sip_data_recyclerview);
         sipRecyclerView.setHasFixedSize(true);
-        sipLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager sipLayoutManager = new LinearLayoutManager(getApplicationContext());
         sipRecyclerView.setLayoutManager(sipLayoutManager);
-        sipAdapter = new SipDataAdapter(sipItems);
+        RecyclerView.Adapter sipAdapter = new SipDataAdapter(sipItems);
         sipRecyclerView.setAdapter(sipAdapter);
 
 

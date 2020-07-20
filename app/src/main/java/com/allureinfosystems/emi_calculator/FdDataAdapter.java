@@ -22,8 +22,7 @@ public class FdDataAdapter extends RecyclerView.Adapter<FdDataAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fd_data, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        return new MyViewHolder(v);
     }
 
     @Override
@@ -43,13 +42,13 @@ public class FdDataAdapter extends RecyclerView.Adapter<FdDataAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView fdDate;
-        public TextView fdInterestAmount;
-        public TextView fdBalance;
-        public TextView fdCapitalizedInterest;
+        TextView fdDate;
+        TextView fdInterestAmount;
+        TextView fdBalance;
+        TextView fdCapitalizedInterest;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
             fdDate = (TextView) itemView.findViewById(R.id.fdRecyclerInvestDate);
             fdInterestAmount = (TextView) itemView.findViewById(R.id.fdRecyclerInterestAmount);

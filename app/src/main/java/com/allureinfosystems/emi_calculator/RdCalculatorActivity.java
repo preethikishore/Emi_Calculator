@@ -14,8 +14,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.provider.Settings;
+
+
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,15 +26,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-
-
-import com.google.android.material.navigation.NavigationView;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -44,12 +41,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Objects;
 
 public class RdCalculatorActivity extends AppCompatActivity {
 
 
     private DatePickerDialog datePicker;
-    private Button rdButtonGetDate;
     private TextView rdSelectDate;
     private EditText rdInputAmountValue;
     private EditText rdRateOfInterestValue;
@@ -63,31 +60,28 @@ public class RdCalculatorActivity extends AppCompatActivity {
     private RadioButton rdRadioButton;
     private String selectedTenureMode;
     private boolean status = false;
-    private Button rdButtonCalculate;
-    private Button rdButtonStat;
     private TextView rdCalculatedInvestDate;
     private String investDate;
     private String maturity;
-    GetDate getDate = new GetDate();
-    MaturityDateCalculation maturityDateCalculation = new MaturityDateCalculation();
-    Double interestPayout ;
-    Double totalInterest ;
-    Double capitalizedInterest;
-    Double inputAmount ;
-    Double amount ;
-    DecimalFormat decimal = new DecimalFormat("####0.0");
+    private GetDate getDate = new GetDate();
+    private MaturityDateCalculation maturityDateCalculation = new MaturityDateCalculation();
+    private Double interestPayout ;
+    private Double totalInterest ;
+    private Double capitalizedInterest;
+    private Double inputAmount ;
+    private Double amount ;
+    private DecimalFormat decimal = new DecimalFormat("####0.0");
     private ArrayList<HashMap<String, String>> rddataDataset;
-    HashMap<String, String> rdmap;
-    ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
+    private HashMap<String, String> rdmap;
+    private ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     private DrawerLayout drawer;
     private Button shareButton ;
-    private Button resetButton;
     private InterstitialAd mInterstitialAd;
 
-    MessageComment messageComment = new MessageComment();
+    private MessageComment messageComment = new MessageComment();
 
 
-    @SuppressLint("SourceLockedOrientationActivity")
+    @SuppressLint({"SourceLockedOrientationActivity", "CutPasteId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,14 +138,14 @@ public class RdCalculatorActivity extends AppCompatActivity {
         rdCalculatedInvestDate = findViewById(R.id.rdCalculatorInvestmentDate);
         rdRadioGroup = findViewById(R.id.rdRadioButtonGroup);
         rdSelectDate = findViewById(R.id.rdDateOfInvestment);
-        rdButtonGetDate = findViewById(R.id.rd_buttongetdate);
-        rdButtonCalculate = findViewById(R.id.rdButtonInterestCalculate);
-        rdButtonStat = findViewById(R.id.rdButtonCalcStatistics);
+        Button rdButtonGetDate = findViewById(R.id.rd_buttongetdate);
+        Button rdButtonCalculate = findViewById(R.id.rdButtonInterestCalculate);
+        Button rdButtonStat = findViewById(R.id.rdButtonCalcStatistics);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         rdSelectDate.setText(currentDate);
         shareButton = findViewById(R.id.rdButtonShare);
         shareButton.setVisibility(View.INVISIBLE);
-        resetButton = findViewById(R.id.rdButtonReset);
+        Button resetButton = findViewById(R.id.rdButtonReset);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,14 +197,14 @@ public class RdCalculatorActivity extends AppCompatActivity {
             public void onClick(final View v) {
 
               animationActivity.animation(v);
-                Double interestPercentValue  = ParseDouble(rdRateOfInterestValue.getText().toString());
+                double interestPercentValue  = ParseDouble(rdRateOfInterestValue.getText().toString());
                 int  tenureValue = (int)ParseDouble(rdTenureValue.getText().toString());
                 inputAmount = ParseDouble(String.valueOf(rdInputAmountValue.getText()));
 
                 if(inputAmount >0 && interestPercentValue >0 && tenureValue > 0) {
 
                     if (interestPercentValue <= 50) {
-                        if (status == true) {
+                        if (status) {
 
                             if(tenureValue <= 40)
                             {
@@ -274,18 +268,18 @@ public class RdCalculatorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 shareButton.setVisibility(View.VISIBLE);
 
-                Double interestPercentValue  = ParseDouble(rdRateOfInterestValue.getText().toString());
+                double interestPercentValue  = ParseDouble(rdRateOfInterestValue.getText().toString());
                 int  tenureValue = (int)ParseDouble(rdTenureValue.getText().toString());
                 inputAmount = ParseDouble(String.valueOf(rdInputAmountValue.getText()));
                 if(inputAmount >0 && interestPercentValue >0 && tenureValue > 0) {
 
                     animationActivity.animation(v);
                     if (interestPercentValue <= 50) {
-                        if (status == true) {
+                        if (status) {
                            if( tenureValue <= 40) {
 
                                rdCalculation();
-                               rdInvestmentAmount.setText(String.valueOf(inputAmount));
+                               rdInvestmentAmount.setText(decimal.format(amount - totalInterest));
                                rdMaturityValue.setText(String.valueOf(decimal.format(amount)));
                                rdTotalInterest.setText(String.valueOf(decimal.format(totalInterest)));
                            }else
@@ -300,7 +294,7 @@ public class RdCalculatorActivity extends AppCompatActivity {
                                 if( tenureValue <= 480)
                                 {
                                     rdCalculation();
-                                    rdInvestmentAmount.setText(String.valueOf(inputAmount));
+                                    rdInvestmentAmount.setText(decimal.format(amount - totalInterest));
                                     rdMaturityValue.setText(String.valueOf(decimal.format(amount)));
                                     rdTotalInterest.setText(String.valueOf(decimal.format(totalInterest)));
 
@@ -337,16 +331,7 @@ public class RdCalculatorActivity extends AppCompatActivity {
 
                   selectedTenureMode = (String) rdRadioButton.getText();
 
-                    if (selectedTenureMode.equals("Year"))
-                    {
-                        status = true;
-
-                    }else
-                    {
-                        status = false;
-
-
-                    }
+                    status = selectedTenureMode.equals("Year");
 
                 }
 
@@ -379,7 +364,7 @@ public class RdCalculatorActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
 
         try {
-            c.setTime(sdf.parse(rdDate));
+            c.setTime(Objects.requireNonNull(sdf.parse(rdDate)));
 
         } catch (ParseException e) {
 
@@ -433,7 +418,7 @@ public class RdCalculatorActivity extends AppCompatActivity {
     }
 
 
-    double ParseDouble(String strNumber) {
+    private double ParseDouble(String strNumber) {
         if (strNumber != null && strNumber.length() > 0) {
             try {
                 return Double.parseDouble(strNumber);
@@ -444,7 +429,7 @@ public class RdCalculatorActivity extends AppCompatActivity {
         else return 0;
     }
 
-    public void clear(View v) {
+    private void clear(View v) {
         rdInputAmountValue.setText("");
         rdRateOfInterestValue.setText("");
         rdTenureValue.setText("");

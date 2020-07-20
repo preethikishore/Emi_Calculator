@@ -34,10 +34,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Objects;
+
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.material.navigation.NavigationView;
+
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -46,7 +47,6 @@ public class FdCalculatorActivity extends AppCompatActivity {
 
     private Spinner spinnerCompoundingFrequency;
     private DatePickerDialog datePickerDialog;
-    private Button buttonGet;
     private TextView selectDate;
     private EditText inputDepositAmount;
     private EditText fdRateOfInterest;
@@ -58,26 +58,23 @@ public class FdCalculatorActivity extends AppCompatActivity {
     private TextView fdTotalInterest;
     private TextView fdInvestmentDateValue;
     private TextView fdMaturityDate;
-    private Button fdButtonCalculate;
-    GetDate getdate = new GetDate();
-    SpinnerData spinnerData = new SpinnerData();
-    private Button fdButtonStatistics;
+    private GetDate getdate = new GetDate();
+    private SpinnerData spinnerData = new SpinnerData();
     private Button shareFDButton;
-    private Button fdReset;
-    DecimalFormat decimal = new DecimalFormat("####0.0");
+    private DecimalFormat decimal = new DecimalFormat("####0.0");
     private ArrayList<HashMap<String, String>> fddataDataset;
-    HashMap<String, String> fdmap;
-    ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
+    private HashMap<String, String> fdmap;
+    private ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     private DrawerLayout drawer;
-    String depositInterval;
-    Double tenure;
-    MessageComment messageComment = new MessageComment();
+    private String depositInterval;
+    private Double tenure;
+    private MessageComment messageComment = new MessageComment();
     private InterstitialAd mInterstitialAd;
 
-    String[] itemList = new String[]{
+    private String[] itemList = new String[]{
             "Cumulative", "Quarterly Payout", "Monthly Payout", "Short Term"
     };
-    int tenureValue;
+    private int tenureValue;
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +90,6 @@ public class FdCalculatorActivity extends AppCompatActivity {
         });
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-8564435465482275/3880292929");
-        AdRequest adRequest = new AdRequest.Builder().build();
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         // Advertisement end
@@ -112,13 +108,13 @@ public class FdCalculatorActivity extends AppCompatActivity {
         fdInvestmentDateValue = findViewById(R.id.fdCalculatedInvestmentDate);
         fdMaturityDate = findViewById(R.id.fdMaturityDate);
         spinnerCompoundingFrequency = findViewById(R.id.fdDepositFrequency);
-        buttonGet = findViewById(R.id.fdButtonGetDate);
-        fdButtonCalculate = findViewById(R.id.fdButtonCalculate);
-        fdButtonStatistics = findViewById(R.id.fdButtonStatistics);
+        Button buttonGet = findViewById(R.id.fdButtonGetDate);
+        Button fdButtonCalculate = findViewById(R.id.fdButtonCalculate);
+        Button fdButtonStatistics = findViewById(R.id.fdButtonStatistics);
         drawer = findViewById(R.id.fd_drawer_layout);
         shareFDButton = findViewById(R.id.fdShareResult);
         shareFDButton.setVisibility(View.INVISIBLE);
-        fdReset = findViewById(R.id.fdButtonReset);
+        Button fdReset = findViewById(R.id.fdButtonReset);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         selectDate.setText(currentDate);
 
@@ -185,8 +181,8 @@ public class FdCalculatorActivity extends AppCompatActivity {
 
              //   Double   inputInterestAmount = ParseDouble(String.valueOf(fdRateOfInterest.getText()));
                 animationActivity.animation(v);
-                Double inputAmountValue = ParseDouble(String.valueOf(inputDepositAmount.getText()));
-                Double   inputInterestAmountValue = ParseDouble(String.valueOf(fdRateOfInterest.getText()));
+                double inputAmountValue = ParseDouble(String.valueOf(inputDepositAmount.getText()));
+                double inputInterestAmountValue = ParseDouble(String.valueOf(fdRateOfInterest.getText()));
                 int fdYearValue = (int) ParseDouble(fdTermYear.getText().toString());
                 int  fdMonthValue = (int)  ParseDouble(fdTermMonth.getText().toString());
                 int  fdDayValue =  (int)ParseDouble(fdTermDay.getText().toString());
@@ -257,7 +253,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
            @Override
            public void onClick(View v) {
                animationActivity.animation(v);
-               clear(v);
+               clear();
            }
        });
 
@@ -268,8 +264,8 @@ public class FdCalculatorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 animationActivity.animation(v);
                 shareFDButton.setVisibility(View.VISIBLE);
-                Double inputAmountValue = ParseDouble(String.valueOf(inputDepositAmount.getText()));
-                Double   inputInterestAmountValue = ParseDouble(String.valueOf(fdRateOfInterest.getText()));
+                double inputAmountValue = ParseDouble(String.valueOf(inputDepositAmount.getText()));
+                double inputInterestAmountValue = ParseDouble(String.valueOf(fdRateOfInterest.getText()));
                 int fdYearValue = (int) ParseDouble(fdTermYear.getText().toString());
                 int  fdMonthValue = (int)  ParseDouble(fdTermMonth.getText().toString());
                 int  fdDayValue =  (int)ParseDouble(fdTermDay.getText().toString());
@@ -346,7 +342,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
 
     private void fdCalculation() {
         Double inputAmount = ParseDouble(String.valueOf(inputDepositAmount.getText()));
-        Double interestPercent =  ParseDouble(fdRateOfInterest.getText().toString());
+        double interestPercent =  ParseDouble(fdRateOfInterest.getText().toString());
 
         int fdYear = (int) ParseDouble(fdTermYear.getText().toString());
         int  fdMonth = (int)  ParseDouble(fdTermMonth.getText().toString());
@@ -361,18 +357,18 @@ public class FdCalculatorActivity extends AppCompatActivity {
 
 
         String investDate = (String) selectDate.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy",Locale.UK);
         Calendar c = Calendar.getInstance();
 
         try {
-            c.setTime(sdf.parse(investDate));
+            c.setTime(Objects.requireNonNull(sdf.parse(investDate)));
 
         } catch (ParseException e) {
 
             e.printStackTrace();
         }
         c.add(Calendar.YEAR, fdYear);
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy",Locale.UK);
         String maturity = sdf1.format(c.getTime());
         c.add(Calendar.MONTH, fdMonth);
         maturity = sdf1.format(c.getTime());
@@ -504,7 +500,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
     }
 
 
-    double ParseDouble(String strNumber) {
+    private double ParseDouble(String strNumber) {
         if (strNumber != null && strNumber.length() > 0) {
             try {
                 return Double.parseDouble(strNumber);
@@ -515,7 +511,7 @@ public class FdCalculatorActivity extends AppCompatActivity {
         else return 0;
     }
 
-    public void clear(View v) {
+    private void clear() {
         inputDepositAmount.setText("");
         fdRateOfInterest.setText("");
         fdTermYear.setText("");

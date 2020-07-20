@@ -1,7 +1,7 @@
 package com.allureinfosystems.emi_calculator;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,7 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,30 +44,28 @@ public class LoanComparisonActivity extends AppCompatActivity {
     private RadioGroup loanRadioGroupTwo;
     private TextView   loanTotalPaymentDifference;
     private TextView loanEmiDifference;
-    private Button loanCalculate;
     private RadioButton radioButtonOne;
     private RadioButton radioButtonTwo;
-    double inputAmt;
-    double interest;
-    double tenure;
-    double emi;
-    double emiOne;
-    double emiTwo;
-    double emiDifference;
-   double interestOne;
-   double interestTwo;
+    private double inputAmt;
+    private double interest;
+    private double tenure;
+    private double emi;
+    private double emiOne;
+    private double emiTwo;
+    private double emiDifference;
+   private double interestOne;
+   private double interestTwo;
    double interestDifference;
-   boolean statusOne = false;
-   boolean statusTwo = false;
-   double totalPayOneValue;
-   double totalPayTwoValue;
-   double totalPayDifference;
+   private boolean statusOne = false;
+   private boolean statusTwo = false;
+   private double totalPayOneValue;
+   private double totalPayTwoValue;
+   private double totalPayDifference;
     private DrawerLayout drawer;
     private Boolean showDetailsOne  = true;
     private Boolean showDetailsTwo = true;
     MessageComment messageComment = new  MessageComment();
     private Button shareButton;
-    private Button resetButton;
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -96,10 +94,10 @@ public class LoanComparisonActivity extends AppCompatActivity {
         loanTotalPayTwo = findViewById(R.id.totalLoanPayTwoValue);
         loanTotalPaymentDifference = findViewById(R.id.loanTotalPaymentDifference);
         loanEmiDifference = findViewById(R.id.loanTotalEmiDifference);
-        loanCalculate = findViewById(R.id.loanButtonCalculate);
+        Button loanCalculate = findViewById(R.id.loanButtonCalculate);
         shareButton = findViewById(R.id.loan_compare_share);
         shareButton.setVisibility(View.INVISIBLE);
-        resetButton = findViewById(R.id.loanButtonReset);
+        Button resetButton = findViewById(R.id.loanButtonReset);
 
         final ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
 
@@ -153,15 +151,7 @@ public class LoanComparisonActivity extends AppCompatActivity {
                     System.out.println("Selected tenure  mode :"  +selectedTenureMode);
 
 
-                    if (selectedTenureMode.equals("Year"))
-                    {
-                        statusOne = true;
-
-                    }else
-                    {
-                        statusOne = false;
-
-                    }
+                    statusOne = selectedTenureMode.equals("Year");
 
                 }
             }
@@ -249,15 +239,7 @@ public class LoanComparisonActivity extends AppCompatActivity {
                     System.out.println("Selected tenure  mode two :"  +selectedTenureMode);
 
 
-                    if (selectedTenureMode.equals("Year"))
-                    {
-                        statusTwo = true;
-
-                    }else
-                    {
-                        statusTwo = false;
-
-                    }
+                    statusTwo = selectedTenureMode.equals("Year");
 
                 }
             }
@@ -274,12 +256,12 @@ public class LoanComparisonActivity extends AppCompatActivity {
 
                 showDetailsOne = true;
                 showDetailsTwo =  true;
-                Double interestOneText = ParseDouble(String.valueOf(loanInterestOne.getText()));
-                Double tenureOne = ParseDouble(String.valueOf(loanPeriodOne.getText()));
-                Double loanInputAmountOne = ParseDouble(String.valueOf(loanAmountOne.getText()));
-                Double interestTwoText = ParseDouble(String.valueOf(loanInterestTwo.getText()));
-                Double tenureTwo = ParseDouble(String.valueOf(loanPeriodTwo.getText()));
-                Double loanInputAmountTwo =ParseDouble(String.valueOf(loanAmountTwo.getText()));
+                double interestOneText = ParseDouble(String.valueOf(loanInterestOne.getText()));
+                double tenureOne = ParseDouble(String.valueOf(loanPeriodOne.getText()));
+                double loanInputAmountOne = ParseDouble(String.valueOf(loanAmountOne.getText()));
+                double interestTwoText = ParseDouble(String.valueOf(loanInterestTwo.getText()));
+                double tenureTwo = ParseDouble(String.valueOf(loanPeriodTwo.getText()));
+                double loanInputAmountTwo =ParseDouble(String.valueOf(loanAmountTwo.getText()));
                 DecimalFormat df = new DecimalFormat("####0.00");
 
 
@@ -485,7 +467,7 @@ public class LoanComparisonActivity extends AppCompatActivity {
 
     }
 
-    double ParseDouble(String strNumber) {
+    private double ParseDouble(String strNumber) {
         if (strNumber != null && strNumber.length() > 0) {
             try {
                 return Double.parseDouble(strNumber);
@@ -496,7 +478,7 @@ public class LoanComparisonActivity extends AppCompatActivity {
         else return 0;
     }
 
-    public void clear(View v) {
+    private void clear(View v) {
         loanAmountOne.setText("");
         loanAmountTwo.setText("");
         loanInterestOne.setText("");

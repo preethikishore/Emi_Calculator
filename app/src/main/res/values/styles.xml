@@ -29,22 +29,6 @@
         <item name="android:layout_height">@dimen/space_height</item>
     </style>
 
-    <style name="style_emi_textview">
-        <item name="android:layout_width">@dimen/emi_layout_text_width</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_margin">@dimen/emi_text_margin</item>
-        <item name="android:padding">@dimen/text_padding</item>
-        <item name="android:textColor">@color/white_text_color</item>
-        <item name="android:textSize">@dimen/emi_text_size</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/bg_color</item>
-        <item name="android:layout_marginTop">2dp</item>
-
-
-    </style>
-
     <style name="style_button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -53,13 +37,6 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:padding"> @dimen/button_padding</item>
 
-    </style>
-
-    <style name="style_emi_inner_linear_horizontal">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">15dp</item>
-        <item name="android:orientation">horizontal</item>
     </style>
 
     <style name="style_button_linear_horizontal">
@@ -86,16 +63,6 @@
     <style name="style_emi_detail_textview">
         <item name="android:layout_column">0</item>
         <item name="android:layout_margin">5dp</item>
-    </style>
-
-    <style name="style_emi_detail_main_head_textview">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:textColor">@color/linear_verical_background</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_column">0</item>
-        <item name="android:layout_marginTop">30dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/head_text_size</item>
     </style>
 
     <style name="style_sub_heading">
@@ -176,24 +143,6 @@
         <item name="android:padding">@dimen/emi_page_layout_vertical_padding</item>
     </style>
 
-    <style name="style_loan_textView">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">@dimen/loan_text_margin</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center</item>
-        <item name="android:padding">@dimen/text_padding</item>
-        <item name="android:textColor">@color/white_text_color</item>
-        <item name="android:textSize">@dimen/head_text_size</item>
-    </style>
-
-    <style name="style_loan_comaprison_inner_horizontal">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:weightSum">2</item>
-        <item name="android:layout_margin">@dimen/layout_vertical_margin</item>
-    </style>
-
     <style name="style_text_head">
         <item name="android:textSize">@dimen/head_text_size</item>
         <item name="android:layout_margin">@dimen/text_padding</item>
@@ -234,6 +183,7 @@
         <item name="android:inputType">number|numberDecimal</item>
         <item name="android:textColor">@color/white_text_color</item>
         <item name="android:hint">@string/hint_default_value</item>
+        <item name="android:labelFor">@string/hint_default_value</item>
     </style>
 
 
@@ -247,12 +197,7 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <dimen name="loan_text_margin">3dp</dimen>
     <dimen name="defaulttextsize">12sp</dimen>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="style_pageViewer_textView">
         <item name="android:layout_width">wrap_content</item>
@@ -305,14 +250,6 @@
         <item name="android:textSize">@dimen/compulsory_text_size</item>
 
 
-    </style>
-
-    <style name="style_date_picker">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">@dimen/datepicker_height</item>
-        <item name="android:calendarViewShown">false</item>
-        <item name="android:datePickerMode">spinner</item>
-        <item name="android:headerBackground">@color/page_color</item>
     </style>
 
     <style name="style_radio_button">

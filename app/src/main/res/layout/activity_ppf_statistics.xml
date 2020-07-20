@@ -15,7 +15,7 @@
         android:fillViewport="true">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/page_color">
 
@@ -54,22 +54,18 @@
 
 
             <TextView
-                android:id="@+id/ppfRecyclerinputAmount"
                 android:text="@string/rd_date"
                 style="@style/style_recycler_view_textview" />
 
             <TextView
-                android:id="@+id/ppfRecyclerInterest"
                 android:text="@string/rd_recycler_heading_amount_interest"
                 style="@style/style_recycler_view_textview" />
 
             <TextView
-                android:id="@+id/ppfRecyclerCaptilizedInterest"
                 android:text="@string/rd_recycler_head_capitalized_interest"
                 style="@style/style_recycler_view_textview" />
 
             <TextView
-                android:id="@+id/ppfRecyclerBalance"
                 android:text="@string/rd_recycler_heading_rdInterest"
                 style="@style/style_recycler_view_textview" />
 
@@ -81,7 +77,21 @@
             android:id="@+id/ppf_data_recyclerview"
             tools:showIn="@layout/activity_emi_detail"
             style="@style/style_recyler_view" />
-          </LinearLayout>
+
+                <com.google.android.gms.ads.AdView
+                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="ca-app-pub-8564435465482275/4071864619">
+                </com.google.android.gms.ads.AdView>
+
+
+            </LinearLayout>
 
         </LinearLayout>
         </ScrollView>

@@ -154,8 +154,6 @@
                     android:id="@+id/adView"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentBottom="true"
                     android:layout_gravity="center"
                     ads:adSize="BANNER"
                     ads:adUnitId="ca-app-pub-8564435465482275/4071864619">

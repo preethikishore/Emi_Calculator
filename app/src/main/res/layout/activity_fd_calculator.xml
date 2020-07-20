@@ -46,7 +46,6 @@
                 <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
 
                     <TextView
-                        android:id="@+id/textPrinciple"
                         style="@style/style_pageViewer_textView"
                         android:text="@string/deposit_amount_textview" />
 
@@ -58,7 +57,8 @@
                 <EditText
                     android:id="@+id/fdInputAmountValue"
                     style="@style/style_default_edit_text"
-                   />
+                    tools:ignore="LabelFor"
+                    android:importantForAutofill="no" />
 
             </LinearLayout>
             <!--        Text and edit Vertical View Principle end -->
@@ -71,7 +71,6 @@
                 <LinearLayout style="@style/style_interest_calculator_inner_horizontal">
 
                     <TextView
-                        android:id="@+id/textInterest"
                         style="@style/style_pageViewer_textView"
                         android:text="@string/rate_of_interest_text" />
 
@@ -80,7 +79,7 @@
                     <TextView
 
                         style="@style/style_pageViewer_hinttextView"
-                        android:text="Max 50% per annum" />
+                        android:text="@string/max_50_per_annum" />
 
 
                 </LinearLayout>
@@ -89,7 +88,8 @@
                 <EditText
                     android:id="@+id/fdRateOfInterestValue"
                     style="@style/style_default_edit_text"
-                    />
+                    tools:ignore="LabelFor"
+                    android:importantForAutofill="no" />
 
 
             </LinearLayout>
@@ -130,8 +130,8 @@
                             android:id="@+id/fdTenureYear"
                             android:layout_width="wrap_content"
                             style="@style/style_default_edit_text"
-                            android:hint="0"
-                            />
+                            android:hint="@string/edit_text_default_value"
+                            android:importantForAutofill="no" />
 
                         <TextView
 
@@ -149,8 +149,8 @@
                             android:id="@+id/fdTenureMonth"
                             android:layout_width="wrap_content"
                             style="@style/style_default_edit_text"
-                            android:hint="0"
-                           />
+                            android:hint="@string/edit_text_default_value"
+                            android:importantForAutofill="no" />
 
                         <TextView
                             style="@style/style_pageViewer_hinttextView"
@@ -165,8 +165,8 @@
                             android:id="@+id/fdTenureDay"
                             android:layout_width="wrap_content"
                             style="@style/style_default_edit_text"
-                            android:hint="0"
-                          />
+                            android:hint="@string/edit_text_default_value"
+                            android:importantForAutofill="no" />
 
                         <TextView
                             style="@style/style_pageViewer_hinttextView"
@@ -193,7 +193,6 @@
                 android:layout_margin="7dp">
 
                 <TextView
-                    android:id="@+id/text_compounding_frequency"
                     style="@style/style_pageViewer_textView"
                     android:layout_width="wrap_content"
                     android:text="@string/fd_compound_frequency" />
@@ -218,7 +217,6 @@
 
 
                     <TextView
-                        android:id="@+id/text_date_of_investment"
                         style="@style/style_pageViewer_textView"
                         android:layout_width="wrap_content"
                         android:text="@string/date_of_investment" />
@@ -237,10 +235,10 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_text"
                         android:textColor="@color/cardview_dark_background"
-                        android:textSize="10dp"
+                        android:textSize="10sp"
                         android:text="@string/get_date"
                         android:textAllCaps="false"
-                      />
+                        tools:ignore="PrivateResource" />
 
                 </LinearLayout>
 
@@ -292,9 +290,7 @@
             <!--RESULT Layout Start   -->
 
 
-            <LinearLayout
-                android:id="@+id/resultlayout"
-                style="@style/style_pagerview_linear_vertical">
+            <LinearLayout style="@style/style_pagerview_linear_vertical">
 
                 <!--RESULT Layout Start INVESTMENT AND 6 VERTICAL START   -->
 
@@ -335,7 +331,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    android:baselineAligned="false">
 
 
                     <LinearLayout
@@ -346,12 +343,14 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                                app:srcCompat="@android:drawable/ic_menu_my_calendar"
+                                android:contentDescription="@string/calender_date" />
 
 
                             <TextView
@@ -380,12 +379,14 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                                app:srcCompat="@android:drawable/ic_menu_my_calendar"
+                                android:contentDescription="@string/calender_date" />
 
 
                             <TextView

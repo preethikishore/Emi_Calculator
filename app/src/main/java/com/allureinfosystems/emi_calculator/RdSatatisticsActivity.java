@@ -24,17 +24,13 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.material.navigation.NavigationView;
+
 
 public class RdSatatisticsActivity extends AppCompatActivity {
 
-    private RecyclerView rdRecyclerView;
-    private RecyclerView.Adapter rdAdapter;
-    private RecyclerView.LayoutManager rdLayoutManager;
-    private ArrayList<? extends HashMap<String, String>> items;
     private DrawerLayout drawer;
 
-    private AdView mAdView;
+    @SuppressWarnings("unchecked")
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,19 +72,18 @@ public class RdSatatisticsActivity extends AppCompatActivity {
             }
         });
 
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
 
-
-        items = (ArrayList<? extends HashMap<String, String>>) getIntent().getSerializableExtra("rdDataset");
-        rdRecyclerView = (RecyclerView) findViewById(R.id.rd_data_recyclerview);
+        ArrayList<? extends HashMap<String, String>> items = (ArrayList<? extends HashMap<String, String>>) getIntent().getSerializableExtra("rdDataset");
+        RecyclerView rdRecyclerView = (RecyclerView) findViewById(R.id.rd_data_recyclerview);
         rdRecyclerView.setHasFixedSize(true);
-        rdLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager rdLayoutManager = new LinearLayoutManager(getApplicationContext());
         rdRecyclerView.setLayoutManager(rdLayoutManager);
 
-        rdAdapter = new RdDataAdapter(items);
+        RecyclerView.Adapter rdAdapter = new RdDataAdapter(items);
         rdRecyclerView.setAdapter(rdAdapter);
 
 

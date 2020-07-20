@@ -1,18 +1,12 @@
 <resources>
     <string name="navigation_drawer_open">Open Drawer</string>
-    <string name="navigation_drawer_close">Close Drawer</string>
     <string name="app_name">EMI Calculator</string>
-    <string name="main_text">EMI calculator</string>
-    <string name="text_emi">EMI CALCULATOR</string>
     <string name="edit_text_default_value">0</string>
     <string name="button_reset_text">Reset</string>
     <string name="button_calculate_text">Calculate</string>
     <string name="emi_buttonStatisticsText">Statistics</string>
     <string name="emi_principle_textview">Principle</string>
-    <string name="emi_years_textview">Years</string>
     <string name="emi_interest_textview">Interest</string>
-    <string name="emi_priciple_hint">Enter Value</string>
-    <string name="emi_interset_hint">Enter Value</string>
     <string name="hint_default_value">Enter value</string>
     <string name="emi_total_payment_text">Total Payment</string>
     <string name="emi_monthly_payment_text">EMI</string>
@@ -40,13 +34,9 @@
 
     <string name="difference_total_payment">Total Payment Difference</string>
     <string name="difference_monthly_emi">Monthly Emi Difference</string>
-    <string name="title_activity_interest_calculator">InterestCalculatorActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
     <string name="Interest_calculator_heading">Interest Calculator</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="saving_period">Saving Period</string>
     <string name="compulsory_symbol">*</string>
     <string name="period_hint_text">Max Value 40 year</string>
@@ -69,7 +59,7 @@
     <string name="ppf_calculator_heading">PPF Calculator</string>
     <string name="interest_calculator_deposit_mode">Deposit Mode</string>
     <string name="GST_calculator_heading">GST Calculator</string>
-    <string name="orginal_cost">Orginal Cost</string>
+    <string name="orginal_cost">Original Cost</string>
     <string name="gst_price">GST Price</string>
     <string name="net_price">Net Price</string>
 
@@ -83,21 +73,15 @@
     <string name="vat_price">VAT Price</string>
     <string name="maturity_date_result">Maturity Date</string>
     <string name="fd_compound_frequency">Compounding Frequency</string>
-    <string name="no_of_payment_text">Number Of Payment</string>
     <string name="sip_radio_button_year">Year</string>
     <string name="sip_radio_button_month">Month</string>
-    <string name="sip_radio_button_day">DAY</string>
     <string name="rd_calculator_heading_details">Rd Statistics</string>
-    <string name="rd_recyler_heding_principle">Input Amount</string>
-    <string name="rd_recycler_heading_monthly_interest">Monthly Interest</string>
     <string name="rd_recycler_heading_rdInterest">Balance</string>
     <string name="rd_recycler_head_capitalized_interest">Interest Capitalized/Payout</string>
     <string name="rd_date">Date</string>
     <string name="rd_recycler_heading_amount_interest">Interest Amount</string>
     <string name="fd_calculator_heading_details">FD Statistics</string>
-    <string name="fd_recycler_heading_rdInterest">FD Balance</string>
     <string name="sip_calculator_heading_details">SIP Statistics</string>
-    <string name="sip_recycler_heading_rdInterest">RD Balance</string>
     <string name="sip_recycler_heading_amount_interest">Interest Amount</string>
     <string name="sip_recycler_head_capitalized_interest">Investment Amount</string>
     <string name="sip_recycler_heading_sipBalance">SIP Balance</string>
@@ -109,8 +93,16 @@
     <string name="Withdraw">Withdraw</string>
     <string name="simple_interest_calculation">Simple Interest Calculation</string>
     <string name="compound_interest_calculation">Compound Interest calculation</string>
-    <string name="help_option_head">Help</string>
-    <string name="setting_option_head">Setting</string>
     <string name="about_option_head">About</string>
     <string name="credit_option_head">Credit</string>
+    <string name="calender_date">"Calender "</string>
+    <string name="max_50_per_annum">Max 50% per annum</string>
+    <string name="emi_calculator_head">Emi Calculator</string>
+    <string name="adout_meaasage">The EMI Calculator app is a great solution for calculating financial calculations such as EMI, FD, RD, PPF and SIP .\n\n It also displays detailed chart of each calculation and give user an opportunity to share their calculations.\n\n \n\n Support :\n For any Support , queries and improvements regarding to this application please contact:.\n\n \n allureinfosys@gmail.com\n Thank You!!!</string>
+    <string name="simple_interest">Simple Interest</string>
+    <string name="compound_interest">Compound Interest</string>
+    <string name="maturity_duration">Maturity Duration</string>
+    <string name="credit">Credit</string>
+    <string name="credit_message">1. Icons made by https://www.flaticon.com/authors/freepik from https://www.flaticon.com/\n\n 2. Images from https://pixabay.com/\n\n 3. Privacy Policy : https://sites.google.com/view/allureinfosysprivacypolicy.\n\n PS: Please contact Allure Info Systems (allureinfosys@gmail.com) for any Details.</string>
+    <string name="allureinfosys_gmail_com">allureinfosys@gmail.com</string>
 </resources>

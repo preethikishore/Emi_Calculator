@@ -1,19 +1,16 @@
 package com.allureinfosystems.emi_calculator;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.widget.DatePicker;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.Calendar;
-import java.util.Date;
+
 
 public class GetDate extends AppCompatActivity {
 
-    String selected_value;
+    private String selected_value;
 
     public void getdate(final TextView dateOfinvestmentText, DatePickerDialog picker, Context context)
     {

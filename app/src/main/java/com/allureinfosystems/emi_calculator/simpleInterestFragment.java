@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 
 /**
@@ -39,8 +40,6 @@ public class simpleInterestFragment extends Fragment {
     private RadioGroup siRadioGroup;
     private RadioButton siRadiButton;
     private DatePickerDialog datePickerDialog;
-    private Button buttonGet;
-    private  Button buttonCalculate;
     private TextView selectDate;
     private EditText siPrincipleAmount;
     private EditText siInterestValue;
@@ -50,28 +49,19 @@ public class simpleInterestFragment extends Fragment {
     private TextView siInvestmentDate;
     private TextView siTotalInterest;
     private double principleAmount;
-    private double interestValue;
-    private double term;
     private double Amount;
-    private String currentDate;
     String maturityDate;
-    private String depositInterval;
     private TextView maturityText;
     private double investmentAmountValue;
-    final DecimalFormat df = new DecimalFormat("####0.0");
+    private final DecimalFormat df = new DecimalFormat("####0.0");
 
-    private Button buttonReset;
-    Boolean status = false;
-    String selectedTenureMode;
-    MessageComment messageComment = new MessageComment();
-    ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
-
-    SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
-
-
-    GetDate getdate = new GetDate();
-    SpinnerData spinnerData = new SpinnerData();
-    String[] items = new String[]{
+    private Boolean status = false;
+    private String selectedTenureMode;
+    private MessageComment messageComment = new MessageComment();
+    private ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
+    private GetDate getdate = new GetDate();
+    private SpinnerData spinnerData = new SpinnerData();
+    private String[] items = new String[]{
             "Yearly", "Monthly", "Quarterly", "Half Yearly","Bi-Monthly","Thrice-Yearly"
     };
 
@@ -87,11 +77,11 @@ public class simpleInterestFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_simple_interest, container, false);
         spinnerDepositFrequency = rootView.findViewById(R.id.simple_spinner_deposit_frequency);
         selectDate = rootView.findViewById(R.id.simple_date_of_investment_value);
-        buttonGet = rootView.findViewById(R.id.simple_buttongetdate);
+        Button buttonGet = rootView.findViewById(R.id.simple_buttongetdate);
         siPrincipleAmount = rootView.findViewById(R.id.simple_interest_principle_value);
         siInterestValue = rootView.findViewById(R.id.simple_interest_rate_value);
         siSavingTerm = rootView.findViewById(R.id.simple_saving_period_value);
-        buttonCalculate = rootView.findViewById(R.id.simple_button_Interest_Calc_Calculate);
+        Button buttonCalculate = rootView.findViewById(R.id.simple_button_Interest_Calc_Calculate);
         siInvestmentAmount = rootView.findViewById(R.id.simple_interest_calculator_investment_amount);
         maturityText = rootView.findViewById(R.id.simple_interest_calculator_maturity_value);
         siInvestmentDate = rootView.findViewById(R.id.simple_interest_calculator_investment_date);
@@ -101,7 +91,7 @@ public class simpleInterestFragment extends Fragment {
         selectDate.setText(currentDate);
         siRadioGroup = rootView.findViewById(R.id.siRadioButtonGroup);
 
-        buttonReset = rootView.findViewById(R.id.buttonSIReset);
+        Button buttonReset = rootView.findViewById(R.id.buttonSIReset);
 
         siRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -115,16 +105,7 @@ public class simpleInterestFragment extends Fragment {
                     selectedTenureMode = (String) siRadiButton.getText();
                     System.out.println("Selected tenure  mode :"  +selectedTenureMode);
 
-                    if (selectedTenureMode.equals("Year"))
-                    {
-                        status = true;
-
-                    }else
-                    {
-                        status = false;
-
-
-                    }
+                    status = selectedTenureMode.equals("Year");
 
                 }
 
@@ -136,7 +117,7 @@ public class simpleInterestFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 animationActivity.animation(v);
-                clear(v);
+                clear();
             }
         });
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
@@ -145,8 +126,8 @@ public class simpleInterestFragment extends Fragment {
             public void onClick(View v) {
                 animationActivity.animation(v);
 
-              Double  SIinterestValue = ParseDouble(String.valueOf(siInterestValue.getText()));
-              Double   SIterm = ParseDouble(String.valueOf(siSavingTerm.getText()));
+              double SIinterestValue = ParseDouble(String.valueOf(siInterestValue.getText()));
+              double SIterm = ParseDouble(String.valueOf(siSavingTerm.getText()));
               principleAmount = ParseDouble(String.valueOf(siPrincipleAmount.getText()));
               if(principleAmount > 0 && SIinterestValue > 0 && SIterm > 0) {
                   if (SIinterestValue <= 50) {
@@ -203,16 +184,16 @@ public class simpleInterestFragment extends Fragment {
 
 
 
-  public void calculate_simple_interest_Amount()
+  private void calculate_simple_interest_Amount()
   {
 
       siMaturityDate.setVisibility(View.VISIBLE);
       siInvestmentDate.setVisibility(View.VISIBLE);
       principleAmount = ParseDouble(String.valueOf(siPrincipleAmount.getText()));
-      interestValue = ParseDouble(String.valueOf(siInterestValue.getText()));
-      term = ParseDouble(String.valueOf(siSavingTerm.getText()));
+      double interestValue = ParseDouble(String.valueOf(siInterestValue.getText()));
+      double term = ParseDouble(String.valueOf(siSavingTerm.getText()));
       int termValue = (int)ParseDouble(String.valueOf(siSavingTerm.getText()));
-      depositInterval =  spinnerDepositFrequency.getSelectedItem().toString();
+      String depositInterval = spinnerDepositFrequency.getSelectedItem().toString();
 
 
       String Current = (String) selectDate.getText();
@@ -222,7 +203,7 @@ public class simpleInterestFragment extends Fragment {
       Calendar c = Calendar.getInstance();
 
       try {
-          c.setTime(sdf.parse(Current));
+          c.setTime(Objects.requireNonNull(sdf.parse(Current)));
 
       } catch (ParseException e) {
 
@@ -239,10 +220,10 @@ public class simpleInterestFragment extends Fragment {
       String maturity = sdf1.format(c.getTime());
 
       Log.d("Maturiy Date ", maturity);
-      currentDate = (String) selectDate.getText();
+      String currentDate = (String) selectDate.getText();
 
       double termInMonths = 0;
-      double interestRate = interestValue/1200;
+      double interestRate = interestValue /1200;
       double depositAmount = principleAmount;
       double futureValue = principleAmount;
       double interestCalc = 0;
@@ -295,15 +276,15 @@ public class simpleInterestFragment extends Fragment {
 
 
 
-      siInvestmentAmount.setText(String.valueOf(df.format(depositAmount)));
-      maturityText.setText(String.valueOf(df.format(futureValue)));
-      siTotalInterest.setText(String.valueOf(df.format(totalInterest)));
+      siInvestmentAmount.setText(df.format(depositAmount));
+      maturityText.setText(df.format(futureValue));
+      siTotalInterest.setText(df.format(totalInterest));
       siInvestmentDate.setText(Current);
       siMaturityDate.setText(maturity);
 
 
   }
-    double ParseDouble(String strNumber) {
+    private double ParseDouble(String strNumber) {
         if (strNumber != null && strNumber.length() > 0) {
             try {
                 return Double.parseDouble(strNumber);
@@ -313,7 +294,7 @@ public class simpleInterestFragment extends Fragment {
         }
         else return 0;
     }
-    public void clear(View v) {
+    private void clear() {
         siPrincipleAmount.setText("");
         siInterestValue.setText("");
         siSavingTerm.setText("");

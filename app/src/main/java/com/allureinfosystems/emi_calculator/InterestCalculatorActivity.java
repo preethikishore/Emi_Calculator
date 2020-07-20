@@ -21,9 +21,6 @@ import com.google.android.material.tabs.TabLayout;
 public class InterestCalculatorActivity extends AppCompatActivity {
 
 
-    private TabLayout tabLayout;
-    private TabItem simpleInterest;
-    private TabItem compoundInterest;
     private ViewPager viewPager;
     private DrawerLayout drawer;
 
@@ -35,9 +32,9 @@ public class InterestCalculatorActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        tabLayout = findViewById(R.id.tabLayout);
-        simpleInterest = findViewById(R.id.simple_interest);
-        compoundInterest = findViewById(R.id.compound_interest);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        TabItem simpleInterest = findViewById(R.id.simple_interest);
+        TabItem compoundInterest = findViewById(R.id.compound_interest);
         viewPager = findViewById(R.id.page_viewer);
         drawer = findViewById(R.id.interest_calci_drawer_layout);
 
@@ -67,7 +64,7 @@ public class InterestCalculatorActivity extends AppCompatActivity {
         toggle.syncState();
 
 
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

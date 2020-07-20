@@ -27,16 +27,16 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.navigation.NavigationView;
+
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
 public class GstActivity extends AppCompatActivity {
 
-    RadioGroup radio_group;
-    RadioButton radio_button;
-    Button Calculate;
+    private RadioGroup radio_group;
+    private RadioButton radio_button;
+    private Button Calculate;
     private EditText amount_text;
     private Spinner gstSpinnerData;
     private EditText textOthersOption;
@@ -46,21 +46,20 @@ public class GstActivity extends AppCompatActivity {
     private double netGstCalculatedValue;
     private double inputAmount;
     private double gstValue;
-    double selectedvalue =  25.0;
-    String selectedOption;
-    boolean status = false;
+    private double selectedvalue =  25.0;
+    private String selectedOption;
+    private boolean status = false;
     private DrawerLayout drawer;
-    private AdView mAdView;
-    ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
-    MessageComment messageComment = new MessageComment();
-    public Button shareButton;
-    public Button gstReset;
-    DecimalFormat df = new DecimalFormat("####0.00");
+    private ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
+    private MessageComment messageComment = new MessageComment();
+    private Button shareButton;
+    private Button gstReset;
+    private DecimalFormat df = new DecimalFormat("####0.00");
 
-    String[] items = new String[]{
+    private String[] items = new String[]{
             "ADD GST","REMOVE GST"
     };
-    SpinnerData spinnerData = new SpinnerData();
+    private SpinnerData spinnerData = new SpinnerData();
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -103,7 +102,7 @@ public class GstActivity extends AppCompatActivity {
             }
         });
 
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -122,7 +121,7 @@ public class GstActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 animationActivity.animation(v);
-                clear(v);
+                clear();
             }
         });
 
@@ -192,7 +191,7 @@ public class GstActivity extends AppCompatActivity {
                 String spinnerValue = gstSpinnerData.getSelectedItem().toString();
                 animationActivity.animation(v);
                 inputAmount = ParseDouble(String.valueOf(amount_text.getText()));
-                Double otherOptionValue = ParseDouble((String.valueOf(textOthersOption.getText())));
+                double otherOptionValue = ParseDouble((String.valueOf(textOthersOption.getText())));
 
 
                 if (inputAmount > 0) {
@@ -200,7 +199,7 @@ public class GstActivity extends AppCompatActivity {
                     if (spinnerValue.equals("ADD GST")) {
 
 
-                        if (status == true) {
+                        if (status) {
 
                             if(otherOptionValue >0) {
 
@@ -221,7 +220,7 @@ public class GstActivity extends AppCompatActivity {
                         }
                     } else {
 
-                        if (status == true) {
+                        if (status) {
                             if(otherOptionValue >0) {
 
                                 selectedvalue = ParseDouble((String.valueOf(textOthersOption.getText())));
@@ -271,7 +270,7 @@ public class GstActivity extends AppCompatActivity {
                 String ShareVatRate = String.valueOf(gstValue);
 
 
-                String a = "VAT Details  :" + "\n\n" + "Input Amount : " + ShareInputAmount + " \n" +
+                String a = "GST Details  :" + "\n\n" + "Input Amount : " + ShareInputAmount + " \n" +
                         "VAT Rate : " + ShareRateOfInterest + "%" + " \n" +
                         "VAT Price :" + ShareVatRate +" \n "+
                         "Net Price : " + ShareMaturity ;
@@ -293,7 +292,7 @@ public class GstActivity extends AppCompatActivity {
     }
 
 
-    double ParseDouble(String strNumber) {
+    private double ParseDouble(String strNumber) {
         if (strNumber != null && strNumber.length() > 0) {
             try {
                 return Double.parseDouble(strNumber);
@@ -303,7 +302,7 @@ public class GstActivity extends AppCompatActivity {
         }
         else return 0;
     }
-    public void clear(View v) {
+    private void clear() {
         amount_text.setText("");
         textOthersOption.setText("");
         orginalCost.setText("0");

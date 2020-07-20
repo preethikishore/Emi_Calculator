@@ -8,7 +8,6 @@
    >
 
     <ScrollView
-        android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -19,33 +18,28 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/helpTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:padding="6dp"
-                android:text="Credit"
+                android:text="@string/credit"
                 android:textAlignment="center"
                 android:textColor="@color/white_text_color"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="1. Icons made by https://www.flaticon.com/authors/freepik from https://www.flaticon.com/\n\n
-2. Images from https://pixabay.com/\n\n
-3. Privacy Policy : https://sites.google.com/view/allureinfosysprivacypolicy.\n\n
-PS: Please contact Allure Info Systems (allureinfosys@gmail.com) for any Details."
+                android:text="@string/credit_message"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
         </LinearLayout>

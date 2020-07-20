@@ -1,6 +1,5 @@
 package com.allureinfosystems.emi_calculator;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +23,7 @@ public class RdDataAdapter extends RecyclerView.Adapter<RdDataAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.rd_data, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        return new MyViewHolder(v);
     }
 
     @Override
@@ -45,13 +43,13 @@ public class RdDataAdapter extends RecyclerView.Adapter<RdDataAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView rdDate;
-        public TextView interestAmount;
-        public TextView RdBalance;
-        public TextView rdCapitalizedInterest;
+        TextView rdDate;
+        TextView interestAmount;
+        TextView RdBalance;
+        TextView rdCapitalizedInterest;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
             rdDate = (TextView) itemView.findViewById(R.id.rdRecyclerInputAmount);
             interestAmount = (TextView) itemView.findViewById(R.id.rdRecyclerInterestAmount);
