@@ -39,16 +39,16 @@ public class EmiCalculatorActivity extends AppCompatActivity {
     private EditText term;
     private Button shareButton;
     private double emi;
+    private TextView totalInterestText;
     private double n;
     private double r;
     private ArrayList<HashMap<String, String>> emidataDataset;
     private HashMap<String, String> map;
     private InterstitialAd mInterstitialAd;
 
-    private DecimalFormat df = new DecimalFormat("####0.0");
+    private DecimalFormat df = new DecimalFormat("####0");
     private Double interestSum = 0.0;
     private Double emiTotalPayment  = 0.0;
-    private CommonFuns commonFuns = new CommonFuns();
     private ButtonAnimationActivity animationActivity = new ButtonAnimationActivity();
     private DrawerLayout drawer;
     private MessageComment messageComment = new MessageComment();
@@ -84,7 +84,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
         term = findViewById(R.id.emi_edit_year);
         Button emiCalculate = findViewById(R.id.emi_buttonCalculate);
         emiMonthly = findViewById(R.id.textViewMonthllyemi);
-
+        totalInterestText = findViewById(R.id.texTotalIntr);
         emiTotalPaymentText = findViewById(R.id.emiTotalPayValue);
         shareButton = findViewById(R.id.emi_share_result);
         Button resetButton = findViewById(R.id.emiButtonReset);
@@ -246,7 +246,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
         double tenureValue = ParseDouble(String.valueOf(term.getText()));
         r = interestRate /1200;
         n = tenureValue * 12;
-        emi = Math.ceil(((principleAmount * r) * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
+        emi = ((principleAmount * r) * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
 
         Double principleRemain = principleAmount;
         int period = 0;
@@ -257,7 +257,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
 
             do {
 
-                interestCalc = commonFuns.round(principleRemain * r, 0);
+                interestCalc = (Double) principleRemain * r;
 
                 interestSum += interestCalc;
                 period++;
@@ -283,6 +283,7 @@ public class EmiCalculatorActivity extends AppCompatActivity {
             emiTotalPayment = principleAmount + interestSum;
             emiMonthly.setText(df.format(emi));
             emiTotalPaymentText.setText(df.format(emiTotalPayment));
+            totalInterestText.setText(df.format(interestSum));
         }
 
     private double ParseDouble(String strNumber) {

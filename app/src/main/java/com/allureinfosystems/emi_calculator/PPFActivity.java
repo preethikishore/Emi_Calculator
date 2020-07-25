@@ -299,25 +299,8 @@ public class PPFActivity extends AppCompatActivity {
             tenure = 30;
         }
 
-//        switch(deposit_interval)
-//        {
-//            case "15 Years":
-//                tenure = 15;
-//              break;
-//            case "20 Years":
-//                tenure = 20;
-//                break;
-//            case "25 Years":
-//                tenure = 25;
-//                break;
-//            case "30 Years":
-//                tenure = 30;
-//                break;
-//        }
         inputMode =  ppfSpinnerDepositMode.getSelectedItem().toString();
         Double interestPercent = ParseDouble(ppfRateOfInterestValue.getText().toString());
-
-        //interestPercent = (Double.parseDouble(ppfRateOfInterestValue.getText().toString()) / 100) / 12 ;
         interestPercent = interestPercent/100/12;
 
         boolean status = true;
@@ -383,7 +366,7 @@ public class PPFActivity extends AppCompatActivity {
             }else
            {
 
-               if(yearStatus%12== 0) {
+               if(yearStatus%12== 0 && yearStatus != tenure) {
 
                    amount += inputAmount;
 

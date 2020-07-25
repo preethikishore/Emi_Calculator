@@ -274,6 +274,28 @@
 
 
                 </LinearLayout>
+
+                <LinearLayout style="@style/style_emi_horizontal__inner_layout">
+
+                    <TextView
+                        style="@style/emi_layout_textView"
+                        android:layout_width="100dp"
+                        android:text="@string/total_interest" />
+
+
+                    <include layout="@layout/space_width_layout" />
+
+                    <TextView
+                        android:id="@+id/texTotalIntr"
+                        style="@style/emi_layout_textView"
+                        android:layout_width="match_parent"
+                        android:text="@string/edit_text_default_value" />
+
+                    <include layout="@layout/space_width_layout" />
+
+
+                </LinearLayout>
+
                 <!--        Emi Monrhly Layout  End    -->
                 <Button
                     android:id="@+id/emi_share_result"

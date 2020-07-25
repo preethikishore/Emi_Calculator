@@ -111,7 +111,6 @@ import java.util.Objects;
                 if (ciRadiButton.isChecked()) {
 
                     selectedTenureMode = (String) ciRadiButton.getText();
-
                     status = selectedTenureMode.equals("Year");
 
                 }
@@ -129,8 +128,6 @@ import java.util.Objects;
                 if (ciDepoistWithdrawRadioButton.isChecked()) {
 
                     selectedOptionWD = (String) ciDepoistWithdrawRadioButton.getText();
-                    System.out.println("Selected Deposit  mode :"  +selectedOptionWD);
-
                     statusDeposit = selectedOptionWD.equals("Deposit");
 
                 }
@@ -166,7 +163,7 @@ import java.util.Objects;
                 double CIinterestValue = ParseDouble(String.valueOf(interestRateText.getText()));
                 double CIterm = ParseDouble(String.valueOf(termText.getText()));
                 double monthlyAmount = ParseDouble(String.valueOf(depositWithdrawAmount.getText()));
-                if (principleTextValue > 0 && CIinterestValue > 0 && CIterm > 0 && monthlyAmount > 0) {
+                if (principleTextValue > 0 && CIinterestValue > 0 && CIterm > 0 ) {
 
                     if (CIinterestValue <= 50) {
 
@@ -265,17 +262,16 @@ import java.util.Objects;
         currentDate = (String) selectDate.getText();
         for(int i =1; i <= termInMonths; i++)
         {
-            futureValue+=monthlyDeposit;
-            System.out.println("futureValue: "+futureValue);
+            if (i != termInMonths) {
+                futureValue += monthlyDeposit;
+            }
+
             if (futureValue > 0) {
                 depositAmount +=monthlyDeposit;
-                System.out.println("depositAmount: "+depositAmount);
                 interestCalc = futureValue * interestRate;
-                System.out.println("interestCalc:"+interestCalc);
                 totalInterest += interestCalc;
-                System.out.println("totalInterest: "+totalInterest);
                 capitalizedInterest += interestCalc;
-                System.out.println("capitalizedInterest: "+capitalizedInterest);
+
 
                 if (depositInterval.equals("Yearly")) {
                     if (i % 12 == 0) {

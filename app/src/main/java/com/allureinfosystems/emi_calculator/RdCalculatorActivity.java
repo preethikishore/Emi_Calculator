@@ -119,6 +119,7 @@ public class RdCalculatorActivity extends AppCompatActivity {
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
+
             }
         });
         mInterstitialAd = new InterstitialAd(this);
@@ -163,7 +164,7 @@ public class RdCalculatorActivity extends AppCompatActivity {
                 String ShareRateOfInterest = String.valueOf(rdRateOfInterestValue.getText());
                 String ShareTenureInput = String.valueOf(rdTenureValue.getText());
                 String ShareMaturity = String.valueOf(maturityAmount);
-                String ShareTotalInterest = String.valueOf(decimal.format(inputAmount));
+                String ShareTotalInterest = String.valueOf(decimal.format(totalInterest));
                 String ShareInvestDate = String.valueOf(rdSelectDate.getText());
                 String ShareMaturityDate = String.valueOf(rdDateOfMaturity.getText());
                 String ShareStatus;

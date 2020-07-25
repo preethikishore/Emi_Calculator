@@ -103,8 +103,6 @@ public class simpleInterestFragment extends Fragment {
                 if (siRadiButton.isChecked()) {
 
                     selectedTenureMode = (String) siRadiButton.getText();
-                    System.out.println("Selected tenure  mode :"  +selectedTenureMode);
-
                     status = selectedTenureMode.equals("Year");
 
                 }
@@ -242,7 +240,7 @@ public class simpleInterestFragment extends Fragment {
               totalInterest += interestCalc;
 
               if (depositInterval.equals("Yearly")) {
-                  if (i % 12 == 0) {
+                  if (i % 12 == 0  && i != termInMonths) {
                       futureValue += principleAmount;
                       depositAmount+=principleAmount;
                   }
@@ -250,23 +248,23 @@ public class simpleInterestFragment extends Fragment {
                   futureValue += principleAmount;
                   depositAmount+=principleAmount;
               } else if (depositInterval.equals("Quarterly")) {
-                  if (i % 3 == 0) {
+                  if (i % 3 == 0 && i != termInMonths) {
                       futureValue += principleAmount;
                       depositAmount+=principleAmount;
                   }
               } else if (depositInterval.equals("Half Yearly")) {
-                  if (i % 6 == 0) {
+                  if (i % 6 == 0 && i != termInMonths) {
                       futureValue += principleAmount;
                       depositAmount+=principleAmount;
                   }
               } else if (depositInterval.equals("Bi-Monthly")) {
-                  if (i % 2 == 0) {
+                  if (i % 2 == 0 && i != termInMonths) {
                       futureValue += principleAmount;
                       depositAmount+=principleAmount;
                   }
 
               } else if (depositInterval.equals("Thrice-Yearly")) {
-                  if (i % 4 == 0) {
+                  if (i % 4 == 0 && i != termInMonths) {
                       futureValue += principleAmount;
                       depositAmount+=principleAmount;
                   }
